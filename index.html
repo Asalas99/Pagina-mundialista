@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Copa Mundial FIFA 2026</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -784,8 +785,36 @@
     border: 1px solid rgba(201,168,76,0.25);
   }
   .btn-copy:hover { background: rgba(201,168,76,0.22); }
-  .save-toast {
-    position: fixed;
+  .btn-clear-all {
+    background: rgba(232,69,69,0.12);
+    color: #e84545;
+    border: 1px solid rgba(232,69,69,0.3);
+  }
+  .btn-clear-all:hover { background: rgba(232,69,69,0.22); }
+
+  .btn-clear-group {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 5px;
+    border: 1px solid rgba(232,69,69,0.3);
+    background: rgba(232,69,69,0.08);
+    color: #e84545;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-clear-group:hover { background: rgba(232,69,69,0.2); }
+
+  /* Mobile: evitar que el teclado se cierre entre inputs */
+  .pred-score-input {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+    .save-toast { position: fixed;
     bottom: 28px;
     left: 50%;
     transform: translateX(-50%) translateY(80px);
@@ -801,7 +830,7 @@
     transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
     box-shadow: 0 4px 24px rgba(0,0,0,0.4);
     pointer-events: none;
-  }
+} 
   .save-toast.show { transform: translateX(-50%) translateY(0); }
 
   /* COUNTDOWN */
@@ -1141,9 +1170,10 @@
     <!-- SAVE / SHARE BAR -->
     <div class="save-bar">
       <span class="save-bar-title">💾 Tus predicciones</span>
-      <button class="btn-action btn-save" onclick="savePredictions()">💾 Guardar localmente</button>
-      <button class="btn-action btn-share" onclick="sharePredictions()">🔗 Copiar link para compartir</button>
-      <button class="btn-action btn-copy" onclick="copyTextSummary()">📋 Copiar resumen en texto</button>
+      <button class="btn-action btn-save" onclick="savePredictions()">💾 Guardar</button>
+      <button class="btn-action btn-share" onclick="sharePredictions()">🔗 Compartir link</button>
+      <button class="btn-action btn-copy" onclick="copyTextSummary()">📋 Copiar texto</button>
+      <button class="btn-action btn-clear-all" onclick="clearAllScores()">🗑 Limpiar todo</button>
     </div>
 
     <div class="legend">
@@ -1525,11 +1555,15 @@ function renderPredGroup(g) {
   let matchesHtml = matches.map((match, idx) => `
     <div class="pred-match-row">
       <div class="pred-team"><span style="display:inline-flex;align-items:center">${getFlag(match[0])}</span> <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${teamName(match[0])}</span></div>
-      <input class="pred-score-input" type="number" min="0" max="99" value="${scores[g][idx].g1}"
-        onchange="setScore('${g}',${idx},'g1',this.value)" placeholder="-">
+      <input class="pred-score-input" type="number" inputmode="numeric" pattern="[0-9]*" min="0" max="99" enterkeyhint="next"
+        value="${scores[g][idx].g1}"
+        oninput="setScore('${g}',${idx},'g1',this.value)"
+        placeholder="-">
       <span class="pred-score-sep">:</span>
-      <input class="pred-score-input" type="number" min="0" max="99" value="${scores[g][idx].g2}"
-        onchange="setScore('${g}',${idx},'g2',this.value)" placeholder="-">
+      <input class="pred-score-input" type="number" inputmode="numeric" pattern="[0-9]*" min="0" max="99" enterkeyhint="next"
+        value="${scores[g][idx].g2}"
+        oninput="setScore('${g}',${idx},'g2',this.value)"
+        placeholder="-">
       <div class="pred-team right"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${teamName(match[1])}</span> <span style="display:inline-flex;align-items:center">${getFlag(match[1])}</span></div>
     </div>`).join('');
 
@@ -1549,7 +1583,10 @@ function renderPredGroup(g) {
   return `<div class="pred-group-card" id="pg-${g}">
     <div class="pred-group-header">
       <span class="pred-group-title">Grupo ${g}</span>
-      <span style="font-size:12px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">${GROUPS[g].map(t=>getFlag(t)).join(' ')}</span>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:12px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">${GROUPS[g].map(t=>getFlag(t, 20, 14)).join(' ')}</span>
+        <button class="btn-clear-group" onclick="clearGroupScores('${g}')">✕ Limpiar</button>
+      </div>
     </div>
     <div class="pred-group-body">
       <div style="margin-bottom:12px">${matchesHtml}</div>
@@ -1569,6 +1606,23 @@ function setScore(g, idx, key, val) {
   refreshGroup(g);
   refreshThirdTable();
   renderBracket();
+}
+
+function clearGroupScores(g) {
+  scores[g] = Array(6).fill(null).map(() => ({ g1: '', g2: '' }));
+  refreshGroup(g);
+  refreshThirdTable();
+  renderBracket();
+  showToast(`🗑 Grupo ${g} limpiado`);
+}
+
+function clearAllScores() {
+  if(!confirm('¿Limpiar todas las predicciones? Esta acción no se puede deshacer.')) return;
+  Object.keys(scores).forEach(g => {
+    scores[g] = Array(6).fill(null).map(() => ({ g1: '', g2: '' }));
+  });
+  initPredictions();
+  showToast('🗑 Todas las predicciones limpiadas');
 }
 
 function refreshGroup(g) {
