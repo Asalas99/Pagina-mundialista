@@ -814,7 +814,8 @@
     -webkit-user-select: text;
     user-select: text;
   }
-    .save-toast { position: fixed;
+  .save-toast {
+    position: fixed;
     bottom: 28px;
     left: 50%;
     transform: translateX(-50%) translateY(80px);
@@ -830,7 +831,7 @@
     transition: transform 0.35s cubic-bezier(.34,1.56,.64,1);
     box-shadow: 0 4px 24px rgba(0,0,0,0.4);
     pointer-events: none;
-} 
+  }
   .save-toast.show { transform: translateX(-50%) translateY(0); }
 
   /* COUNTDOWN */
@@ -2208,9 +2209,25 @@ function initCountdown() {
 // ===================== GRUPOS RENDER =====================
 const HOSTS = ['México 🇲🇽', 'Canadá 🇨🇦', 'Estados Unidos 🇺🇸'];
 
+// Slugs de URL para cada selección (deben coincidir con las carpetas del servidor)
+const TEAM_SLUGS = {
+  'México':'mexico','Sudáfrica':'sudafrica','Corea del Sur':'corea-del-sur','Rep. Checa':'republica-checa',
+  'Canadá':'canada','Bosnia y Herz.':'bosnia-herzegovina','Qatar':'qatar','Suiza':'suiza',
+  'Brasil':'brasil','Marruecos':'marruecos','Haití':'haiti','Escocia':'escocia',
+  'Estados Unidos':'estados-unidos','Paraguay':'paraguay','Australia':'australia','Turquía':'turquia',
+  'Alemania':'alemania','Curazao':'curazao','Costa de Marfil':'costa-de-marfil','Ecuador':'ecuador',
+  'Países Bajos':'paises-bajos','Japón':'japon','Suecia':'suecia','Túnez':'tunez',
+  'Bélgica':'belgica','Egipto':'egipto','Irán':'iran','Nueva Zelanda':'nueva-zelanda',
+  'España':'espana','Cabo Verde':'cabo-verde','Arabia Saudita':'arabia-saudita','Uruguay':'uruguay',
+  'Francia':'francia','Senegal':'senegal','Irak':'irak','Noruega':'noruega',
+  'Argentina':'argentina','Argelia':'argelia','Austria':'austria','Jordania':'jordania',
+  'Portugal':'portugal','R.D. Congo':'republica-democratica-del-congo','Uzbekistán':'uzbekistan','Colombia':'colombia',
+  'Inglaterra':'inglaterra','Croacia':'croacia','Ghana':'ghana','Panamá':'panama',
+};
+
 function renderGrupos() {
   const grid = document.getElementById('gruposGrid');
-  if(grid.innerHTML.trim()) return; // already rendered
+  if(grid.innerHTML.trim()) return;
 
   grid.innerHTML = Object.keys(GROUPS).map(g => {
     const teams = GROUPS[g];
@@ -2218,12 +2235,18 @@ function renderGrupos() {
 
     const teamsHtml = teams.map((t, i) => {
       const isHost = HOSTS.some(h => teamName(t) === teamName(h));
-      return `<div class="grupo-team-row">
+      const name = teamName(t);
+      const slug = TEAM_SLUGS[name];
+      const inner = `
         <span class="grupo-team-num">${i+1}</span>
-        <span class="grupo-team-flag">${getFlag(t)}</span>
-        <span class="grupo-team-name">${teamName(t)}</span>
+        <span class="grupo-team-flag">${getFlag(t, 28, 19)}</span>
+        <span class="grupo-team-name">${name}</span>
         ${isHost ? '<span class="grupo-host-badge">Sede</span>' : ''}
-      </div>`;
+        ${slug ? '<span style="font-size:11px;color:var(--muted);margin-left:auto;font-family:\'Barlow Condensed\',sans-serif;letter-spacing:1px">Ver →</span>' : ''}`;
+      if(slug) {
+        return `<a href="/${slug}/" class="grupo-team-row" style="text-decoration:none;color:inherit">${inner}</a>`;
+      }
+      return `<div class="grupo-team-row">${inner}</div>`;
     }).join('');
 
     return `<div class="grupo-card">
