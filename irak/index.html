@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Irak en el Mundial 2026 | Grita Mundial</title>
+<meta name="description" content="Todo sobre Irak en la Copa Mundial FIFA 2026: partidos, horarios, jugadores clave, historia mundialista y más.">
+<meta property="og:title" content="Irak · Copa Mundial FIFA 2026">
+<meta property="og:description" content="Partidos, jugadores clave e historia de Irak en el Mundial 2026.">
+<meta property="og:url" content="https://www.gritamundial.com/irak/">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/shared.css">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VS3ET16XXD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VS3ET16XXD');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-logo">Grita <span>Mundial</span> 🏆</a>
+    <a href="/" class="back-btn">← Volver al inicio</a>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+  </div>
+</header>
+
+<div class="country-hero">
+  <div class="country-hero-inner">
+    <div class="country-flag-big">
+      <img src="https://flagcdn.com/w160/iq.png" alt="Irak">
+    </div>
+    <div class="country-hero-text">
+      <h1><span>Irak</span></h1>
+      <div class="country-meta">
+        <span>Grupo I</span>
+        <span>AFC</span>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<main class="country-main">
+
+  <div class="debut-countdown" id="debutCountdown">
+    <span class="debut-label">⏱ Debut en</span>
+    <div class="debut-units">
+      <div class="debut-unit"><span class="debut-num" id="d-dias">--</span><span class="debut-lbl">Días</span></div>
+      <span class="debut-sep">:</span>
+      <div class="debut-unit"><span class="debut-num" id="d-hrs">--</span><span class="debut-lbl">Hrs</span></div>
+      <span class="debut-sep">:</span>
+      <div class="debut-unit"><span class="debut-num" id="d-min">--</span><span class="debut-lbl">Min</span></div>
+      <span class="debut-sep">:</span>
+      <div class="debut-unit"><span class="debut-num" id="d-seg">--</span><span class="debut-lbl">Seg</span></div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-heading">📅 Sus partidos</div>
+    <div id="matchesContainer"></div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-heading">🌍 Su grupo</div>
+    <div class="group-card">
+      <div class="group-card-header" id="groupCardTitle">Grupo I</div>
+      <div id="groupTeams"></div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-heading">👤 El equipo</div>
+    <div class="team-info-grid">
+      <div class="info-card">
+        <div class="info-card-label">Ranking FIFA (Abr 2026)</div>
+        <div class="info-card-value" id="fifaRankingCard">—</div>
+        <div class="info-card-sub">FIFA/Coca-Cola · 1 Abr 2026</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Entrenador</div>
+        <div class="info-card-value">Jesús Casas</div>
+        <div class="info-card-sub">Desde 2024</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Sistema de juego</div>
+        <div class="info-card-value">4-2-3-1</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Confederación</div>
+        <div class="info-card-value">AFC</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-heading">⭐ Jugadores a seguir</div>
+    <div class="players-grid">
+      <div class="player-card">
+        <div class="player-pos">Delantero</div>
+        <div class="player-name">Aymen Hussein</div>
+        <div class="player-club">Al-Zawra'a</div>
+      </div>
+      <div class="player-card">
+        <div class="player-pos">Mediocampista</div>
+        <div class="player-name">Zidane Iqbal</div>
+        <div class="player-club">Utrecht</div>
+      </div>
+      <div class="player-card">
+        <div class="player-pos">Mediocampista</div>
+        <div class="player-name">Ali Jasim</div>
+        <div class="player-club">Basra</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-heading">📊 Últimos resultados</div>
+    <div id="lastResultsContainer"></div>
+  </div>
+
+  <div class="section-block">
+    <div class="section-heading">📖 Historia mundialista</div>
+    <div class="history-stats">
+      <div class="hist-stat"><div class="hist-num">2</div><div class="hist-lbl">participaciones</div></div>
+      <div class="hist-stat"><div class="hist-num">GF</div><div class="hist-lbl">mejor resultado</div></div>
+      <div class="hist-stat"><div class="hist-num">1986</div><div class="hist-lbl">última participación</div></div>
+      <div class="hist-stat"><div class="hist-num">0</div><div class="hist-lbl">partidos ganados</div></div>
+    </div>
+    <div class="history-text">Irak regresa a un Mundial después de <strong>40 años</strong>. Su única participación previa fue en México 1986, y ahora vuelve también a suelo mexicano. Clasificó a través del repechaje intercontinental, una hazaña histórica.</div>
+    <div class="history-text" style="margin-top:10px;font-size:13px;background:rgba(201,168,76,0.06);border-color:rgba(201,168,76,0.2)">
+      💡 <strong style="color:var(--accent)">Curiosidad:</strong> Regresa a un Mundial tras 40 años; su única participación previa también fue en México
+    </div>
+  </div>
+
+</main>
+
+<script src="../assets/shared.js"></script>
+<script>
+const COUNTRY_NAME = 'Irak';
+const DEBUT_UTC = new Date(Date.UTC(2026, 5, 16, 22, 0, 0));
+
+function renderMatches() {
+  const matches = getMatchesForTeam(COUNTRY_NAME);
+  const container = document.getElementById('matchesContainer');
+  const myName = teamName(COUNTRY_NAME);
+  container.innerHTML = matches.map(m => {
+    const [dateLabel,, argH, argM, t1, t2, group, venue] = m;
+    const times = fmtTime(argH, argM);
+    const n1 = teamName(t1), n2 = teamName(t2);
+    const hl1 = n1 === myName ? 'highlight' : '';
+    const hl2 = n2 === myName ? 'highlight' : '';
+    return `
+    <div class="match-card">
+      <div class="match-top">
+        <span class="match-round">${group} · ${dateLabel}</span>
+        <span class="match-venue">📍 ${venue}</span>
+      </div>
+      <div class="teams-row">
+        <div class="team"><div class="team-flag">${getFlag(t1)}</div><span class="team-name ${hl1}">${n1}</span></div>
+        <div class="vs-badge">VS</div>
+        <div class="team right"><span class="team-name ${hl2}">${n2}</span><div class="team-flag">${getFlag(t2)}</div></div>
+      </div>
+      <div class="times-row">
+        <div class="time-chip"><span class="time-flag">${TZ_FLAGS.México}</span><span class="time-label">México</span><span class="time-value">${times.mex}</span></div>
+        <div class="time-chip"><span class="time-flag">${TZ_FLAGS.Argentina}</span><span class="time-label">Argentina</span><span class="time-value">${times.arg}</span></div>
+        <div class="time-chip"><span class="time-flag">${TZ_FLAGS.España}</span><span class="time-label">España</span><span class="time-value">${times.esp}</span></div>
+        <div class="time-chip"><span class="time-flag">${TZ_FLAGS.EEUU}</span><span class="time-label">EE.UU Este</span><span class="time-value">${times.est}</span></div>
+        <div class="time-chip"><span class="time-flag">${TZ_FLAGS.EEUU}</span><span class="time-label">EE.UU Oeste</span><span class="time-value">${times.pst}</span></div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderGroup() {
+  const g = getGroupForTeam(COUNTRY_NAME);
+  const myName = teamName(COUNTRY_NAME);
+  if (!g) return;
+  document.getElementById('groupTeams').innerHTML = GROUPS[g].map(t => {
+    const tName = teamName(t);
+    const slug = teamSlug(t);
+    const isSelf = tName === myName;
+    return `<a href="${window.location.origin}/${slug}/" class="group-team-row ${isSelf ? 'current' : ''}">
+      <span style="display:inline-flex;align-items:center">${getFlag(t)}</span>
+      <span class="group-team-name">${tName}</span>
+      ${isSelf ? '<span class="group-you-badge">Tú</span>' : ''}
+    </a>`;
+  }).join('');
+}
+
+function renderRanking() {
+  const rank = getFIFARanking(COUNTRY_NAME);
+  const el = document.getElementById('fifaRankingCard');
+  if (el) el.textContent = rank !== '—' ? `#${rank} del mundo` : '—';
+}
+
+function renderLastResults() {
+  const results = getLastResults(COUNTRY_NAME);
+  const container = document.getElementById('lastResultsContainer');
+  if (!container || !results.length) return;
+  const labels = { G: 'V', E: 'E', D: 'D' };
+  container.innerHTML = `<div class="results-list">` +
+    results.map(r => `
+      <div class="result-row">
+        <div class="result-badge ${r.res}">${labels[r.res]}</div>
+        <span class="result-rival">vs ${r.rival}</span>
+        <span class="result-score">${r.score}</span>
+      </div>`).join('') + `</div>`;
+}
+
+function startDebutCountdown() {
+  const pad = n => String(n).padStart(2,'0');
+  function tick() {
+    const diff = DEBUT_UTC - new Date();
+    if (diff <= 0) {
+      document.getElementById('debutCountdown').innerHTML =
+        '<span style="font-family:\'Barlow Condensed\',sans-serif;font-size:16px;color:var(--green);font-weight:700;letter-spacing:1px">⚽ ¡Ya debutó!</span>';
+      return;
+    }
+    document.getElementById('d-dias').textContent = Math.floor(diff / 86400000);
+    document.getElementById('d-hrs').textContent  = pad(Math.floor((diff % 86400000) / 3600000));
+    document.getElementById('d-min').textContent  = pad(Math.floor((diff % 3600000) / 60000));
+    document.getElementById('d-seg').textContent  = pad(Math.floor((diff % 60000) / 1000));
+  }
+  tick(); setInterval(tick, 1000);
+}
+
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  document.getElementById('themeToggle').textContent = isLight ? '☀️' : '🌙';
+  try { localStorage.setItem('mundial_theme', isLight ? 'light' : 'dark'); } catch(e){}
+}
+function loadTheme() {
+  try {
+    if (localStorage.getItem('mundial_theme') === 'light') {
+      document.body.classList.add('light');
+      const btn = document.getElementById('themeToggle');
+      if (btn) btn.textContent = '☀️';
+    }
+  } catch(e){}
+}
+
+renderMatches(); renderGroup(); renderRanking(); renderLastResults();
+startDebutCountdown(); loadTheme();
+</script>
+
+</body>
+</html>
