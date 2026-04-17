@@ -1097,21 +1097,91 @@
     .btn-action span:first-child { display: none; }
   }
 
+
+  /* ===================== BRACKET INTERACTIVO ===================== */
+  .bracket-team.clickable {
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .bracket-team.clickable:hover {
+    background: rgba(201,168,76,0.13);
+    color: var(--accent2);
+  }
+  .bracket-team.winner {
+    color: var(--accent2);
+    background: rgba(201,168,76,0.1);
+    font-weight: 700;
+  }
+  .bracket-team.loser {
+    opacity: 0.32;
+    text-decoration: line-through;
+    text-decoration-color: rgba(255,255,255,0.2);
+  }
+  .bracket-match.decided { border-color: rgba(201,168,76,0.35); }
+  .bracket-match.champion-match {
+    border-color: var(--accent);
+    box-shadow: 0 0 22px rgba(201,168,76,0.28);
+  }
+  .bracket-champion-wrap {
+    margin-top: 14px;
+    text-align: center;
+    padding: 16px;
+    background: rgba(201,168,76,0.07);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 10px;
+  }
+  .bracket-champion-wrap .label {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--accent);
+  }
+  .bracket-champion-wrap .name {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 28px;
+    color: var(--accent2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+  .bracket-reset-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    background: rgba(232,69,69,0.1);
+    color: var(--red);
+    border: 1px solid rgba(232,69,69,0.25);
+    padding: 5px 13px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-left: auto;
+  }
+  .bracket-reset-btn:hover { background: rgba(232,69,69,0.22); }
+  .bracket-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .bracket-hint {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    flex: 1;
+  }
+
   /* SCROLL */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
   ::-webkit-scrollbar-track { background: var(--bg); }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 </style>
-
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-VS3ET16XXD"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-VS3ET16XXD');
-</script>
-
 </head>
 <body>
 
@@ -2049,118 +2119,332 @@ function renderBracket() {
       Completa los resultados de los grupos para ver el cuadro eliminatorio
       <div class="bracket-progress">Grupos completados: ${filled} / 12</div>
     </div>`;
+    // Reset knock state when groups become incomplete
+    knockWinners = {};
     return;
   }
 
+  // Build R32 matchups from group predictions
   const gw = getGroupWinners();
   const thirdAssign = getThirdAssignment(gw);
 
-  // Resolve each R32 fixture
-  const r32resolved = {};
+  const r32teams = {};
   R32_FIXTURES.forEach(f => {
-    let t1 = gw[f.t1] || null;
-    let t2 = f.third ? (thirdAssign[f.thirdSlot] || null) : (gw[f.t2] || null);
-    r32resolved[f.id] = { t1, t2, date: f.date, venue: f.venue };
+    r32teams[f.id] = {
+      t1: gw[f.t1] || null,
+      t2: f.third ? (thirdAssign[f.thirdSlot] || null) : (gw[f.t2] || null),
+      date: f.date,
+      venue: f.venue
+    };
   });
 
-  // ---- VISUAL BRACKET ----
-  const tbd = () => `<div class="bracket-team tbd">🏳️ Por definir</div>`;
-  const bTeam = (t) => t
-    ? `<div class="bracket-team"><div class="bracket-team-flag">${getFlag(t)}</div> ${teamName(t)}</div>`
-    : tbd();
-  const bMatch = (t1, t2, date, venue, cls='') =>
-    `<div class="bracket-match${cls}">
+  // Resolve team for any match id across all rounds
+  function resolveTeam(matchId, slot) {
+    // slot = 't1' or 't2'
+    const kw = knockWinners[matchId];
+    if(kw) return kw === slot ? getMatchTeam(matchId, slot) : null;
+    return getMatchTeam(matchId, slot);
+  }
+
+  function getMatchTeam(matchId, slot) {
+    // R32
+    const r32 = r32teams[matchId];
+    if(r32) return slot === 't1' ? r32.t1 : r32.t2;
+
+    // R16 — winner of a R32 match
+    const r16 = R16_FIXTURES.find(f => f.id === matchId);
+    if(r16) {
+      const srcId = slot === 't1' ? r16.w1 : r16.w2;
+      return getWinnerOf(srcId);
+    }
+
+    // QF
+    const qf = QF_FIXTURES.find(f => f.id === matchId);
+    if(qf) {
+      const srcId = slot === 't1' ? qf.w1 : qf.w2;
+      return getWinnerOf(srcId);
+    }
+
+    // SF
+    const sf = SF_FIXTURES.find(f => f.id === matchId);
+    if(sf) {
+      const srcId = slot === 't1' ? sf.w1 : sf.w2;
+      return getWinnerOf(srcId);
+    }
+
+    // Final / 3rd
+    if(matchId === 'final' || matchId === 'third') {
+      const srcId = slot === 't1' ? SF_FIXTURES[0].id : SF_FIXTURES[1].id;
+      if(matchId === 'third') {
+        // Loser of each SF
+        return getLoserOf(srcId);
+      }
+      return getWinnerOf(srcId);
+    }
+    return null;
+  }
+
+  // Returns the winner of a given match id (if picked), else null
+  function getWinnerOf(matchId) {
+    const kw = knockWinners[matchId];
+    if(!kw) return null; // not yet picked
+    // kw is 't1' or 't2'
+    return getMatchTeam(matchId, kw);
+  }
+
+  function getLoserOf(matchId) {
+    const kw = knockWinners[matchId];
+    if(!kw) return null;
+    const other = kw === 't1' ? 't2' : 't1';
+    return getMatchTeam(matchId, other);
+  }
+
+  // Build clickable bracket match HTML
+  function bMatchInteractive(matchId, date, venue, isFinal, isThird) {
+    const t1 = getMatchTeam(matchId, 't1');
+    const t2 = getMatchTeam(matchId, 't2');
+    const kw = knockWinners[matchId];
+    const decided = !!(kw);
+
+    const cls = [
+      'bracket-match',
+      decided ? 'decided' : '',
+      isFinal ? 'champion-match' : '',
+    ].filter(Boolean).join(' ');
+
+    function teamHtml(team, slot) {
+      if(!team) return `<div class="bracket-team tbd"><span class="bracket-team-flag">🏳️</span> Por definir</div>`;
+
+      const isWinner = decided && kw === slot;
+      const isLoser  = decided && kw !== slot;
+      const canClick = !!(t1 && t2); // only clickable when both teams are known
+
+      const teamCls = [
+        'bracket-team',
+        canClick ? 'clickable' : '',
+        isWinner ? 'winner' : '',
+        isLoser  ? 'loser'  : '',
+      ].filter(Boolean).join(' ');
+
+      const onclick = canClick
+        ? `onclick="pickWinner('${matchId}','${slot}')"`
+        : '';
+
+      return `<div class="${teamCls}" ${onclick}>
+        <div class="bracket-team-flag">${getFlag(team)}</div>
+        ${teamName(team)}
+      </div>`;
+    }
+
+    return `<div class="${cls}" data-match="${matchId}">
       <div class="bracket-date">📅 ${date} · ${venue}</div>
-      ${bTeam(t1)}${bTeam(t2)}
-    </div>`;
-
-  const r32VisHtml  = R32_FIXTURES.map(f => { const m=r32resolved[f.id]; return bMatch(m.t1,m.t2,m.date,m.venue); }).join('');
-  const r16VisHtml  = R16_FIXTURES.map(f => bMatch(null,null,f.date,f.venue)).join('');
-  const qfVisHtml   = QF_FIXTURES.map(f  => bMatch(null,null,f.date,f.venue)).join('');
-  const sfVisHtml   = SF_FIXTURES.map(f  => bMatch(null,null,f.date,f.venue)).join('');
-  const finalVisHtml = bMatch(null,null,FINAL_FIXTURE.date,FINAL_FIXTURE.venue,' final-match');
-  const thirdVisHtml = bMatch(null,null,THIRD_FIXTURE.date,THIRD_FIXTURE.venue);
-
-  // ---- LIST VIEW ----
-  function listTeam(t) {
-    if(!t) return `<span class="blist-team tbd">🏳️ Por definir</span>`;
-    return `<span class="blist-team"><span style="display:inline-flex;align-items:center;vertical-align:middle">${getFlag(t)}</span> ${teamName(t)}</span>`;
-  }
-  function listMatch(num, t1, t2, date, venue, extraCls='') {
-    return `<div class="blist-match${extraCls}">
-      <div class="blist-num">${num}</div>
-      <div class="blist-teams">${listTeam(t1)}<span class="blist-vs">VS</span>${listTeam(t2)}</div>
-      <div class="blist-meta"><div class="blist-meta-date">📅 ${date}</div><div>📍 ${venue}</div></div>
+      ${teamHtml(t1, 't1')}
+      ${teamHtml(t2, 't2')}
     </div>`;
   }
 
-  const r32ListHtml = R32_FIXTURES.map((f,i) => {
-    const m = r32resolved[f.id];
-    return listMatch(i+1, m.t1, m.t2, m.date, m.venue);
-  }).join('');
-  const r16ListHtml = R16_FIXTURES.map((f,i) => listMatch(i+1,null,null,f.date,f.venue)).join('');
-  const qfListHtml  = QF_FIXTURES.map((f,i)  => listMatch(i+1,null,null,f.date,f.venue)).join('');
-  const sfListHtml  = SF_FIXTURES.map((f,i)  => listMatch(i+1,null,null,f.date,f.venue)).join('');
-  const finalListHtml = listMatch('🏆',null,null,FINAL_FIXTURE.date,FINAL_FIXTURE.venue,' is-final');
-  const thirdListHtml = listMatch('🥉',null,null,THIRD_FIXTURE.date,THIRD_FIXTURE.venue,' is-third');
+  // Determine champion
+  const champion = getWinnerOf('final');
+  const thirdPlace = getWinnerOf('third');
+
+  // Build HTML rounds
+  const r32Html = R32_FIXTURES.map(f => bMatchInteractive(f.id, f.date, f.venue, false, false)).join('');
+  const r16Html = R16_FIXTURES.map(f => bMatchInteractive(f.id, f.date, f.venue, false, false)).join('');
+  const qfHtml  = QF_FIXTURES.map(f  => bMatchInteractive(f.id, f.date, f.venue, false, false)).join('');
+  const sfHtml  = SF_FIXTURES.map(f  => bMatchInteractive(f.id, f.date, f.venue, false, false)).join('');
+  const finalHtml = bMatchInteractive('final', FINAL_FIXTURE.date, FINAL_FIXTURE.venue, true, false);
+  const thirdHtml = bMatchInteractive('third', THIRD_FIXTURE.date, THIRD_FIXTURE.venue, false, true);
+
+  // Champion banner
+  const championHtml = champion ? `
+    <div class="bracket-champion-wrap">
+      <div class="label">🏆 Campeón del Mundo</div>
+      <div class="name">${getFlag(champion, 28, 20)} ${teamName(champion)}</div>
+    </div>` : '';
 
   container.innerHTML = `
-    <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">
-      Los 16avos usan el Anexo C oficial de la FIFA para asignar los terceros según qué grupos clasifiquen. Las rondas siguientes muestran fecha y sede — los equipos se definen en cancha.
-    </p>
+    <div class="bracket-controls">
+      <span class="bracket-hint">👆 Haz clic en un equipo para elegirlo como ganador de cada partido</span>
+      <button class="bracket-reset-btn" onclick="resetKnockout()">🗑 Resetear bracket</button>
+    </div>
     <div class="bracket-view-toggle">
       <button class="view-toggle-btn active" onclick="setBracketView('visual',this)">📊 Bracket visual</button>
       <button class="view-toggle-btn" onclick="setBracketView('list',this)">📋 Lista por ronda</button>
     </div>
+
     <div class="bracket-visual-wrap" id="bracketVisual">
       <div class="bracket-outer">
         <div class="bracket-grid">
           <div class="bracket-round">
             <div class="bracket-round-title">16avos · 28 Jun–3 Jul</div>
-            <div class="bracket-slots">${r32VisHtml}</div>
+            <div class="bracket-slots">${r32Html}</div>
           </div>
           <div class="bracket-round">
             <div class="bracket-round-title">Octavos · 4–7 Jul</div>
-            <div class="bracket-slots">${r16VisHtml}</div>
+            <div class="bracket-slots">${r16Html}</div>
           </div>
           <div class="bracket-round">
             <div class="bracket-round-title">Cuartos · 9–11 Jul</div>
-            <div class="bracket-slots">${qfVisHtml}</div>
+            <div class="bracket-slots">${qfHtml}</div>
           </div>
           <div class="bracket-round">
             <div class="bracket-round-title">Semis · 14–15 Jul</div>
-            <div class="bracket-slots">${sfVisHtml}</div>
+            <div class="bracket-slots">${sfHtml}</div>
           </div>
           <div class="bracket-round">
             <div class="bracket-round-title">🏆 Final &amp; 3er Puesto</div>
-            <div class="bracket-slots">${finalVisHtml}${thirdVisHtml}</div>
+            <div class="bracket-slots">${finalHtml}${thirdHtml}</div>
           </div>
         </div>
       </div>
+      ${championHtml}
     </div>
+
     <div class="bracket-list" id="bracketList">
-      <div class="blist-round">
-        <div class="blist-round-title">⚽ 16avos de Final — 28 Jun al 3 Jul</div>${r32ListHtml}
-      </div>
-      <div class="blist-round">
-        <div class="blist-round-title">⚽ Octavos de Final — 4 al 7 Jul</div>${r16ListHtml}
-      </div>
-      <div class="blist-round">
-        <div class="blist-round-title">⚽ Cuartos de Final — 9 al 11 Jul</div>${qfListHtml}
-      </div>
-      <div class="blist-round">
-        <div class="blist-round-title">⚽ Semifinales — 14 al 15 Jul</div>${sfListHtml}
-      </div>
-      <div class="blist-round">
-        <div class="blist-round-title">🏆 Final &amp; 3er Puesto — 18–19 Jul</div>
-        ${thirdListHtml}${finalListHtml}
-      </div>
+      ${buildListView(r32teams)}
     </div>`;
+
+  // Restore view state
+  const savedView = window._bracketView || 'visual';
+  if(savedView === 'list') {
+    document.getElementById('bracketVisual').classList.add('hidden');
+    document.getElementById('bracketList').classList.add('visible');
+  }
 }
+
+// Build list view HTML
+function buildListView(r32teams) {
+  function listTeam(team) {
+    if(!team) return `<span class="blist-team tbd">🏳️ Por definir</span>`;
+    return `<span class="blist-team">${getFlag(team)} ${teamName(team)}</span>`;
+  }
+  function listMatch(num, matchId, date, venue, extraCls='') {
+    const t1 = getListTeam(matchId, 't1', r32teams);
+    const t2 = getListTeam(matchId, 't2', r32teams);
+    const kw = knockWinners[matchId];
+    const winnerTeam = kw ? (kw === 't1' ? t1 : t2) : null;
+    const resultHtml = winnerTeam
+      ? `<span style="font-size:11px;color:var(--green);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;margin-left:auto">✓ ${teamName(winnerTeam)}</span>`
+      : '';
+    return `<div class="blist-match${extraCls}">
+      <div class="blist-num">${num}</div>
+      <div class="blist-teams">${listTeam(t1)}<span class="blist-vs">VS</span>${listTeam(t2)}${resultHtml}</div>
+      <div class="blist-meta"><div class="blist-meta-date">📅 ${date}</div><div>📍 ${venue}</div></div>
+    </div>`;
+  }
+
+  const r32Html = R32_FIXTURES.map((f,i) => listMatch(i+1, f.id, f.date, f.venue)).join('');
+  const r16Html = R16_FIXTURES.map((f,i) => listMatch(i+1, f.id, f.date, f.venue)).join('');
+  const qfHtml  = QF_FIXTURES.map((f,i)  => listMatch(i+1, f.id, f.date, f.venue)).join('');
+  const sfHtml  = SF_FIXTURES.map((f,i)  => listMatch(i+1, f.id, f.date, f.venue)).join('');
+  const finalHtml = listMatch('🏆', 'final', FINAL_FIXTURE.date, FINAL_FIXTURE.venue, ' is-final');
+  const thirdHtml = listMatch('🥉', 'third', THIRD_FIXTURE.date, THIRD_FIXTURE.venue, ' is-third');
+
+  return `
+    <div class="blist-round"><div class="blist-round-title">⚽ 16avos de Final — 28 Jun al 3 Jul</div>${r32Html}</div>
+    <div class="blist-round"><div class="blist-round-title">⚽ Octavos de Final — 4 al 7 Jul</div>${r16Html}</div>
+    <div class="blist-round"><div class="blist-round-title">⚽ Cuartos de Final — 9 al 11 Jul</div>${qfHtml}</div>
+    <div class="blist-round"><div class="blist-round-title">⚽ Semifinales — 14 al 15 Jul</div>${sfHtml}</div>
+    <div class="blist-round"><div class="blist-round-title">🏆 Final &amp; 3er Puesto — 18–19 Jul</div>${thirdHtml}${finalHtml}</div>`;
+}
+
+function getListTeam(matchId, slot, r32teams) {
+  const r32 = r32teams[matchId];
+  if(r32) return slot === 't1' ? r32.t1 : r32.t2;
+
+  // For later rounds, find the winning team recursively
+  function winner(mId) {
+    const kw = knockWinners[mId];
+    if(!kw) return null;
+    return kw === 't1' ? getListTeam(mId, 't1', r32teams) : getListTeam(mId, 't2', r32teams);
+  }
+
+  const r16 = R16_FIXTURES.find(f => f.id === matchId);
+  if(r16) return winner(slot === 't1' ? r16.w1 : r16.w2);
+
+  const qf = QF_FIXTURES.find(f => f.id === matchId);
+  if(qf) return winner(slot === 't1' ? qf.w1 : qf.w2);
+
+  const sf = SF_FIXTURES.find(f => f.id === matchId);
+  if(sf) return winner(slot === 't1' ? sf.w1 : sf.w2);
+
+  if(matchId === 'final') return winner(slot === 't1' ? SF_FIXTURES[0].id : SF_FIXTURES[1].id);
+  if(matchId === 'third') {
+    const sfId = slot === 't1' ? SF_FIXTURES[0].id : SF_FIXTURES[1].id;
+    const kw = knockWinners[sfId];
+    if(!kw) return null;
+    const loserSlot = kw === 't1' ? 't2' : 't1';
+    return getListTeam(sfId, loserSlot, r32teams);
+  }
+  return null;
+}
+
+// ── Knockout winners state (persists across re-renders)
+let knockWinners = {}; // matchId → 't1' | 't2'
+
+function pickWinner(matchId, slot) {
+  // If same team clicked again → deselect and clear downstream
+  if(knockWinners[matchId] === slot) {
+    clearDownstream(matchId);
+    knockWinners[matchId] = null;
+  } else {
+    // Clear any downstream picks that depended on the OLD winner of this match
+    clearDownstream(matchId);
+    knockWinners[matchId] = slot;
+  }
+  renderBracket();
+  saveBracketState();
+}
+
+// Clear all downstream picks that depend on a match result
+function clearDownstream(matchId) {
+  // Find all matches that use this matchId as a source
+  const dependents = getDependents(matchId);
+  dependents.forEach(depId => {
+    if(knockWinners[depId]) {
+      clearDownstream(depId);
+      knockWinners[depId] = null;
+    }
+  });
+}
+
+function getDependents(matchId) {
+  const deps = [];
+  [...R16_FIXTURES, ...QF_FIXTURES, ...SF_FIXTURES].forEach(f => {
+    if(f.w1 === matchId || f.w2 === matchId) deps.push(f.id);
+  });
+  if(SF_FIXTURES[0].id === matchId || SF_FIXTURES[1].id === matchId) {
+    deps.push('final');
+    deps.push('third');
+  }
+  return deps;
+}
+
+function resetKnockout() {
+  knockWinners = {};
+  renderBracket();
+  saveBracketState();
+  showToast('🗑 Bracket reseteado');
+}
+
+function saveBracketState() {
+  try {
+    localStorage.setItem('mundial2026_knock', JSON.stringify(knockWinners));
+  } catch(e) {}
+}
+
+function loadBracketState() {
+  try {
+    const saved = localStorage.getItem('mundial2026_knock');
+    if(saved) knockWinners = JSON.parse(saved);
+  } catch(e) {}
+}
+
 
 function setBracketView(view, btn) {
   document.querySelectorAll('.view-toggle-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+  window._bracketView = view;
   const visual = document.getElementById('bracketVisual');
   const list   = document.getElementById('bracketList');
   if(!visual || !list) return;
@@ -2271,6 +2555,7 @@ updateFilterOptions();
 applyFilter();
 loadFromURL();
 loadSavedPredictions();
+loadBracketState();
 initCountdown();
 loadTheme();
 </script>
