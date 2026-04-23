@@ -1225,13 +1225,14 @@
 </div>
 
 <div class="tabs-bar">
-  <div class="tabs-inner">
-    <button class="tab-btn active" onclick="switchTab('calendario', event)">📅 Calendario</button>
-    <button class="tab-btn" onclick="switchTab('grupos', event)">🌍 Grupos</button>
-    <button class="tab-btn" onclick="switchTab('predicciones', event)">🎯 Mis Predicciones</button>
-    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+    <div class="tabs-inner">
+      <button class="tab-btn active" onclick="switchTab('calendario', event)">📅 Calendario</button>
+      <button class="tab-btn" onclick="switchTab('grupos', event)">🌍 Grupos</button>
+      <button class="tab-btn" onclick="switchTab('predicciones', event)">🎯 Mis Predicciones</button>
+      <a href="/album/" class="tab-btn" style="text-decoration:none;display:inline-flex;align-items:center">📖 Mi Álbum</a>
+      <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+    </div>
   </div>
-</div>
 
 <div class="main">
 
