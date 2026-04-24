@@ -693,6 +693,288 @@
     border-color: var(--accent2);
   }
 
+  /* ==================== SYNC PILL (hero) ==================== */
+  .sync-status {
+    margin-top: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-radius: 22px;
+    border: 1px solid var(--border);
+    background: var(--surface2);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    max-width: 100%;
+  }
+  .sync-status:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+  .sync-status.active {
+    background: rgba(52,152,219,0.1);
+    border-color: rgba(52,152,219,0.4);
+    color: #60a5fa;
+  }
+  .sync-status.active:hover {
+    background: rgba(52,152,219,0.18);
+  }
+  .sync-status.syncing { color: var(--accent2); border-color: rgba(201,168,76,0.4); }
+  .sync-status .code-chip {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 16px;
+    letter-spacing: 2px;
+    color: var(--accent2);
+    background: rgba(201,168,76,0.14);
+    padding: 2px 10px;
+    border-radius: 10px;
+  }
+  body.light .sync-status.active { color: #2563eb; }
+
+  /* ==================== SYNC MODAL ==================== */
+  .sync-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(6,9,15,0.82);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .sync-modal-overlay.open { display: flex; }
+  .sync-modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    max-width: 460px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+  body.light .sync-modal-overlay { background: rgba(240,244,248,0.88); }
+  body.light .sync-modal { box-shadow: 0 20px 60px rgba(0,0,0,0.18); }
+
+  .sync-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 24px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+  .sync-modal-close:hover { background: var(--surface2); color: var(--text); }
+
+  .sync-modal h2 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+  .sync-modal p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .sync-modal p strong { color: var(--text); }
+  .sync-modal .divider {
+    text-align: center;
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 4px;
+    font-size: 12px;
+    margin: 20px 0 16px;
+    position: relative;
+  }
+  .sync-modal .divider::before,
+  .sync-modal .divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 38%;
+    height: 1px;
+    background: var(--border);
+  }
+  .sync-modal .divider::before { left: 0; }
+  .sync-modal .divider::after  { right: 0; }
+
+  .sync-btn-primary {
+    display: block;
+    width: 100%;
+    background: var(--accent);
+    color: #06090f;
+    border: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 8px;
+  }
+  .sync-btn-primary:hover { background: var(--accent2); }
+  .sync-btn-primary:disabled { opacity: 0.5; cursor: wait; }
+
+  .sync-btn-secondary {
+    display: block;
+    width: 100%;
+    background: var(--surface2);
+    color: var(--text);
+    border: 1px solid var(--border);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .sync-btn-secondary:hover { border-color: var(--accent); }
+
+  .sync-btn-danger {
+    background: rgba(232,69,69,0.12);
+    color: #e84545;
+    border: 1px solid rgba(232,69,69,0.3);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 9px 16px;
+    border-radius: 7px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s;
+    margin-top: 6px;
+  }
+  .sync-btn-danger:hover { background: rgba(232,69,69,0.22); }
+
+  .sync-modal label {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .sync-code-input-row {
+    display: flex;
+    gap: 8px;
+  }
+  .sync-code-input-row input {
+    flex: 1;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+    letter-spacing: 3px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    outline: none;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .sync-code-input-row input:focus { border-color: var(--accent); }
+
+  .sync-code-display {
+    background: linear-gradient(135deg, rgba(201,168,76,0.12) 0%, rgba(232,196,106,0.05) 100%);
+    border: 1.5px solid rgba(201,168,76,0.45);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin: 16px 0;
+  }
+  .sync-code-display .code-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .sync-code-display .code-value {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 44px;
+    letter-spacing: 6px;
+    color: var(--accent2);
+    line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(201,168,76,0.3);
+  }
+  .sync-code-display button {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 700;
+  }
+  .sync-code-display button:hover { border-color: var(--accent); color: var(--accent2); }
+
+  .sync-warning {
+    background: rgba(232,165,69,0.08);
+    border: 1px solid rgba(232,165,69,0.3);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: #e8a545;
+    line-height: 1.5;
+    margin: 14px 0;
+  }
+  body.light .sync-warning { color: #d97706; }
+
+  .sync-setup-notice {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+  .sync-setup-notice code {
+    background: rgba(201,168,76,0.12);
+    color: var(--accent2);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+
   /* ==================== FALTAN TAB ==================== */
   .faltan-empty, .reps-empty {
     text-align: center;
@@ -868,6 +1150,9 @@
         <span style="margin-left:auto">Repetidas: <span class="reps" id="statRepetidas">0</span></span>
       </div>
       <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div id="syncStatus" class="sync-status" onclick="openSyncModal()">
+        <span>☁️ Sincronizar entre dispositivos</span>
+      </div>
     </div>
   </div>
 </div>
@@ -943,9 +1228,68 @@
   </div>
 </div>
 
+<!-- ==================== SYNC MODAL ==================== -->
+<div class="sync-modal-overlay" id="syncModal" onclick="if(event.target===this)closeSyncModal()">
+  <div class="sync-modal">
+    <button class="sync-modal-close" onclick="closeSyncModal()">×</button>
+    <h2>☁️ Sincronizar dispositivos</h2>
+
+    <!-- Vista: sync no configurado por el admin -->
+    <div id="syncViewNotConfigured" style="display:none">
+      <p>Esta función todavía no está configurada en el sitio.</p>
+      <div class="sync-setup-notice">
+        <strong>Si eres el administrador del sitio:</strong> necesitas crear un proyecto en Supabase y pegar las credenciales en <code>album/index.html</code>, en las constantes <code>SUPABASE_URL</code> y <code>SUPABASE_ANON_KEY</code>. Mientras tanto puedes seguir usando el álbum con el botón <strong>🔗 Compartir link</strong>.
+      </div>
+    </div>
+
+    <!-- Vista: no sincronizado aún -->
+    <div id="syncViewNotActive" style="display:none">
+      <p>Crea un código corto para sincronizar tu álbum entre celular y computadora. Los cambios se guardan automáticamente en ambos lados.</p>
+
+      <button class="sync-btn-primary" id="btnCreateCode" onclick="createNewSyncCode()">✨ Crear código nuevo</button>
+
+      <div class="divider">O</div>
+
+      <label>Ya tengo un código de otro dispositivo</label>
+      <div class="sync-code-input-row">
+        <input type="text" id="syncCodeInput" placeholder="ABC-123" maxlength="7" autocomplete="off">
+        <button class="sync-btn-secondary" style="width:auto;padding:10px 18px" onclick="useExistingCode()">Conectar</button>
+      </div>
+
+      <div class="sync-warning" style="margin-top:18px">
+        <strong>Importante:</strong> Cualquier persona con tu código podrá ver y editar tu álbum. Guárdalo como si fuera una contraseña.
+      </div>
+    </div>
+
+    <!-- Vista: ya sincronizado -->
+    <div id="syncViewActive" style="display:none">
+      <p>✅ Tu álbum está sincronizado. Cada cambio se guarda automáticamente en la nube y se actualiza en tus otros dispositivos.</p>
+
+      <div class="sync-code-display">
+        <div class="code-label">Tu código</div>
+        <div class="code-value" id="activeCodeDisplay">———</div>
+        <button onclick="copyActiveCode()">📋 Copiar código</button>
+      </div>
+
+      <p style="font-size:13px">Para conectar otro dispositivo: abre el álbum ahí, toca "Sincronizar entre dispositivos", elige "Ya tengo un código" y pega este.</p>
+
+      <button class="sync-btn-danger" onclick="disconnectSync()">🔌 Desconectar este dispositivo</button>
+    </div>
+
+  </div>
+</div>
+
 <div class="save-toast" id="saveToast"></div>
 
 <script>
+// ==================== CONFIGURACIÓN DE SYNC (Supabase) ====================
+// Credenciales del proyecto gritamundial-album.
+// La SUPABASE_ANON_KEY es pública por diseño (va en el frontend).
+// La seguridad real vive en las policies de RLS + funciones SECURITY DEFINER
+// creadas en la base de datos: nadie puede leer/escribir sin saber el código.
+const SUPABASE_URL      = 'https://pzjvpbkczsihxcicjaru.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB6anZwYmtjenNpaHhjaWNqYXJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwMzU4MzMsImV4cCI6MjA5MjYxMTgzM30.1_kl0jTfEsgazPE5tBProHWYrmpMl_euacNpx6smIE4';
+
 // ==================== DATOS MAESTROS ====================
 // 48 selecciones × 20 estampas + FWC (19) + CC (14) = 993 estampas totales
 const TEAMS = [
@@ -1053,6 +1397,8 @@ const STORAGE_KEY = 'mundial2026_album';
 
 function autoSave() {
   try { localStorage.setItem(STORAGE_KEY, serializeAlbum()); } catch(e) {}
+  // Si el usuario tiene sync activado, propaga el cambio a la nube (con debounce)
+  if (syncCode && isSyncConfigured()) schedulePushToSync();
 }
 function saveAlbum() {
   try {
@@ -1193,6 +1539,263 @@ function loadFromURL() {
     window.history.replaceState({}, '', cleanUrl);
     showToast('✅ Álbum cargado desde el link');
   }
+}
+
+// ==================== SYNC ENTRE DISPOSITIVOS (Supabase) ====================
+const SYNC_CODE_KEY = 'mundial2026_sync_code';
+let syncCode = null;
+let _syncPushInFlight = false;
+let _syncPushPending = false;
+let _syncDebounceTimer = null;
+let _lastPullAt = 0;
+
+function isSyncConfigured() {
+  return !!(SUPABASE_URL && SUPABASE_ANON_KEY);
+}
+
+// Carga el código guardado en localStorage
+function loadSyncCode() {
+  try { syncCode = localStorage.getItem(SYNC_CODE_KEY) || null; } catch(e) { syncCode = null; }
+}
+
+function saveSyncCode(code) {
+  syncCode = code;
+  try {
+    if (code) localStorage.setItem(SYNC_CODE_KEY, code);
+    else localStorage.removeItem(SYNC_CODE_KEY);
+  } catch(e) {}
+}
+
+// Genera un código corto tipo "ABC-123" (6 chars sin ambiguos: 0/O/1/I/L)
+function generateSyncCode() {
+  const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
+  let c = '';
+  for (let i = 0; i < 6; i++) c += chars[Math.floor(Math.random() * chars.length)];
+  return c.slice(0, 3) + '-' + c.slice(3);
+}
+
+function normalizeCode(raw) {
+  if (!raw) return '';
+  const clean = raw.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if (clean.length !== 6) return '';
+  return clean.slice(0, 3) + '-' + clean.slice(3);
+}
+
+// Llamada RPC a Supabase
+async function supabaseRpc(fn, params) {
+  if (!isSyncConfigured()) throw new Error('Sync no configurado');
+  const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+    },
+    body: JSON.stringify(params)
+  });
+  if (!r.ok) {
+    const txt = await r.text().catch(() => '');
+    throw new Error(`HTTP ${r.status}: ${txt.slice(0,120)}`);
+  }
+  // Las RPC devuelven null para void, o el valor directo para funciones con retorno
+  const text = await r.text();
+  if (!text) return null;
+  try { return JSON.parse(text); } catch { return text; }
+}
+
+// PUSH: guarda el álbum actual en la nube (con debounce)
+function schedulePushToSync() {
+  if (!syncCode || !isSyncConfigured()) return;
+  clearTimeout(_syncDebounceTimer);
+  _syncDebounceTimer = setTimeout(() => pushToSyncNow(), 1500);
+}
+
+async function pushToSyncNow() {
+  if (!syncCode || !isSyncConfigured()) return;
+  if (_syncPushInFlight) { _syncPushPending = true; return; }
+  _syncPushInFlight = true;
+  setSyncStatusUI('syncing');
+  try {
+    await supabaseRpc('save_album', { p_code: syncCode, p_data: serializeAlbum() });
+    setSyncStatusUI('active');
+  } catch(e) {
+    console.warn('Sync push failed:', e);
+    setSyncStatusUI('active'); // no molestar al usuario con errores; se reintenta al siguiente cambio
+  } finally {
+    _syncPushInFlight = false;
+    if (_syncPushPending) { _syncPushPending = false; pushToSyncNow(); }
+  }
+}
+
+// PULL: baja el álbum desde la nube (devuelve true si cambió algo)
+async function pullFromSync({ silent = false } = {}) {
+  if (!syncCode || !isSyncConfigured()) return false;
+  setSyncStatusUI('syncing');
+  try {
+    const remoteData = await supabaseRpc('get_album', { p_code: syncCode });
+    _lastPullAt = Date.now();
+    setSyncStatusUI('active');
+    if (remoteData === null || remoteData === undefined) {
+      // El código no existía — creamos entrada inicial con lo que tenemos
+      await pushToSyncNow();
+      return false;
+    }
+    if (typeof remoteData !== 'string') return false;
+    const localSerialized = serializeAlbum();
+    if (remoteData === localSerialized) return false; // nada nuevo
+    deserializeAlbum(remoteData);
+    try { localStorage.setItem(STORAGE_KEY, serializeAlbum()); } catch(e) {}
+    if (!silent) showToast('🔄 Álbum actualizado desde otro dispositivo');
+    return true;
+  } catch(e) {
+    console.warn('Sync pull failed:', e);
+    setSyncStatusUI('active');
+    return false;
+  }
+}
+
+// ==================== UI: Pill y Modal ====================
+function setSyncStatusUI(state) {
+  const pill = document.getElementById('syncStatus');
+  if (!pill) return;
+  pill.classList.remove('active', 'syncing');
+  if (state === 'active' && syncCode) {
+    pill.classList.add('active');
+    pill.innerHTML = `<span>☁️ Sincronizado</span><span class="code-chip">${syncCode}</span>`;
+  } else if (state === 'syncing') {
+    pill.classList.add('syncing');
+    pill.innerHTML = `<span>☁️ Sincronizando...</span>`;
+  } else {
+    pill.innerHTML = `<span>☁️ Sincronizar entre dispositivos</span>`;
+  }
+}
+
+function openSyncModal() {
+  const modal = document.getElementById('syncModal');
+  const vNotConfigured = document.getElementById('syncViewNotConfigured');
+  const vNotActive     = document.getElementById('syncViewNotActive');
+  const vActive        = document.getElementById('syncViewActive');
+  vNotConfigured.style.display = 'none';
+  vNotActive.style.display     = 'none';
+  vActive.style.display        = 'none';
+
+  if (!isSyncConfigured()) {
+    vNotConfigured.style.display = 'block';
+  } else if (syncCode) {
+    vActive.style.display = 'block';
+    document.getElementById('activeCodeDisplay').textContent = syncCode;
+  } else {
+    vNotActive.style.display = 'block';
+    const input = document.getElementById('syncCodeInput');
+    if (input) input.value = '';
+  }
+  modal.classList.add('open');
+}
+
+function closeSyncModal() {
+  document.getElementById('syncModal').classList.remove('open');
+}
+
+async function createNewSyncCode() {
+  if (!isSyncConfigured()) return;
+  const btn = document.getElementById('btnCreateCode');
+  btn.disabled = true;
+  btn.textContent = 'Creando código...';
+  try {
+    // Genera uno, y si por (muy baja) casualidad ya existe, prueba otro
+    let code = '';
+    for (let attempt = 0; attempt < 3; attempt++) {
+      const candidate = generateSyncCode();
+      const existing = await supabaseRpc('get_album', { p_code: candidate });
+      if (existing === null || existing === undefined) { code = candidate; break; }
+    }
+    if (!code) code = generateSyncCode(); // último intento al azar
+    await supabaseRpc('save_album', { p_code: code, p_data: serializeAlbum() });
+    saveSyncCode(code);
+    setSyncStatusUI('active');
+    openSyncModal(); // refresca la vista (ahora "active")
+    showToast('✅ Sincronización activada');
+  } catch(e) {
+    showToast('⚠️ No se pudo crear el código. Revisa tu conexión.');
+    console.error(e);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = '✨ Crear código nuevo';
+  }
+}
+
+async function useExistingCode() {
+  if (!isSyncConfigured()) return;
+  const raw = document.getElementById('syncCodeInput').value || '';
+  const code = normalizeCode(raw);
+  if (!code) {
+    showToast('⚠️ Código inválido. Debe ser 6 caracteres, ej: ABC-123');
+    return;
+  }
+  try {
+    const remote = await supabaseRpc('get_album', { p_code: code });
+    if (remote === null || remote === undefined) {
+      showToast('⚠️ Ese código no existe. Revisa que esté bien escrito.');
+      return;
+    }
+    const localHasData = Object.keys(album).length > 0;
+    if (localHasData) {
+      const ok = confirm('Ya tienes un álbum registrado en este dispositivo. Al conectar, se reemplazará con el álbum del código ' + code + '. ¿Continuar?');
+      if (!ok) return;
+    }
+    deserializeAlbum(remote);
+    try { localStorage.setItem(STORAGE_KEY, serializeAlbum()); } catch(e) {}
+    saveSyncCode(code);
+    setSyncStatusUI('active');
+    renderAll();
+    closeSyncModal();
+    showToast('✅ Álbum sincronizado con código ' + code);
+  } catch(e) {
+    showToast('⚠️ No se pudo conectar. Revisa tu conexión.');
+    console.error(e);
+  }
+}
+
+function disconnectSync() {
+  if (!confirm('¿Desconectar este dispositivo? Tu álbum seguirá guardado aquí, pero ya no se sincronizará con otros dispositivos hasta que lo vuelvas a conectar con el código.')) return;
+  saveSyncCode(null);
+  setSyncStatusUI('idle');
+  closeSyncModal();
+  showToast('🔌 Sync desconectado en este dispositivo');
+}
+
+function copyActiveCode() {
+  if (!syncCode) return;
+  copyToClipboard(syncCode, '📋 Código copiado: ' + syncCode);
+}
+
+// Cargar sync desde URL (?sync=ABC-123) — sirve como shortcut
+function loadSyncFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const c = params.get('sync');
+  if (!c) return;
+  const norm = normalizeCode(c);
+  if (!norm) return;
+  // Guardar en localStorage y quitar el parámetro
+  saveSyncCode(norm);
+  const cleanUrl = window.location.pathname;
+  window.history.replaceState({}, '', cleanUrl);
+}
+
+// Pull automático al regresar a la pestaña (si ya pasaron >20s del último pull)
+function setupAutoSync() {
+  if (!isSyncConfigured()) return;
+  window.addEventListener('focus', () => {
+    if (!syncCode) return;
+    if (Date.now() - _lastPullAt < 20000) return;
+    pullFromSync().then(changed => { if (changed) renderAll(); });
+  });
+  // También al cambiar visibilidad (Android / iOS Safari a veces no disparan focus)
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && syncCode && Date.now() - _lastPullAt > 20000) {
+      pullFromSync().then(changed => { if (changed) renderAll(); });
+    }
+  });
 }
 
 // ==================== TOAST ====================
@@ -1602,7 +2205,20 @@ function renderAll() {
 loadTheme();
 loadAlbum();
 loadFromURL();
+loadSyncCode();
+loadSyncFromURL();
 renderAll();
+
+// Si hay sync configurado + código guardado: pull inicial y listener de focus
+if (isSyncConfigured() && syncCode) {
+  setSyncStatusUI('active');
+  pullFromSync({ silent: true }).then(changed => { if (changed) renderAll(); });
+} else if (isSyncConfigured()) {
+  setSyncStatusUI('idle');
+} else {
+  setSyncStatusUI('idle');
+}
+setupAutoSync();
 </script>
 
 </body>
