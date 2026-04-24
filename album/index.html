@@ -547,6 +547,145 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* ==================== LEGENDARY 00 — ESTAMPA ÚNICA ==================== */
+  .team-section.legendary {
+    background: linear-gradient(135deg, rgba(201,168,76,0.12) 0%, rgba(13,20,32,1) 45%, rgba(232,196,106,0.10) 100%);
+    border: 1.5px solid rgba(201,168,76,0.55);
+    box-shadow: 0 0 24px rgba(201,168,76,0.15), 0 0 0 1px rgba(201,168,76,0.1) inset;
+    margin-bottom: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .team-section.legendary::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--accent) 30%, var(--accent2) 50%, var(--accent) 70%, transparent 100%);
+    pointer-events: none;
+  }
+  body.light .team-section.legendary {
+    background: linear-gradient(135deg, rgba(184,134,11,0.12) 0%, #ffffff 45%, rgba(184,134,11,0.10) 100%);
+    border-color: rgba(184,134,11,0.55);
+  }
+  .team-section.legendary .team-header {
+    cursor: default;
+    padding: 16px 18px;
+    background: none;
+  }
+  .team-section.legendary .team-header:hover { background: none; }
+  .team-section.legendary .team-caret { display: none; }
+  .team-section.legendary .team-flag.emoji {
+    font-size: 32px;
+    filter: drop-shadow(0 0 10px rgba(201,168,76,0.6));
+  }
+  .team-section.legendary .team-name {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22px;
+    letter-spacing: 2.5px;
+    color: var(--accent2);
+    text-transform: uppercase;
+  }
+  .team-section.legendary .team-sub {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .team-section.legendary .stamps-body {
+    display: block;
+    padding: 8px 18px 20px;
+    border-top: 1px solid rgba(201,168,76,0.25);
+  }
+  .team-section.legendary .stamps-grid {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .stamp.legendary {
+    background:
+      linear-gradient(135deg, rgba(26,20,8,0.6) 0%, rgba(13,20,32,0.9) 50%, rgba(26,20,8,0.6) 100%);
+    border: 2px solid var(--accent);
+    min-height: 210px;
+    padding: 20px 16px 16px;
+    position: relative;
+    overflow: hidden;
+    animation: legendaryShimmer 3.5s ease-in-out infinite;
+  }
+  body.light .stamp.legendary {
+    background:
+      linear-gradient(135deg, rgba(255,243,214,0.9) 0%, #ffffff 50%, rgba(255,243,214,0.9) 100%);
+  }
+  .stamp.legendary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 20% 15%, rgba(232,196,106,0.18) 0%, transparent 55%),
+      radial-gradient(circle at 85% 85%, rgba(201,168,76,0.12) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .stamp.legendary::after {
+    content: '★';
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 14px;
+    color: var(--accent);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  @keyframes legendaryShimmer {
+    0%, 100% {
+      box-shadow: 0 0 18px rgba(201,168,76,0.20), inset 0 0 20px rgba(201,168,76,0.06);
+    }
+    50% {
+      box-shadow: 0 0 32px rgba(232,196,106,0.38), inset 0 0 28px rgba(201,168,76,0.12);
+    }
+  }
+  .stamp.legendary.owned {
+    border-color: var(--accent2);
+    background:
+      linear-gradient(135deg, rgba(201,168,76,0.18) 0%, rgba(232,196,106,0.08) 50%, rgba(201,168,76,0.18) 100%);
+  }
+  body.light .stamp.legendary.owned {
+    background:
+      linear-gradient(135deg, rgba(255,230,150,0.7) 0%, rgba(255,243,214,0.5) 50%, rgba(255,230,150,0.7) 100%);
+  }
+  .stamp.legendary .stamp-type {
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--accent2);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+  .stamp.legendary .stamp-type::before { content: '✦ '; }
+  .stamp.legendary .stamp-type::after  { content: ' ✦'; }
+  .stamp.legendary .stamp-id {
+    font-size: 64px;
+    color: var(--accent2);
+    text-align: center;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(201,168,76,0.4);
+    line-height: 1;
+    padding: 10px 0 14px;
+    position: relative;
+  }
+  body.light .stamp.legendary .stamp-id {
+    text-shadow: 0 0 12px rgba(184,134,11,0.3);
+  }
+  .stamp.legendary .stamp-toggle {
+    background: rgba(201,168,76,0.12);
+    border-color: rgba(201,168,76,0.4);
+    color: var(--accent2);
+    font-size: 13px;
+    padding: 10px;
+  }
+  .stamp.legendary.owned .stamp-toggle {
+    background: rgba(201,168,76,0.28);
+    color: var(--accent2);
+    border-color: var(--accent2);
+  }
+
   /* ==================== FALTAN TAB ==================== */
   .faltan-empty, .reps-empty {
     text-align: center;
@@ -711,12 +850,12 @@
 <div class="album-hero">
   <div class="album-hero-inner">
     <h1>📖 Mi <span>Álbum</span> del Mundial</h1>
-    <div class="album-hero-sub">Panini FIFA World Cup 2026 · 993 estampas</div>
+    <div class="album-hero-sub">Panini FIFA World Cup 2026 · 994 estampas</div>
     <div class="album-progress">
       <div class="progress-stats">
         <span class="big" id="statPegadas">0</span>
         <span>de</span>
-        <span class="total" id="statTotal">993</span>
+        <span class="total" id="statTotal">994</span>
         <span>estampas pegadas</span>
         <span class="pct" id="statPct">0%</span>
         <span style="margin-left:auto">Repetidas: <span class="reps" id="statRepetidas">0</span></span>
@@ -857,8 +996,12 @@ const SPECIAL_SECTIONS = [
   { code: 'CC',  name: 'Coca-Cola',        emoji: '🥤', group: 'ESP', stamps: 14 },
 ];
 
+// La estampa 00 — la más especial del álbum (suele ser holográfica/portada)
+const LEGENDARY_SECTION = { code: '00', name: 'Estampa 00', emoji: '✨', group: 'ESP', stamps: 1 };
+
 // Cada selección tiene 20 estampas. Las tipo se derivan: 1=Escudo, 13=Equipo, resto=Jugador.
 function getStampType(code, num) {
+  if (code === '00') return 'Legendaria';
   if (code === 'FWC' || code === 'CC') return 'Especial';
   if (num === 1) return 'Escudo';
   if (num === 13) return 'Equipo';
@@ -866,7 +1009,9 @@ function getStampType(code, num) {
 }
 
 function totalStamps() {
-  return TEAMS.length * 20 + SPECIAL_SECTIONS.reduce((s, x) => s + x.stamps, 0);
+  return TEAMS.length * 20
+       + SPECIAL_SECTIONS.reduce((s, x) => s + x.stamps, 0)
+       + LEGENDARY_SECTION.stamps;
 }
 
 // ==================== ESTADO DEL USUARIO ====================
@@ -1016,10 +1161,11 @@ function renderTeamsAccordion() {
   const gf = document.getElementById('groupFilter').value;
   const container = document.getElementById('teamsAccordion');
 
-  // Arma lista combinada: selecciones + especiales
+  // Arma lista combinada: legendary primero, luego especiales, luego selecciones
   const items = [];
-  TEAMS.forEach(t => items.push({ kind: 'team', ...t, stamps: 20 }));
+  items.push({ kind: 'legendary', ...LEGENDARY_SECTION });
   SPECIAL_SECTIONS.forEach(s => items.push({ kind: 'special', ...s }));
+  TEAMS.forEach(t => items.push({ kind: 'team', ...t, stamps: 20 }));
 
   // Filtros
   const filtered = items.filter(item => {
@@ -1028,7 +1174,7 @@ function renderTeamsAccordion() {
       if (!hay.includes(search)) return false;
     }
     if (gf === 'all') return true;
-    if (gf === 'ESP') return item.kind === 'special';
+    if (gf === 'ESP') return item.kind === 'special' || item.kind === 'legendary';
     if (gf === 'faltan') {
       const p = getTeamProgress(item.code, item.stamps);
       return p.pegadas < p.total;
@@ -1045,19 +1191,24 @@ function renderTeamsAccordion() {
 }
 
 function renderTeamSection(item) {
+  const isLegendary = item.kind === 'legendary';
   const isSpecial = item.kind === 'special';
   const { pegadas, repetidas, total } = getTeamProgress(item.code, item.stamps);
   const pct = Math.round((pegadas / total) * 100);
   const complete = pegadas === total;
-  const isOpen = !!openState[item.code];
+  // La legendary siempre va abierta, las demás respetan su estado
+  const isOpen = isLegendary ? true : !!openState[item.code];
 
-  const flagHTML = isSpecial
+  const flagHTML = (isSpecial || isLegendary)
     ? `<span class="team-flag emoji">${item.emoji}</span>`
     : `<img class="team-flag" src="https://flagcdn.com/w80/${item.flag}.png" alt="${item.name}" loading="lazy">`;
 
-  const sub = isSpecial ? `${item.stamps} estampas especiales` : `Grupo ${item.group} · ${item.code}`;
+  let sub;
+  if (isLegendary) sub = 'La estampa más especial del álbum';
+  else if (isSpecial) sub = `${item.stamps} estampas especiales`;
+  else sub = `Grupo ${item.group} · ${item.code}`;
 
-  const linkHTML = (!isSpecial && item.slug)
+  const linkHTML = (!isSpecial && !isLegendary && item.slug)
     ? `<div class="team-link-row"><a class="team-link" href="/${item.slug}/">Ver detalles de ${item.name} →</a></div>`
     : '';
 
@@ -1065,7 +1216,7 @@ function renderTeamSection(item) {
   if (isOpen) {
     const cards = [];
     for (let i = 1; i <= item.stamps; i++) {
-      cards.push(renderStampCard(item.code, i, isSpecial));
+      cards.push(renderStampCard(item.code, i, isSpecial, isLegendary));
     }
     stampsHTML = `<div class="stamps-body">
       ${linkHTML}
@@ -1073,8 +1224,23 @@ function renderTeamSection(item) {
     </div>`;
   }
 
-  return `<div class="team-section ${isOpen?'open':''}" data-code="${item.code}">
-    <div class="team-header ${complete?'complete':''}" onclick="toggleSection('${item.code}')">
+  // Para legendary NO queremos el onclick de toggle
+  const headerClick = isLegendary ? '' : `onclick="toggleSection('${item.code}')"`;
+  const sectionClasses = ['team-section'];
+  if (isOpen) sectionClasses.push('open');
+  if (isLegendary) sectionClasses.push('legendary');
+
+  // Para legendary no mostramos "1/1" — la progresión es binaria (tengo/no tengo)
+  const progressText = isLegendary
+    ? `<span class="${complete?'done':''}">${complete ? '✓ La tienes' : 'Por conseguir'}</span>${repetidas>0?` · <span style="color:var(--green)">+${repetidas}</span>`:''}`
+    : `<span class="${complete?'done':''}">${pegadas}/${total}</span>${repetidas>0?` · <span style="color:var(--green)">+${repetidas}</span>`:''}`;
+
+  const miniBar = isLegendary
+    ? ''
+    : `<div class="team-progress-mini"><div class="team-progress-mini-fill" style="width:${pct}%"></div></div>`;
+
+  return `<div class="${sectionClasses.join(' ')}" data-code="${item.code}">
+    <div class="team-header ${complete?'complete':''}" ${headerClick}>
       <span class="team-caret">▶</span>
       ${flagHTML}
       <div class="team-title">
@@ -1082,15 +1248,15 @@ function renderTeamSection(item) {
         <div class="team-sub">${sub}</div>
       </div>
       <div class="team-progress-wrap">
-        <div class="team-progress-text"><span class="${complete?'done':''}">${pegadas}/${total}</span>${repetidas>0?` · <span style="color:var(--green)">+${repetidas}</span>`:''}</div>
-        <div class="team-progress-mini"><div class="team-progress-mini-fill" style="width:${pct}%"></div></div>
+        <div class="team-progress-text">${progressText}</div>
+        ${miniBar}
       </div>
     </div>
     ${stampsHTML}
   </div>`;
 }
 
-function renderStampCard(code, num, isSpecial) {
+function renderStampCard(code, num, isSpecial, isLegendary) {
   const id = code + '-' + num;
   const val = getStamp(id);
   const owned = val >= 1;
@@ -1099,12 +1265,18 @@ function renderStampCard(code, num, isSpecial) {
   const type = getStampType(code, num);
 
   const classes = ['stamp'];
+  if (isLegendary) classes.push('legendary');
   if (owned) classes.push('owned');
   if (hasDupes) classes.push('has-dupes');
 
+  // La estampa legendary muestra solo "00" en grande, sin "· num"
+  const idHTML = isLegendary
+    ? `<div class="stamp-id">00</div>`
+    : `<div class="stamp-id"><span class="code">${code}</span> · ${num}</div>`;
+
   return `<div class="${classes.join(' ')}" id="s_${id}">
     <div class="stamp-type">${type}</div>
-    <div class="stamp-id"><span class="code">${code}</span> · ${num}</div>
+    ${idHTML}
     <button class="stamp-toggle" onclick="toggleOwned('${id}')">
       ${owned ? '✓ Tengo' : '+ Marcar como mía'}
     </button>
@@ -1126,6 +1298,7 @@ function toggleSection(code) {
 let _allOpen = false;
 function toggleAllSections() {
   _allOpen = !_allOpen;
+  // La legendary siempre está abierta; el resto respeta el toggle global
   const allItems = [...TEAMS, ...SPECIAL_SECTIONS];
   allItems.forEach(i => openState[i.code] = _allOpen);
   renderTeamsAccordion();
@@ -1157,17 +1330,21 @@ function updateStampCard(id) {
   if (!el) return;
   const [code, numStr] = id.split('-');
   const num = parseInt(numStr);
+  const isLegendary = code === LEGENDARY_SECTION.code;
   const isSpecial = SPECIAL_SECTIONS.some(s => s.code === code);
-  el.outerHTML = renderStampCard(code, num, isSpecial);
+  el.outerHTML = renderStampCard(code, num, isSpecial, isLegendary);
 }
 
 function updateTeamHeader(code) {
   // Re-render del progreso del equipo sin colapsar la sección
   const section = document.querySelector(`.team-section[data-code="${code}"]`);
   if (!section) return;
-  const item = TEAMS.find(t => t.code === code) || SPECIAL_SECTIONS.find(s => s.code === code);
+  const isLegendary = code === LEGENDARY_SECTION.code;
+  const item = isLegendary
+    ? LEGENDARY_SECTION
+    : (TEAMS.find(t => t.code === code) || SPECIAL_SECTIONS.find(s => s.code === code));
   if (!item) return;
-  const count = item.kind === 'special' || SPECIAL_SECTIONS.some(s=>s.code===code) ? (item.stamps || 20) : 20;
+  const count = item.stamps || 20;
   const { pegadas, repetidas, total } = getTeamProgress(code, count);
   const pct = Math.round((pegadas / total) * 100);
   const complete = pegadas === total;
@@ -1175,8 +1352,12 @@ function updateTeamHeader(code) {
   const text = section.querySelector('.team-progress-text');
   const fill = section.querySelector('.team-progress-mini-fill');
   if (complete) header.classList.add('complete'); else header.classList.remove('complete');
-  text.innerHTML = `<span class="${complete?'done':''}">${pegadas}/${total}</span>${repetidas>0?` · <span style="color:var(--green)">+${repetidas}</span>`:''}`;
-  fill.style.width = pct + '%';
+  if (isLegendary) {
+    text.innerHTML = `<span class="${complete?'done':''}">${complete ? '✓ La tienes' : 'Por conseguir'}</span>${repetidas>0?` · <span style="color:var(--green)">+${repetidas}</span>`:''}`;
+  } else {
+    text.innerHTML = `<span class="${complete?'done':''}">${pegadas}/${total}</span>${repetidas>0?` · <span style="color:var(--green)">+${repetidas}</span>`:''}`;
+  }
+  if (fill) fill.style.width = pct + '%';
 }
 
 function updateGlobalProgress() {
@@ -1210,8 +1391,10 @@ function buildFaltanData() {
     }
   };
 
-  TEAMS.forEach(t => addItem(t, 20));
+  // Orden: 00 → FWC/CC → Selecciones
+  addItem(LEGENDARY_SECTION, LEGENDARY_SECTION.stamps);
   SPECIAL_SECTIONS.forEach(s => addItem(s, s.stamps));
+  TEAMS.forEach(t => addItem(t, 20));
 
   return { groups, totalMissing };
 }
@@ -1230,18 +1413,23 @@ function renderFaltanTab() {
     &nbsp;·&nbsp;Toca una estampa para marcarla como tuya
   </div>` +
   data.groups.map(g => {
-    const isSpecial = g.group === 'ESP';
-    const flagHTML = isSpecial
+    const isLegendary = g.code === LEGENDARY_SECTION.code;
+    const isSpecial = g.group === 'ESP' && !isLegendary;
+    const flagHTML = (isSpecial || isLegendary)
       ? `<span class="team-flag emoji" style="font-size:18px">${g.emoji}</span>`
       : `<img class="team-flag" src="https://flagcdn.com/w40/${g.flag}.png" alt="">`;
-    return `<div class="faltan-team-block">
+    const blockClass = isLegendary ? 'faltan-team-block legendary-block' : 'faltan-team-block';
+    return `<div class="${blockClass}">
       <div class="faltan-team-head">
         ${flagHTML}
         <span class="name">${g.name}</span>
-        <span class="count">${g.missing.length}/${g.count}</span>
+        <span class="count">${isLegendary ? '' : (g.missing.length+'/'+g.count)}</span>
       </div>
       <div class="faltan-chips">
-        ${g.missing.map(n => `<span class="faltan-chip" onclick="quickMarkOwned('${g.code}-${n}')">${g.code} ${n}<span class="t">${getStampType(g.code, n)}</span></span>`).join('')}
+        ${g.missing.map(n => {
+          const label = isLegendary ? '00' : (g.code + ' ' + n);
+          return `<span class="faltan-chip ${isLegendary?'legendary-chip':''}" onclick="quickMarkOwned('${g.code}-${n}')">${label}<span class="t">${getStampType(g.code, n)}</span></span>`;
+        }).join('')}
       </div>
     </div>`;
   }).join('');
@@ -1271,8 +1459,10 @@ function renderRepetidasTab() {
     }
   };
 
-  TEAMS.forEach(t => collect(t, 20));
+  // Orden: 00 → FWC/CC → Selecciones
+  collect(LEGENDARY_SECTION, LEGENDARY_SECTION.stamps);
   SPECIAL_SECTIONS.forEach(s => collect(s, s.stamps));
+  TEAMS.forEach(t => collect(t, 20));
 
   const c = document.getElementById('repetidasContainer');
   if (totalReps === 0) {
@@ -1286,8 +1476,9 @@ function renderRepetidasTab() {
     &nbsp;·&nbsp;Lista para intercambios
   </div>` +
   groups.map(g => {
-    const isSpecial = g.group === 'ESP';
-    const flagHTML = isSpecial
+    const isLegendary = g.code === LEGENDARY_SECTION.code;
+    const isSpecial = g.group === 'ESP' && !isLegendary;
+    const flagHTML = (isSpecial || isLegendary)
       ? `<span class="team-flag emoji" style="font-size:18px">${g.emoji}</span>`
       : `<img class="team-flag" src="https://flagcdn.com/w40/${g.flag}.png" alt="">`;
     const groupReps = g.reps.reduce((s,r) => s + r.dupes, 0);
@@ -1298,7 +1489,10 @@ function renderRepetidasTab() {
         <span class="count" style="color:var(--green);font-family:'Bebas Neue',cursive;font-size:17px;letter-spacing:1px">${groupReps} repetidas</span>
       </div>
       <div class="reps-list">
-        ${g.reps.map(r => `<span class="reps-chip">${g.code} ${r.num} <span class="mult">×${r.dupes}</span></span>`).join('')}
+        ${g.reps.map(r => {
+          const label = isLegendary ? '00' : (g.code + ' ' + r.num);
+          return `<span class="reps-chip">${label} <span class="mult">×${r.dupes}</span></span>`;
+        }).join('')}
       </div>
     </div>`;
   }).join('');
