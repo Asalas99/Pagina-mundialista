@@ -228,6 +228,13 @@
     border: 1px solid rgba(201,168,76,0.25);
   }
   .btn-copy:hover { background: rgba(201,168,76,0.22); }
+  .btn-copy-reps {
+    background: rgba(20,184,166,0.14);
+    color: #2dd4bf;
+    border: 1px solid rgba(20,184,166,0.32);
+  }
+  .btn-copy-reps:hover { background: rgba(20,184,166,0.24); }
+  body.light .btn-copy-reps { color: #0d9488; }
   .btn-clear-all {
     background: rgba(232,69,69,0.12);
     color: #e84545;
@@ -876,17 +883,17 @@
 
 <div class="main">
 
-  <!-- SAVE / SHARE BAR -->
-  <div class="save-bar">
-    <span class="save-bar-title">💾 Tu álbum</span>
-    <button class="btn-action btn-save" onclick="saveAlbum()">💾 Guardar</button>
-    <button class="btn-action btn-share" onclick="shareAlbum()">🔗 Compartir link</button>
-    <button class="btn-action btn-copy" onclick="copyFaltantes()">📋 Copiar faltantes</button>
-    <button class="btn-action btn-clear-all" onclick="clearAlbum()">🗑 Limpiar todo</button>
-  </div>
-
   <!-- ==================== TAB: MI ALBUM ==================== -->
   <div class="tab-content active" id="tab-mialbum">
+    <div class="save-bar">
+      <span class="save-bar-title">💾 Tu álbum</span>
+      <button class="btn-action btn-save" onclick="saveAlbum()">💾 Guardar</button>
+      <button class="btn-action btn-share" onclick="shareAlbum()">🔗 Compartir link</button>
+      <button class="btn-action btn-copy" onclick="copyFaltantes()">📋 Copiar faltantes</button>
+      <button class="btn-action btn-copy-reps" onclick="copyRepetidas()">🔁 Copiar repetidas</button>
+      <button class="btn-action btn-clear-all" onclick="clearAlbum()">🗑 Limpiar todo</button>
+    </div>
+
     <div class="filter-row">
       <input type="search" id="teamSearch" placeholder="🔎 Buscar selección..." oninput="renderTeamsAccordion()">
       <select id="groupFilter" onchange="renderTeamsAccordion()">
@@ -913,11 +920,25 @@
 
   <!-- ==================== TAB: FALTAN ==================== -->
   <div class="tab-content" id="tab-faltan">
+    <div class="save-bar">
+      <span class="save-bar-title">🔍 Tus faltantes</span>
+      <button class="btn-action btn-save" onclick="saveAlbum()">💾 Guardar</button>
+      <button class="btn-action btn-share" onclick="shareAlbum()">🔗 Compartir link</button>
+      <button class="btn-action btn-copy" onclick="copyFaltantes()">📋 Copiar faltantes</button>
+      <button class="btn-action btn-clear-all" onclick="clearAlbum()">🗑 Limpiar todo</button>
+    </div>
     <div id="faltanContainer"></div>
   </div>
 
   <!-- ==================== TAB: REPETIDAS ==================== -->
   <div class="tab-content" id="tab-repetidas">
+    <div class="save-bar">
+      <span class="save-bar-title">🔁 Tus repetidas</span>
+      <button class="btn-action btn-save" onclick="saveAlbum()">💾 Guardar</button>
+      <button class="btn-action btn-share" onclick="shareAlbum()">🔗 Compartir link</button>
+      <button class="btn-action btn-copy-reps" onclick="copyRepetidas()">🔁 Copiar repetidas</button>
+      <button class="btn-action btn-clear-all" onclick="clearAlbum()">🗑 Limpiar todo</button>
+    </div>
     <div id="repetidasContainer"></div>
   </div>
 </div>
@@ -1088,11 +1109,53 @@ function copyFaltantes() {
   }
   let txt = `📖 Mi álbum Mundial 2026 — Me faltan ${faltan.totalMissing} estampas\n\n`;
   faltan.groups.forEach(g => {
-    txt += `${g.name} (${g.missing.length}): ${g.missing.join(', ')}\n`;
+    const isLegendary = g.code === LEGENDARY_SECTION.code;
+    const entries = g.missing.map(n => isLegendary ? '00' : n);
+    txt += `${g.name} (${g.missing.length}): ${entries.join(', ')}\n`;
   });
   txt += `\nTotal pegadas: ${totalStamps() - faltan.totalMissing}/${totalStamps()}`;
   txt += `\nhttps://www.gritamundial.com/album/`;
   copyToClipboard(txt, '📋 Lista de faltantes copiada');
+}
+
+function copyRepetidas() {
+  // Recopila todas las repetidas en el mismo orden que la pestaña (00 → FWC/CC → selecciones)
+  const groups = [];
+  let totalReps = 0;
+
+  const collect = (item, count) => {
+    const reps = [];
+    for (let i = 1; i <= count; i++) {
+      const v = getStamp(item.code + '-' + i);
+      if (v > 1) reps.push({ num: i, dupes: v - 1 });
+    }
+    if (reps.length > 0) {
+      groups.push({ ...item, reps });
+      totalReps += reps.reduce((s, r) => s + r.dupes, 0);
+    }
+  };
+
+  collect(LEGENDARY_SECTION, LEGENDARY_SECTION.stamps);
+  SPECIAL_SECTIONS.forEach(s => collect(s, s.stamps));
+  TEAMS.forEach(t => collect(t, 20));
+
+  if (totalReps === 0) {
+    showToast('😅 Aún no tienes repetidas registradas');
+    return;
+  }
+
+  let txt = `🔁 Mis repetidas del Álbum Mundial 2026 — ${totalReps} para intercambiar\n\n`;
+  groups.forEach(g => {
+    const isLegendary = g.code === LEGENDARY_SECTION.code;
+    const entries = g.reps.map(r => {
+      const label = isLegendary ? '00' : `${g.code} ${r.num}`;
+      return r.dupes > 1 ? `${label} ×${r.dupes}` : label;
+    });
+    txt += `${g.name}: ${entries.join(', ')}\n`;
+  });
+  txt += `\n¿Intercambiamos? 🤝`;
+  txt += `\nhttps://www.gritamundial.com/album/`;
+  copyToClipboard(txt, '📋 Lista de repetidas copiada');
 }
 
 function copyToClipboard(text, successMsg) {
