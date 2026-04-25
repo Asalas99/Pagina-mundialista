@@ -734,7 +734,18 @@
     background: rgba(201,168,76,0.14);
     padding: 2px 10px;
     border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s, color 0.15s;
   }
+  .sync-status .code-chip:hover {
+    background: rgba(201,168,76,0.30);
+  }
+  .sync-status .code-chip.revealed {
+    background: rgba(201,168,76,0.34);
+    color: #fff;
+  }
+  body.light .sync-status .code-chip.revealed { color: var(--accent2); }
   body.light .sync-status.active { color: #2563eb; }
 
   /* ==================== SYNC MODAL ==================== */
@@ -1655,19 +1666,33 @@ async function pullFromSync({ silent = false } = {}) {
 }
 
 // ==================== UI: Pill y Modal ====================
+const MASKED_CODE = '***-***';
+let _codeRevealed = false;
+
 function setSyncStatusUI(state) {
   const pill = document.getElementById('syncStatus');
   if (!pill) return;
   pill.classList.remove('active', 'syncing');
   if (state === 'active' && syncCode) {
     pill.classList.add('active');
-    pill.innerHTML = `<span>☁️ Sincronizado</span><span class="code-chip">${syncCode}</span>`;
+    // El código va enmascarado por defecto. Click en el chip → revela. Click fuera del chip → abre modal.
+    const display = _codeRevealed ? syncCode : MASKED_CODE;
+    const revealedClass = _codeRevealed ? 'revealed' : '';
+    const tooltip = _codeRevealed ? 'Ocultar código' : 'Mostrar código';
+    pill.innerHTML = `<span>☁️ Sincronizado</span><span class="code-chip ${revealedClass}" id="codeChip" onclick="toggleCodeReveal(event)" title="${tooltip}">${display}</span>`;
   } else if (state === 'syncing') {
     pill.classList.add('syncing');
     pill.innerHTML = `<span>☁️ Sincronizando...</span>`;
   } else {
     pill.innerHTML = `<span>☁️ Sincronizar entre dispositivos</span>`;
   }
+}
+
+// Toggle visibilidad del código en la pill (sin abrir el modal)
+function toggleCodeReveal(ev) {
+  if (ev) ev.stopPropagation();
+  _codeRevealed = !_codeRevealed;
+  setSyncStatusUI('active');
 }
 
 function openSyncModal() {
@@ -2102,8 +2127,32 @@ function renderFaltanTab() {
 }
 
 function quickMarkOwned(id) {
+  const [code, numStr] = id.split('-');
+  const num = parseInt(numStr);
+  const isLegendary = code === LEGENDARY_SECTION.code;
+  const label = isLegendary ? 'la estampa 00' : `la estampa ${code} ${num}`;
+  const type = getStampType(code, num);
+
+  // Conseguir el nombre de la sección (selección, especial o legendary)
+  let itemName;
+  if (isLegendary) itemName = LEGENDARY_SECTION.name;
+  else {
+    const sp = SPECIAL_SECTIONS.find(s => s.code === code);
+    if (sp) itemName = sp.name;
+    else {
+      const t = TEAMS.find(t => t.code === code);
+      itemName = t ? t.name : code;
+    }
+  }
+
+  const confirmMsg = isLegendary
+    ? `¿Agregar a tu álbum ${label} (${type})?`
+    : `¿Agregar a tu álbum ${label} (${type} · ${itemName})?`;
+
+  if (!confirm(confirmMsg)) return;
+
   setStamp(id, 1);
-  showToast('✓ Agregada a tu álbum: ' + id.replace('-',' '));
+  showToast('✓ Agregada: ' + (isLegendary ? '00' : `${code} ${num}`));
   renderFaltanTab();
   updateGlobalProgress();
 }
