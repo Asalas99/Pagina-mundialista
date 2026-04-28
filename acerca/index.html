@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Acerca de | Grita Mundial</title>
+<meta name="description" content="Conoce a Grita Mundial: el proyecto independiente que cubre todo sobre la Copa Mundial FIFA 2026, desde calendarios hasta historia mundialista.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Acerca de · Grita Mundial">
+<meta property="og:description" content="Conoce el proyecto detrás de Grita Mundial.">
+<meta property="og:url" content="https://www.gritamundial.com/acerca/">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/shared.css">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VS3ET16XXD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VS3ET16XXD');
+</script>
+<style>
+  .legal-hero {
+    background: linear-gradient(135deg, #06090f 0%, #0a1628 50%, #06090f 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 56px 24px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .legal-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.10) 0%, transparent 60%),
+                radial-gradient(ellipse at 75% 50%, rgba(201,168,76,0.05) 0%, transparent 55%);
+  }
+  body.light .legal-hero {
+    background: linear-gradient(135deg, #dde6f0, #c8d8ec 50%, #dde6f0);
+  }
+  .legal-hero-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .hero-trophy {
+    font-size: 72px;
+    filter: drop-shadow(0 0 24px rgba(201,168,76,0.5));
+    line-height: 1;
+  }
+  .legal-hero-text { flex: 1; min-width: 280px; }
+  .legal-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .legal-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(40px, 6.5vw, 68px);
+    letter-spacing: 2px;
+    line-height: 1;
+    color: var(--text);
+  }
+  .legal-title span { color: var(--accent); }
+  .legal-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    color: var(--muted);
+    margin-top: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  .legal-main {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  .about-lead {
+    font-family: 'Barlow', sans-serif;
+    font-size: 19px;
+    line-height: 1.65;
+    color: var(--text);
+    margin-bottom: 36px;
+    padding: 24px 26px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 12px;
+  }
+  .about-lead strong { color: var(--accent2); }
+
+  .about-section { margin-bottom: 40px; }
+  .about-section h2 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .about-section h2::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .about-section p {
+    font-size: 15.5px;
+    line-height: 1.75;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .about-section p strong { color: var(--text); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .feature-card:hover { border-color: rgba(201,168,76,0.3); transform: translateY(-2px); }
+  .feature-icon {
+    font-size: 28px;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .feature-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .feature-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--muted);
+  }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin: 18px 0 26px;
+  }
+  .stat-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 38px;
+    color: var(--accent2);
+    line-height: 1;
+  }
+  .stat-lbl {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .principles-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  .principle-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .principle-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .principle-text {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .principle-text strong {
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .contact-cta {
+    background: linear-gradient(135deg, rgba(201,168,76,0.10), rgba(201,168,76,0.04));
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 14px;
+    padding: 28px 28px;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .contact-cta h3 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .contact-cta p {
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 18px;
+  }
+  .contact-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: #1a1410;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 11px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .contact-btn:hover { background: var(--accent2); }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-logo">Grita <span>Mundial</span> 🏆</a>
+    <a href="/" class="back-btn">← Volver al inicio</a>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+  </div>
+</header>
+
+<div class="legal-hero">
+  <div class="legal-hero-inner">
+    <div class="hero-trophy">🏆</div>
+    <div class="legal-hero-text">
+      <div class="legal-eyebrow">Acerca de nosotros</div>
+      <h1 class="legal-title">Grita <span>Mundial</span></h1>
+      <div class="legal-subtitle">El Mundial 2026 contado en español, sin filtros.</div>
+    </div>
+  </div>
+</div>
+
+<main class="legal-main">
+
+  <div class="about-lead">
+    <strong>Grita Mundial</strong> es un proyecto independiente nacido en México con una idea simple: hacer la guía más completa, rápida y honesta de la <strong>Copa Mundial FIFA 2026</strong> en español. Sin clickbait, sin pop-ups intrusivos y con respeto por tu tiempo.
+  </div>
+
+  <section class="about-section">
+    <h2>📖 Nuestra historia</h2>
+    <p>Llevamos décadas viendo Mundiales con la familia. Y en cada edición pasa lo mismo: te pierdes entre <strong>quince pestañas abiertas</strong> intentando encontrar el horario en tu zona, qué canal lo transmite, en qué grupo va tu selección y dónde queda ese estadio del que nadie había escuchado.</p>
+    <p>Grita Mundial nace para resolver eso. Una sola página por selección con todo lo importante. Calendarios claros. Horarios en cuatro zonas (México, Argentina, España, EEUU). Datos verificados. Y una quiniela divertida para competir con tus amigos.</p>
+    <p>Para el Mundial 2026 —el más grande de la historia, con <strong>48 selecciones y tres países anfitriones</strong>— era hora de hacerlo bien.</p>
+  </section>
+
+  <section class="about-section">
+    <h2>🎯 Qué encontrarás aquí</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">📅</span>
+        <div class="feature-title">Calendario completo</div>
+        <div class="feature-desc">Los 104 partidos del Mundial 2026 con horarios en tu zona.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🌍</span>
+        <div class="feature-title">48 selecciones</div>
+        <div class="feature-desc">Una página por país: jugadores, historia, grupo y estadísticas.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🎯</span>
+        <div class="feature-title">Quiniela gratis</div>
+        <div class="feature-desc">Predice todos los partidos y compite por el ranking.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">🏟️</span>
+        <div class="feature-title">Sedes y estadios</div>
+        <div class="feature-desc">Los 16 estadios anfitriones en México, EEUU y Canadá.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">📊</span>
+        <div class="feature-title">Ranking FIFA actualizado</div>
+        <div class="feature-desc">Datos oficiales del ranking más reciente.</div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-icon">⏱</span>
+        <div class="feature-title">Cuenta regresiva en vivo</div>
+        <div class="feature-desc">El debut de cada selección al segundo.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <h2>📐 El Mundial 2026 en números</h2>
+    <div class="stats-row">
+      <div class="stat-box"><div class="stat-num">48</div><div class="stat-lbl">selecciones</div></div>
+      <div class="stat-box"><div class="stat-num">104</div><div class="stat-lbl">partidos</div></div>
+      <div class="stat-box"><div class="stat-num">16</div><div class="stat-lbl">sedes</div></div>
+      <div class="stat-box"><div class="stat-num">3</div><div class="stat-lbl">países anfitriones</div></div>
+      <div class="stat-box"><div class="stat-num">39</div><div class="stat-lbl">días de torneo</div></div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <h2>⚖️ Nuestros principios</h2>
+    <div class="principles-list">
+      <div class="principle-item">
+        <span class="principle-icon">🎯</span>
+        <div class="principle-text">
+          <strong>Información antes que ruido</strong>
+          Datos verificados, citamos fuentes oficiales (FIFA, federaciones) y corregimos cuando nos equivocamos.
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-icon">🚫</span>
+        <div class="principle-text">
+          <strong>Sin pop-ups invasivos</strong>
+          Mostramos publicidad, sí, pero respetamos tu lectura. Nada de pop-unders, redirecciones ni anuncios disfrazados.
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-icon">🌐</span>
+        <div class="principle-text">
+          <strong>Independencia editorial</strong>
+          No tenemos vínculos con la FIFA ni con federaciones. La cobertura no se compra ni se condiciona por anunciantes.
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-icon">⚡</span>
+        <div class="principle-text">
+          <strong>Rápido y accesible</strong>
+          Sitio ligero, funciona en celulares modestos y se puede leer en metro, oficina o sofá sin pelear con la conexión.
+        </div>
+      </div>
+      <div class="principle-item">
+        <span class="principle-icon">🔒</span>
+        <div class="principle-text">
+          <strong>Tus datos son tuyos</strong>
+          La quiniela y tus equipos guardados viven en tu navegador, no en nuestros servidores. No vendemos información personal.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <h2>💰 Cómo se sostiene el proyecto</h2>
+    <p>Grita Mundial es un proyecto independiente sin financiamiento externo. Para mantener el sitio en línea (servidores, dominio, tiempo de desarrollo) usamos tres fuentes:</p>
+    <p><strong>Publicidad respetuosa</strong> servida por Google AdSense, integrada al diseño y nunca a costa de la experiencia. <strong>Enlaces de afiliados</strong> claramente identificados, donde podemos ganar una pequeña comisión si compras o te registras en algún servicio recomendado, sin costo extra para ti. Y <strong>colaboraciones puntuales</strong> con marcas afines, siempre etiquetadas como contenido patrocinado.</p>
+    <p>Todo esto está detallado en nuestros <a href="/terminos/" style="color:var(--accent2);text-decoration:underline">Términos y Condiciones</a> y nuestro <a href="/privacidad/" style="color:var(--accent2);text-decoration:underline">Aviso de Privacidad</a>.</p>
+  </section>
+
+  <section class="about-section">
+    <h2>📬 Contacto</h2>
+    <div class="contact-cta">
+      <h3>Hablemos</h3>
+      <p>¿Encontraste un error? ¿Quieres colaborar? ¿Eres una marca que quiere anunciarse?<br>Estamos a un correo de distancia.</p>
+      <a href="mailto:contacto@gritamundial.com" class="contact-btn">contacto@gritamundial.com</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo">Grita <span>Mundial</span> 🏆</a>
+      <p class="footer-tagline">Tu guía no oficial de la Copa Mundial FIFA 2026.</p>
+    </div>
+    <nav class="footer-nav">
+      <div class="footer-nav-col">
+        <div class="footer-nav-title">Mundial 2026</div>
+        <a href="/">Inicio</a>
+        <a href="/#partidos">Partidos</a>
+        <a href="/#grupos">Grupos</a>
+        <a href="/#predicciones">Predicciones</a>
+      </div>
+      <div class="footer-nav-col">
+        <div class="footer-nav-title">Legal</div>
+        <a href="/acerca/">Acerca de</a>
+        <a href="/privacidad/">Privacidad</a>
+        <a href="/terminos/">Términos</a>
+        <a href="mailto:contacto@gritamundial.com">Contacto</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Grita Mundial · Sitio independiente sin afiliación oficial con la FIFA.</span>
+  </div>
+</footer>
+
+<script src="../assets/shared.js"></script>
+<script>
+  function toggleTheme() {
+    document.body.classList.toggle('light');
+    const isLight = document.body.classList.contains('light');
+    localStorage.setItem('gm_theme', isLight ? 'light' : 'dark');
+    document.getElementById('themeToggle').textContent = isLight ? '☀️' : '🌙';
+  }
+  (function initTheme() {
+    const saved = localStorage.getItem('gm_theme');
+    if (saved === 'light') {
+      document.body.classList.add('light');
+      document.getElementById('themeToggle').textContent = '☀️';
+    }
+  })();
+</script>
+
+</body>
+</html>

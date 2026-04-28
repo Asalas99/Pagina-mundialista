@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aviso de Privacidad | Grita Mundial</title>
+<meta name="description" content="Aviso de Privacidad de Grita Mundial. Conoce cómo manejamos tus datos, cookies y servicios de terceros como Google Analytics y Google AdSense.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Aviso de Privacidad · Grita Mundial">
+<meta property="og:description" content="Cómo manejamos tus datos en Grita Mundial.">
+<meta property="og:url" content="https://www.gritamundial.com/privacidad/">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏆</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/shared.css">
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VS3ET16XXD"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-VS3ET16XXD');
+</script>
+<style>
+  .legal-hero {
+    background: linear-gradient(135deg, #06090f 0%, #0a1628 50%, #06090f 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 48px 24px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .legal-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.07) 0%, transparent 70%);
+  }
+  body.light .legal-hero {
+    background: linear-gradient(135deg, #dde6f0, #c8d8ec 50%, #dde6f0);
+  }
+  .legal-hero-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    position: relative;
+  }
+  .legal-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .legal-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: clamp(38px, 6vw, 62px);
+    letter-spacing: 2px;
+    line-height: 1;
+    color: var(--text);
+  }
+  .legal-title span { color: var(--accent); }
+  .legal-updated {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 14px;
+    letter-spacing: 1px;
+  }
+
+  .legal-main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+  .legal-intro {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
+    padding: 20px 22px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--muted);
+    margin-bottom: 36px;
+  }
+  .legal-intro strong { color: var(--text); }
+
+  .legal-section { margin-bottom: 36px; }
+  .legal-section h2 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 26px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .legal-section h2::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .legal-section h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin: 18px 0 8px;
+  }
+
+  .legal-section p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .legal-section p strong { color: var(--text); }
+
+  .legal-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 14px;
+  }
+  .legal-section ul li {
+    position: relative;
+    padding: 8px 0 8px 24px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--muted);
+    border-bottom: 1px solid rgba(30,45,66,0.4);
+  }
+  .legal-section ul li:last-child { border-bottom: none; }
+  .legal-section ul li::before {
+    content: '▸';
+    position: absolute;
+    left: 4px;
+    top: 8px;
+    color: var(--accent);
+  }
+  .legal-section ul li strong { color: var(--text); }
+
+  .legal-section a {
+    color: var(--accent2);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(232,196,106,0.3);
+    transition: border-color 0.2s;
+  }
+  .legal-section a:hover { border-bottom-color: var(--accent2); }
+
+  .legal-callout {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .legal-callout strong { color: var(--accent); }
+
+  .legal-contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-top: 24px;
+  }
+  .legal-contact-card h3 {
+    margin-top: 0;
+    color: var(--accent);
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="/" class="site-logo">Grita <span>Mundial</span> 🏆</a>
+    <a href="/" class="back-btn">← Volver al inicio</a>
+    <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+  </div>
+</header>
+
+<div class="legal-hero">
+  <div class="legal-hero-inner">
+    <div class="legal-eyebrow">Documento legal</div>
+    <h1 class="legal-title">Aviso de <span>Privacidad</span></h1>
+    <div class="legal-updated">Última actualización: 27 de abril de 2026</div>
+  </div>
+</div>
+
+<main class="legal-main">
+
+  <div class="legal-intro">
+    En <strong>Grita Mundial</strong> nos tomamos en serio tu privacidad. Este aviso explica qué información recopilamos cuando visitas <strong>gritamundial.com</strong>, cómo la usamos y qué derechos tienes sobre ella. Si tienes dudas, escríbenos a <strong>contacto@gritamundial.com</strong>.
+  </div>
+
+  <section class="legal-section">
+    <h2>1. Quiénes somos</h2>
+    <p>Grita Mundial es un sitio web informativo dedicado a la cobertura de la Copa Mundial FIFA 2026, operado por un equipo independiente desde México. No tenemos vínculo oficial con la FIFA ni con las federaciones de fútbol mencionadas en el sitio.</p>
+    <p><strong>Responsable del tratamiento de datos:</strong> el operador de gritamundial.com.<br>
+    <strong>Contacto para temas de privacidad:</strong> contacto@gritamundial.com</p>
+  </section>
+
+  <section class="legal-section">
+    <h2>2. Qué información recopilamos</h2>
+    <p>No te pedimos crear una cuenta ni nos das datos personales directamente para usar el sitio. La información que recopilamos es la siguiente:</p>
+
+    <h3>Datos de navegación (automáticos)</h3>
+    <ul>
+      <li>Dirección IP aproximada y país de origen</li>
+      <li>Tipo de dispositivo, sistema operativo y navegador</li>
+      <li>Páginas que visitas, tiempo de permanencia y cómo llegaste al sitio</li>
+      <li>Idioma del navegador y zona horaria</li>
+    </ul>
+
+    <h3>Datos guardados localmente en tu dispositivo</h3>
+    <p>Algunas funciones del sitio (como la quiniela de predicciones, equipos guardados o el modo claro/oscuro) usan <strong>localStorage</strong> de tu navegador. Estos datos viven únicamente en tu dispositivo, no se envían a nuestros servidores y puedes borrarlos cuando quieras desde la configuración del navegador.</p>
+  </section>
+
+  <section class="legal-section">
+    <h2>3. Cookies y tecnologías similares</h2>
+    <p>Usamos cookies propias y de terceros para hacer funcionar el sitio, medir audiencia y mostrar anuncios. Puedes desactivarlas en la configuración de tu navegador, aunque algunas funciones podrían dejar de operar correctamente.</p>
+
+    <h3>Cookies de análisis (Google Analytics 4)</h3>
+    <p>Usamos <strong>Google Analytics</strong> para entender cómo se navega el sitio (páginas más visitadas, dispositivos, tiempo de sesión). Google Analytics utiliza cookies para identificar visitantes únicos de forma anónima. Puedes consultar la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">política de privacidad de Google</a>.</p>
+    <p>Si quieres bloquear Google Analytics específicamente, puedes instalar el <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">complemento oficial de inhabilitación</a>.</p>
+
+    <h3>Cookies publicitarias (Google AdSense y socios)</h3>
+    <p>Para sostener el sitio mostramos anuncios servidos por <strong>Google AdSense</strong> y otros socios publicitarios. Estos pueden usar cookies para mostrar anuncios más relevantes según tus intereses y limitar la frecuencia con la que ves un mismo anuncio.</p>
+    <ul>
+      <li>Google y sus socios usan cookies para servir anuncios basados en tus visitas previas a este sitio u otros sitios de internet.</li>
+      <li>El uso de la cookie publicitaria de Google permite que Google y sus socios muestren anuncios basados en tus visitas a este y otros sitios.</li>
+      <li>Puedes gestionar tus preferencias de anuncios personalizados en la <a href="https://adssettings.google.com" target="_blank" rel="noopener">Configuración de anuncios de Google</a>.</li>
+      <li>También puedes optar por no recibir anuncios personalizados de proveedores externos en <a href="https://www.aboutads.info" target="_blank" rel="noopener">www.aboutads.info</a>.</li>
+    </ul>
+
+    <h3>Otras cookies de terceros</h3>
+    <p>Algunas páginas pueden cargar contenido de servicios externos (banderas, fuentes de Google Fonts) que pueden establecer sus propias cookies bajo sus respectivas políticas.</p>
+  </section>
+
+  <section class="legal-section">
+    <h2>4. Para qué usamos tu información</h2>
+    <ul>
+      <li><strong>Operar el sitio:</strong> mostrar partidos, horarios, países y contenido relacionado con el Mundial.</li>
+      <li><strong>Mejorar la experiencia:</strong> analizar qué secciones funcionan, detectar errores y optimizar la velocidad.</li>
+      <li><strong>Sostener el proyecto:</strong> mostrar publicidad relevante mediante redes como Google AdSense.</li>
+      <li><strong>Cumplir obligaciones legales:</strong> responder a requerimientos de autoridades competentes cuando aplique.</li>
+    </ul>
+    <p><strong>No vendemos tus datos.</strong> No compartimos información personal con terceros para fines de marketing ajenos al sitio.</p>
+  </section>
+
+  <section class="legal-section">
+    <h2>5. Servicios de terceros que usamos</h2>
+    <ul>
+      <li><strong>Google Analytics 4</strong> — analítica de tráfico</li>
+      <li><strong>Google AdSense</strong> — publicidad</li>
+      <li><strong>Google Fonts</strong> — tipografías</li>
+      <li><strong>Flagcdn</strong> — banderas de países</li>
+    </ul>
+    <p>Cada uno de estos servicios tiene su propia política de privacidad que te recomendamos revisar.</p>
+  </section>
+
+  <section class="legal-section">
+    <h2>6. Tus derechos</h2>
+    <p>Como usuario tienes los siguientes derechos sobre tus datos:</p>
+    <ul>
+      <li><strong>Acceso:</strong> saber qué información tenemos sobre ti.</li>
+      <li><strong>Rectificación:</strong> corregir datos inexactos.</li>
+      <li><strong>Cancelación:</strong> solicitar la eliminación de tus datos.</li>
+      <li><strong>Oposición:</strong> oponerte a usos específicos de tu información.</li>
+      <li><strong>Portabilidad:</strong> recibir una copia de tus datos en formato estructurado.</li>
+    </ul>
+    <p>Para ejercer cualquiera de estos derechos, escríbenos a <strong>contacto@gritamundial.com</strong> con el asunto "Derechos ARCO". Responderemos dentro de un plazo razonable.</p>
+
+    <div class="legal-callout">
+      <strong>Si estás en México:</strong> puedes acudir al <strong>INAI</strong> (Instituto Nacional de Transparencia, Acceso a la Información y Protección de Datos Personales) si consideras que tus derechos no fueron atendidos correctamente.<br><br>
+      <strong>Si estás en la Unión Europea:</strong> tienes los derechos previstos por el <strong>RGPD</strong>, incluyendo presentar una queja ante la autoridad de protección de datos de tu país.
+    </div>
+  </section>
+
+  <section class="legal-section">
+    <h2>7. Menores de edad</h2>
+    <p>Grita Mundial no está dirigido a menores de 13 años y no recopila intencionalmente datos de menores. Si crees que un menor nos ha proporcionado información, contáctanos para eliminarla.</p>
+  </section>
+
+  <section class="legal-section">
+    <h2>8. Seguridad</h2>
+    <p>Aplicamos medidas técnicas razonables para proteger la información, incluyendo conexiones cifradas (HTTPS) y prácticas de desarrollo seguras. Sin embargo, ninguna transmisión por internet es 100% segura, así que no podemos garantizar seguridad absoluta.</p>
+  </section>
+
+  <section class="legal-section">
+    <h2>9. Cambios a este aviso</h2>
+    <p>Podemos actualizar este Aviso de Privacidad cuando sea necesario (cambios legales, nuevas funciones, nuevos socios). La fecha en la parte superior siempre reflejará la última actualización. Si los cambios son importantes, los anunciaremos de forma visible en el sitio.</p>
+  </section>
+
+  <section class="legal-section">
+    <h2>10. Contacto</h2>
+    <div class="legal-contact-card">
+      <h3>¿Dudas sobre tu privacidad?</h3>
+      <p style="margin: 0;">Escríbenos a <strong>contacto@gritamundial.com</strong> y te responderemos lo antes posible. Pon "Privacidad" en el asunto para que llegue al lugar correcto.</p>
+    </div>
+  </section>
+
+</main>
+
+<!-- ====================== FOOTER ====================== -->
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="footer-brand">
+      <a href="/" class="footer-logo">Grita <span>Mundial</span> 🏆</a>
+      <p class="footer-tagline">Tu guía no oficial de la Copa Mundial FIFA 2026.</p>
+    </div>
+    <nav class="footer-nav">
+      <div class="footer-nav-col">
+        <div class="footer-nav-title">Mundial 2026</div>
+        <a href="/">Inicio</a>
+        <a href="/#partidos">Partidos</a>
+        <a href="/#grupos">Grupos</a>
+        <a href="/#predicciones">Predicciones</a>
+      </div>
+      <div class="footer-nav-col">
+        <div class="footer-nav-title">Legal</div>
+        <a href="/acerca/">Acerca de</a>
+        <a href="/privacidad/">Privacidad</a>
+        <a href="/terminos/">Términos</a>
+        <a href="mailto:contacto@gritamundial.com">Contacto</a>
+      </div>
+    </nav>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Grita Mundial · Sitio independiente sin afiliación oficial con la FIFA.</span>
+  </div>
+</footer>
+
+<script src="../assets/shared.js"></script>
+<script>
+  // Tema (light/dark)
+  function toggleTheme() {
+    document.body.classList.toggle('light');
+    const isLight = document.body.classList.contains('light');
+    localStorage.setItem('gm_theme', isLight ? 'light' : 'dark');
+    document.getElementById('themeToggle').textContent = isLight ? '☀️' : '🌙';
+  }
+  (function initTheme() {
+    const saved = localStorage.getItem('gm_theme');
+    if (saved === 'light') {
+      document.body.classList.add('light');
+      document.getElementById('themeToggle').textContent = '☀️';
+    }
+  })();
+</script>
+
+</body>
+</html>
