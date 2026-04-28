@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Copa Mundial FIFA 2026</title>
+<title>Mis Predicciones · Copa Mundial FIFA 2026</title>
+<meta name="description" content="Haz tus predicciones del Mundial FIFA 2026: marcadores de la fase de grupos, mejores terceros y cuadro eliminatorio interactivo. Guarda y comparte tu bracket.">
+<meta property="og:title" content="Mis Predicciones · Mundial FIFA 2026">
+<meta property="og:description" content="Predice marcadores de los 72 partidos y arma tu bracket eliminatorio. Comparte tu Mundial.">
+<meta property="og:url" content="https://www.gritamundial.com/predicciones/">
+<meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%86%3C/text%3E%3C/svg%3E">
 <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%86%3C/text%3E%3C/svg%3E">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%8F%86%3C/text%3E%3C/svg%3E">
@@ -1199,11 +1204,10 @@
 
 <div class="hero">
   <div class="hero-inner">
-    <div class="trophy-icon">🏆</div>
+    <div class="trophy-icon">🎯</div>
     <div class="hero-text">
-      <h1>Copa Mundial <span>FIFA 2026</span></h1>
-      <div class="hero-sub">Estados Unidos · México · Canadá · 11 Jun — 19 Jul 2026</div>
-      <div class="flags-row">🇲🇽 🇺🇸 🇨🇦</div>
+      <h1>Mis <span>Predicciones</span></h1>
+      <div class="hero-sub">Copa Mundial FIFA 2026 · Fase de grupos &amp; bracket interactivo</div>
     </div>
   </div>
 </div>
@@ -1226,9 +1230,9 @@
 
 <div class="tabs-bar">
   <div class="tabs-inner">
-    <button class="tab-btn active" onclick="switchTab('calendario', event)">📅 Calendario</button>
-    <button class="tab-btn" onclick="switchTab('grupos', event)">🌍 Grupos</button>
-    <a class="tab-btn" href="/predicciones/" style="text-decoration:none;display:flex;align-items:center">🎯 Mis Predicciones</a>
+    <a class="tab-btn" href="/" style="text-decoration:none;display:flex;align-items:center">📅 Calendario</a>
+    <a class="tab-btn" href="/" style="text-decoration:none;display:flex;align-items:center">🌍 Grupos</a>
+    <a class="tab-btn active" href="/predicciones/" style="text-decoration:none;display:flex;align-items:center">🎯 Mis Predicciones</a>
     <a class="tab-btn" href="/album/" style="text-decoration:none;display:flex;align-items:center">📖 Mi Álbum</a>
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
   </div>
@@ -1236,26 +1240,45 @@
 
 <div class="main">
 
-  <!-- ======================== CALENDARIO TAB ======================== -->
-  <div class="tab-content active" id="tab-calendario">
-    <div class="filters">
-      <span class="filter-label">Ver por:</span>
-      <select class="filter-select" id="filterMode" onchange="applyFilter()">
-        <option value="fecha">Fecha</option>
-        <option value="seleccion">Selección</option>
-        <option value="grupo">Grupo</option>
-      </select>
-      <select class="filter-select" id="filterValue" onchange="applyFilter()">
-        <option value="all">— Todos —</option>
-      </select>
-      <button class="btn-clear" onclick="clearFilter()">✕ Limpiar</button>
-    </div>
-    <div id="matchesList"></div>
-  </div>
+  <div class="tab-content active">
 
-  <!-- ======================== GRUPOS TAB ======================== -->
-  <div class="tab-content" id="tab-grupos">
-    <div class="grupos-grid" id="gruposGrid"></div>
+    <!-- SAVE / SHARE BAR -->
+    <div class="save-bar">
+      <span class="save-bar-title">💾 Tus predicciones</span>
+      <button class="btn-action btn-save" onclick="savePredictions()">💾 Guardar</button>
+      <button class="btn-action btn-share" onclick="sharePredictions()">🔗 Compartir link</button>
+      <button class="btn-action btn-copy" onclick="copyTextSummary()">📋 Copiar texto</button>
+      <button class="btn-action btn-clear-all" onclick="clearAllScores()">🗑 Limpiar todo</button>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="qualify-badge q1"></span> Clasificado 1° lugar</div>
+      <div class="legend-item"><span class="qualify-badge q2"></span> Clasificado 2° lugar</div>
+      <div class="legend-item"><span class="qualify-badge q3"></span> Posible 3° mejor</div>
+    </div>
+
+    <div class="section-title">Fase de Grupos — Predicciones</div>
+    <div class="pred-groups-grid" id="predGroupsGrid"></div>
+
+    <div class="third-section">
+      <div class="section-title">Tabla de Mejores Terceros</div>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:16px;">Los 8 mejores terceros de los 12 grupos clasifican a los dieciseisavos de final. Se ordenan por puntos, diferencia de gol y goles a favor.</p>
+      <table class="third-table" id="thirdTable">
+        <thead>
+          <tr>
+            <th>#</th><th>Selección</th><th>Grupo</th><th>PJ</th><th>PG</th><th>PE</th><th>PP</th><th>GF</th><th>GC</th><th>DG</th><th>Pts</th>
+          </tr>
+        </thead>
+        <tbody id="thirdTableBody"></tbody>
+      </table>
+    </div>
+
+    <!-- BRACKET ELIMINATORIO INTERACTIVO -->
+    <div class="bracket-section">
+      <div class="section-title">Cuadro Eliminatorio</div>
+      <div id="bracketContainer"></div>
+    </div>
+
   </div>
 
 </div>
@@ -1553,10 +1576,7 @@ function updateFilterOptions() {
   }
 }
 
-document.getElementById('filterMode').addEventListener('change', () => {
-  updateFilterOptions();
-  applyFilter();
-});
+// (filter listener not needed on predictions page)
 
 // ===================== PREDICTIONS =====================
 // Group stage matches per group
@@ -2522,11 +2542,11 @@ function initPredictions() {
   renderBracket();
 }
 
-updateFilterOptions();
-applyFilter();
+// Init for predictions page
 loadFromURL();
 loadSavedPredictions();
 loadBracketState();
+initPredictions();
 initCountdown();
 loadTheme();
 </script>
@@ -2534,4 +2554,3 @@ loadTheme();
 <div class="save-toast" id="saveToast"></div>
 </body>
 </html>
-
