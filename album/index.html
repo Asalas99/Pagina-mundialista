@@ -216,12 +216,6 @@
     border: 1px solid rgba(46,204,113,0.3);
   }
   .btn-save:hover { background: rgba(46,204,113,0.25); }
-  .btn-share {
-    background: rgba(52,152,219,0.15);
-    color: #3498db;
-    border: 1px solid rgba(52,152,219,0.3);
-  }
-  .btn-share:hover { background: rgba(52,152,219,0.25); }
   .btn-copy {
     background: rgba(201,168,76,0.12);
     color: var(--accent2);
@@ -1112,6 +1106,529 @@
   }
   .save-toast.show { transform: translateX(-50%) translateY(0); }
 
+  /* ==================== INTERCAMBIOS TAB ==================== */
+  .friends-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    margin-bottom: 18px;
+  }
+  .friends-section h3 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .friends-section .subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  /* Mi friend code display */
+  .my-friend-code-card {
+    background: linear-gradient(135deg, rgba(20,184,166,0.08) 0%, rgba(45,212,191,0.04) 100%);
+    border: 1.5px solid rgba(20,184,166,0.4);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+  }
+  .my-friend-code-card .code-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .my-friend-code-card .code-value {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 44px;
+    letter-spacing: 6px;
+    color: #2dd4bf;
+    line-height: 1;
+    margin-bottom: 10px;
+    text-shadow: 0 0 20px rgba(20,184,166,0.3);
+    cursor: pointer;
+    user-select: none;
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 8px;
+    transition: background 0.15s;
+  }
+  .my-friend-code-card .code-value:hover {
+    background: rgba(20,184,166,0.1);
+  }
+  .my-friend-code-card .code-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .my-friend-code-card .btn-mini {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 700;
+  }
+  .my-friend-code-card .btn-mini:hover {
+    border-color: #2dd4bf;
+    color: #2dd4bf;
+  }
+  .my-friend-code-card .hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 12px;
+    font-style: italic;
+  }
+  body.light .my-friend-code-card .code-value { color: #0d9488; }
+
+  .generate-fc-row {
+    text-align: center;
+    padding: 30px 20px;
+  }
+  .generate-fc-row .btn-generate {
+    background: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
+    color: #06090f;
+    border: none;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 14px 28px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(20,184,166,0.3);
+  }
+  .generate-fc-row .btn-generate:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(20,184,166,0.4);
+  }
+  .generate-fc-row .btn-generate:disabled {
+    opacity: 0.6;
+    cursor: wait;
+    transform: none;
+  }
+
+  /* Add friend form */
+  .add-friend-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .add-friend-row input {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    padding: 10px 14px;
+    border-radius: 7px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .add-friend-row input:focus { border-color: #2dd4bf; }
+  .add-friend-row input.code {
+    flex: 1;
+    min-width: 130px;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px;
+    letter-spacing: 3px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .add-friend-row input.label {
+    flex: 1;
+    min-width: 130px;
+  }
+  .add-friend-row button {
+    background: rgba(20,184,166,0.14);
+    border: 1px solid rgba(20,184,166,0.4);
+    color: #2dd4bf;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .add-friend-row button:hover { background: rgba(20,184,166,0.24); }
+  body.light .add-friend-row button { color: #0d9488; }
+
+  /* Friends list */
+  .friends-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .friend-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .friend-card:hover {
+    border-color: rgba(20,184,166,0.5);
+    background: rgba(20,184,166,0.04);
+  }
+  .friend-card.active {
+    border-color: #2dd4bf;
+    background: rgba(20,184,166,0.08);
+    box-shadow: 0 0 0 1px rgba(20,184,166,0.2);
+  }
+  .friend-emoji {
+    font-size: 24px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .friend-info {
+    flex: 1;
+    min-width: 0;
+  }
+  .friend-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.3px;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .friend-meta {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .friend-meta .fc-display {
+    color: #2dd4bf;
+    font-family: 'Bebas Neue', cursive;
+    letter-spacing: 2px;
+    margin-right: 8px;
+  }
+  body.light .friend-meta .fc-display { color: #0d9488; }
+  .friend-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .friend-actions button {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    padding: 0;
+  }
+  .friend-actions button:hover {
+    color: var(--text);
+    border-color: var(--accent);
+  }
+  .friend-actions button.danger:hover {
+    color: #e84545;
+    border-color: #e84545;
+  }
+
+  .friends-empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+  .friends-empty .emoji {
+    font-size: 38px;
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  /* Match Result (Tabla T) */
+  .match-result {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  .match-loading {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .match-error {
+    background: rgba(232,69,69,0.08);
+    border: 1px solid rgba(232,69,69,0.3);
+    color: #e84545;
+    padding: 14px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+  }
+  .match-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+  .match-header .who {
+    flex: 1;
+    min-width: 200px;
+  }
+  .match-header h3 {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 24px;
+    letter-spacing: 2px;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .match-header .stats {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .match-header .stats span {
+    color: var(--accent2);
+    font-weight: 700;
+  }
+  .match-header .refresh {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 700;
+  }
+  .match-header .refresh:hover { border-color: var(--accent); color: var(--accent); }
+
+  .perfect-match {
+    background: linear-gradient(135deg, rgba(201,168,76,0.10) 0%, rgba(232,196,106,0.05) 100%);
+    border: 1.5px solid rgba(201,168,76,0.45);
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .perfect-match-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 17px;
+    letter-spacing: 2px;
+    color: var(--accent2);
+    margin-bottom: 6px;
+  }
+  .perfect-match-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .perfect-match-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .perfect-chip {
+    background: rgba(201,168,76,0.20);
+    border: 1px solid rgba(201,168,76,0.5);
+    color: var(--accent2);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    padding: 5px 10px;
+    border-radius: 6px;
+  }
+  .perfect-empty {
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  /* Tabla T */
+  .t-table {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .t-column {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 14px 16px;
+    min-height: 100px;
+  }
+  .t-column-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .t-column-title {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    line-height: 1.1;
+  }
+  .t-column-title .icon { margin-right: 4px; }
+  .t-column-count {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 18px;
+    letter-spacing: 1px;
+    line-height: 1;
+  }
+  .t-column.you .t-column-title { color: #2dd4bf; }
+  .t-column.you .t-column-count { color: #2dd4bf; }
+  .t-column.them .t-column-title { color: var(--accent2); }
+  .t-column.them .t-column-count { color: var(--accent2); }
+  body.light .t-column.you .t-column-title,
+  body.light .t-column.you .t-column-count { color: #0d9488; }
+
+  .t-column-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+  }
+  .t-section {
+    margin-bottom: 12px;
+  }
+  .t-section:last-child { margin-bottom: 0; }
+  .t-section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .t-section-title .flag-mini {
+    width: 18px;
+    height: 12px;
+    border-radius: 2px;
+    object-fit: cover;
+  }
+  .t-section-title .flag-mini.emoji {
+    font-size: 14px;
+    width: auto;
+    height: auto;
+  }
+  .t-section-title .name { color: var(--text); font-weight: 700; }
+  .t-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+  .t-chip {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 4px 8px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .t-chip .mult {
+    background: rgba(20,184,166,0.3);
+    color: #2dd4bf;
+    padding: 0px 5px;
+    border-radius: 8px;
+    font-size: 10px;
+  }
+  body.light .t-chip .mult { color: #0d9488; }
+  .t-chip.special-bg {
+    background: rgba(201,168,76,0.10);
+    border-color: rgba(201,168,76,0.3);
+  }
+
+  .t-empty {
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-style: italic;
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  .match-actions-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+
   /* ==================== RESPONSIVE ==================== */
   @media (max-width: 768px) {
     .album-hero-inner { padding: 22px 16px 16px; }
@@ -1133,6 +1650,11 @@
     .team-progress-mini { width: 70px; }
     .progress-stats .big { font-size: 30px; }
     .progress-stats .total { font-size: 18px; }
+    .my-friend-code-card .code-value { font-size: 36px; letter-spacing: 4px; }
+    .t-table { grid-template-columns: 1fr; gap: 10px; }
+    .friends-section { padding: 16px 14px; }
+    .match-result { padding: 14px; }
+    .match-header h3 { font-size: 20px; }
   }
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2551151693469575"
@@ -1176,6 +1698,7 @@
     <button class="tab-btn active" onclick="switchTab('mialbum', event)">📔 Mi Álbum</button>
     <button class="tab-btn" onclick="switchTab('faltan', event)">🔍 Me Faltan</button>
     <button class="tab-btn" onclick="switchTab('repetidas', event)">🔁 Mis Repetidas</button>
+    <button class="tab-btn" onclick="switchTab('intercambios', event)">🤝 Intercambios</button>
   </div>
 </div>
 
@@ -1236,6 +1759,42 @@
     </div>
     <div id="repetidasContainer"></div>
   </div>
+
+  <!-- ==================== TAB: INTERCAMBIOS ==================== -->
+  <div class="tab-content" id="tab-intercambios">
+
+    <!-- 1. Mi código de amigo -->
+    <div class="friends-section">
+      <h3>🤝 Mi código de amigo</h3>
+      <div class="subtitle">Compártelo con personas de confianza para hacer match</div>
+      <div id="myFriendCodeContainer"></div>
+    </div>
+
+    <!-- 2. Agregar amigo -->
+    <div class="friends-section">
+      <h3>➕ Agregar un amigo</h3>
+      <div class="subtitle">Pega el código que te compartió tu amigo</div>
+      <div class="add-friend-row">
+        <input type="text" class="code" id="addFriendCode" placeholder="Código (ej. ABC-123)" maxlength="8" autocomplete="off">
+        <input type="text" class="label" id="addFriendLabel" placeholder="Etiqueta (ej. Carlos primo)" maxlength="40" autocomplete="off">
+        <button onclick="addFriend()">Agregar</button>
+      </div>
+      <div style="font-size:12px;color:var(--muted);font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">
+        💡 La etiqueta se guarda solo en este dispositivo. Tu amigo no la verá.
+      </div>
+    </div>
+
+    <!-- 3. Lista de amigos -->
+    <div class="friends-section">
+      <h3>👥 Mis amigos guardados</h3>
+      <div class="subtitle">Toca uno para ver el match</div>
+      <div id="friendsList"></div>
+    </div>
+
+    <!-- 4. Resultado del match (tabla T) -->
+    <div id="matchResult"></div>
+
+  </div>
 </div>
 
 <!-- ==================== SYNC MODAL ==================== -->
@@ -1244,15 +1803,13 @@
     <button class="sync-modal-close" onclick="closeSyncModal()">×</button>
     <h2>☁️ Sincronizar dispositivos</h2>
 
-    <!-- Vista: sync no configurado por el admin -->
     <div id="syncViewNotConfigured" style="display:none">
       <p>Esta función todavía no está configurada en el sitio.</p>
       <div class="sync-setup-notice">
-        <strong>Si eres el administrador del sitio:</strong> necesitas crear un proyecto en Supabase y pegar las credenciales en <code>album/index.html</code>, en las constantes <code>SUPABASE_URL</code> y <code>SUPABASE_ANON_KEY</code>. Mientras tanto puedes seguir usando el álbum con el botón <strong>🔗 Compartir link</strong>.
+        <strong>Si eres el administrador del sitio:</strong> necesitas crear un proyecto en Supabase y pegar las credenciales en <code>album/index.html</code>, en las constantes <code>SUPABASE_URL</code> y <code>SUPABASE_ANON_KEY</code>. Mientras tanto puedes seguir usando el álbum localmente y compartir tus faltantes/repetidas con los botones de <strong>📋 Copiar</strong>.
       </div>
     </div>
 
-    <!-- Vista: no sincronizado aún -->
     <div id="syncViewNotActive" style="display:none">
       <p>Crea un código corto para sincronizar tu álbum entre celular y computadora. Los cambios se guardan automáticamente en ambos lados.</p>
 
@@ -1271,7 +1828,6 @@
       </div>
     </div>
 
-    <!-- Vista: ya sincronizado -->
     <div id="syncViewActive" style="display:none">
       <p>✅ Tu álbum está sincronizado. Cada cambio se guarda automáticamente en la nube y se actualiza en tus otros dispositivos.</p>
 
@@ -1293,15 +1849,10 @@
 
 <script>
 // ==================== CONFIGURACIÓN DE SYNC (Supabase) ====================
-// Credenciales del proyecto gritamundial-album.
-// La SUPABASE_ANON_KEY es pública por diseño (va en el frontend).
-// La seguridad real vive en las policies de RLS + funciones SECURITY DEFINER
-// creadas en la base de datos: nadie puede leer/escribir sin saber el código.
 const SUPABASE_URL      = 'https://pzjvpbkczsihxcicjaru.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB6anZwYmtjenNpaHhjaWNqYXJ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwMzU4MzMsImV4cCI6MjA5MjYxMTgzM30.1_kl0jTfEsgazPE5tBProHWYrmpMl_euacNpx6smIE4';
 
 // ==================== DATOS MAESTROS ====================
-// 48 selecciones × 20 estampas + FWC (19) + CC (14) = 993 estampas totales
 const TEAMS = [
   // Grupo A
   { code: 'MEX', name: 'México',         flag: 'mx',     group: 'A', slug: 'mexico' },
@@ -1365,16 +1916,13 @@ const TEAMS = [
   { code: 'PAN', name: 'Panamá',         flag: 'pa',     group: 'L', slug: 'panama' },
 ];
 
-// Secciones especiales (no son selecciones)
 const SPECIAL_SECTIONS = [
   { code: 'FWC', name: 'FIFA World Cup',   emoji: '🏆', group: 'ESP', stamps: 19 },
   { code: 'CC',  name: 'Coca-Cola',        emoji: '🥤', group: 'ESP', stamps: 14 },
 ];
 
-// La estampa 00 — la más especial del álbum (suele ser holográfica/portada)
 const LEGENDARY_SECTION = { code: '00', name: 'Estampa 00', emoji: '✨', group: 'ESP', stamps: 1 };
 
-// Cada selección tiene 20 estampas. Las tipo se derivan: 1=Escudo, 13=Equipo, resto=Jugador.
 function getStampType(code, num) {
   if (code === '00') return 'Legendaria';
   if (code === 'FWC' || code === 'CC') return 'Especial';
@@ -1389,10 +1937,19 @@ function totalStamps() {
        + LEGENDARY_SECTION.stamps;
 }
 
+// Helper: lookup info de una sección por código (team / special / legendary)
+function getSectionInfo(code) {
+  if (code === LEGENDARY_SECTION.code) return { ...LEGENDARY_SECTION, kind: 'legendary' };
+  const sp = SPECIAL_SECTIONS.find(s => s.code === code);
+  if (sp) return { ...sp, kind: 'special' };
+  const t = TEAMS.find(t => t.code === code);
+  if (t) return { ...t, stamps: 20, kind: 'team' };
+  return null;
+}
+
 // ==================== ESTADO DEL USUARIO ====================
-// album[stampId] = 0 (falta) | 1 (pegada) | 2+ (pegada + N-1 repetidas)
 let album = {};
-const MAX_DUPES = 20; // tope razonable para que +/- no se desborde
+const MAX_DUPES = 20;
 
 function getStamp(id)      { return album[id] || 0; }
 function setStamp(id, val) {
@@ -1407,7 +1964,6 @@ const STORAGE_KEY = 'mundial2026_album';
 
 function autoSave() {
   try { localStorage.setItem(STORAGE_KEY, serializeAlbum()); } catch(e) {}
-  // Si el usuario tiene sync activado, propaga el cambio a la nube (con debounce)
   if (syncCode && isSyncConfigured()) schedulePushToSync();
 }
 function saveAlbum() {
@@ -1432,8 +1988,7 @@ function clearAlbum() {
   showToast('🗑 Álbum reiniciado');
 }
 
-// ==================== SERIALIZACIÓN (compacta para URL) ====================
-// Formato: "CODE-NUM:VAL,CODE-NUM:VAL,..." — solo entradas con val > 0
+// ==================== SERIALIZACIÓN ====================
 function serializeAlbum() {
   return Object.entries(album)
     .filter(([,v]) => v > 0)
@@ -1450,13 +2005,19 @@ function deserializeAlbum(str) {
   });
 }
 
-// ==================== COMPARTIR LINK / COPIAR ====================
-function shareAlbum() {
-  const encoded = encodeURIComponent(serializeAlbum());
-  const url = window.location.href.split('?')[0] + '?a=' + encoded;
-  copyToClipboard(url, '🔗 Link copiado. Pégalo en otro dispositivo para sincronizar.');
+// Parsea un álbum SERIALIZADO (string) sin tocar el álbum local
+function parseAlbumString(str) {
+  const data = {};
+  if (!str) return data;
+  str.split(',').forEach(part => {
+    const [id, v] = part.split(':');
+    const n = parseInt(v);
+    if (id && n > 0) data[id] = Math.min(MAX_DUPES + 1, n);
+  });
+  return data;
 }
 
+// ==================== COPIAR FALTANTES / REPETIDAS ====================
 function copyFaltantes() {
   const faltan = buildFaltanData();
   if (faltan.totalMissing === 0) {
@@ -1475,7 +2036,6 @@ function copyFaltantes() {
 }
 
 function copyRepetidas() {
-  // Recopila todas las repetidas en el mismo orden que la pestaña (00 → FWC/CC → selecciones)
   const groups = [];
   let totalReps = 0;
 
@@ -1534,7 +2094,7 @@ function fallbackCopy(text, successMsg) {
   document.body.removeChild(ta);
 }
 
-// ==================== LOAD FROM URL (para sincronizar) ====================
+// ==================== LOAD FROM URL ====================
 function loadFromURL() {
   const params = new URLSearchParams(window.location.search);
   const a = params.get('a');
@@ -1544,7 +2104,6 @@ function loadFromURL() {
     }
     deserializeAlbum(decodeURIComponent(a));
     autoSave();
-    // Limpiar el parámetro de la URL sin recargar
     const cleanUrl = window.location.pathname;
     window.history.replaceState({}, '', cleanUrl);
     showToast('✅ Álbum cargado desde el link');
@@ -1563,7 +2122,6 @@ function isSyncConfigured() {
   return !!(SUPABASE_URL && SUPABASE_ANON_KEY);
 }
 
-// Carga el código guardado en localStorage
 function loadSyncCode() {
   try { syncCode = localStorage.getItem(SYNC_CODE_KEY) || null; } catch(e) { syncCode = null; }
 }
@@ -1576,8 +2134,7 @@ function saveSyncCode(code) {
   } catch(e) {}
 }
 
-// Genera un código corto tipo "ABC-123" (6 chars sin ambiguos: 0/O/1/I/L)
-function generateSyncCode() {
+function generateShortCode() {
   const chars = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789';
   let c = '';
   for (let i = 0; i < 6; i++) c += chars[Math.floor(Math.random() * chars.length)];
@@ -1591,7 +2148,6 @@ function normalizeCode(raw) {
   return clean.slice(0, 3) + '-' + clean.slice(3);
 }
 
-// Llamada RPC a Supabase
 async function supabaseRpc(fn, params) {
   if (!isSyncConfigured()) throw new Error('Sync no configurado');
   const r = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, {
@@ -1607,13 +2163,11 @@ async function supabaseRpc(fn, params) {
     const txt = await r.text().catch(() => '');
     throw new Error(`HTTP ${r.status}: ${txt.slice(0,120)}`);
   }
-  // Las RPC devuelven null para void, o el valor directo para funciones con retorno
   const text = await r.text();
   if (!text) return null;
   try { return JSON.parse(text); } catch { return text; }
 }
 
-// PUSH: guarda el álbum actual en la nube (con debounce)
 function schedulePushToSync() {
   if (!syncCode || !isSyncConfigured()) return;
   clearTimeout(_syncDebounceTimer);
@@ -1630,14 +2184,13 @@ async function pushToSyncNow() {
     setSyncStatusUI('active');
   } catch(e) {
     console.warn('Sync push failed:', e);
-    setSyncStatusUI('active'); // no molestar al usuario con errores; se reintenta al siguiente cambio
+    setSyncStatusUI('active');
   } finally {
     _syncPushInFlight = false;
     if (_syncPushPending) { _syncPushPending = false; pushToSyncNow(); }
   }
 }
 
-// PULL: baja el álbum desde la nube (devuelve true si cambió algo)
 async function pullFromSync({ silent = false } = {}) {
   if (!syncCode || !isSyncConfigured()) return false;
   setSyncStatusUI('syncing');
@@ -1646,13 +2199,12 @@ async function pullFromSync({ silent = false } = {}) {
     _lastPullAt = Date.now();
     setSyncStatusUI('active');
     if (remoteData === null || remoteData === undefined) {
-      // El código no existía — creamos entrada inicial con lo que tenemos
       await pushToSyncNow();
       return false;
     }
     if (typeof remoteData !== 'string') return false;
     const localSerialized = serializeAlbum();
-    if (remoteData === localSerialized) return false; // nada nuevo
+    if (remoteData === localSerialized) return false;
     deserializeAlbum(remoteData);
     try { localStorage.setItem(STORAGE_KEY, serializeAlbum()); } catch(e) {}
     if (!silent) showToast('🔄 Álbum actualizado desde otro dispositivo');
@@ -1664,7 +2216,7 @@ async function pullFromSync({ silent = false } = {}) {
   }
 }
 
-// ==================== UI: Pill y Modal ====================
+// ==================== UI: Sync Pill y Modal ====================
 const MASKED_CODE = '***-***';
 let _codeRevealed = false;
 
@@ -1674,7 +2226,6 @@ function setSyncStatusUI(state) {
   pill.classList.remove('active', 'syncing');
   if (state === 'active' && syncCode) {
     pill.classList.add('active');
-    // El código va enmascarado por defecto. Click en el chip → revela. Click fuera del chip → abre modal.
     const display = _codeRevealed ? syncCode : MASKED_CODE;
     const revealedClass = _codeRevealed ? 'revealed' : '';
     const tooltip = _codeRevealed ? 'Ocultar código' : 'Mostrar código';
@@ -1687,7 +2238,6 @@ function setSyncStatusUI(state) {
   }
 }
 
-// Toggle visibilidad del código en la pill (sin abrir el modal)
 function toggleCodeReveal(ev) {
   if (ev) ev.stopPropagation();
   _codeRevealed = !_codeRevealed;
@@ -1726,18 +2276,17 @@ async function createNewSyncCode() {
   btn.disabled = true;
   btn.textContent = 'Creando código...';
   try {
-    // Genera uno, y si por (muy baja) casualidad ya existe, prueba otro
     let code = '';
     for (let attempt = 0; attempt < 3; attempt++) {
-      const candidate = generateSyncCode();
+      const candidate = generateShortCode();
       const existing = await supabaseRpc('get_album', { p_code: candidate });
       if (existing === null || existing === undefined) { code = candidate; break; }
     }
-    if (!code) code = generateSyncCode(); // último intento al azar
+    if (!code) code = generateShortCode();
     await supabaseRpc('save_album', { p_code: code, p_data: serializeAlbum() });
     saveSyncCode(code);
     setSyncStatusUI('active');
-    openSyncModal(); // refresca la vista (ahora "active")
+    openSyncModal();
     showToast('✅ Sincronización activada');
   } catch(e) {
     showToast('⚠️ No se pudo crear el código. Revisa tu conexión.');
@@ -1793,20 +2342,17 @@ function copyActiveCode() {
   copyToClipboard(syncCode, '📋 Código copiado: ' + syncCode);
 }
 
-// Cargar sync desde URL (?sync=ABC-123) — sirve como shortcut
 function loadSyncFromURL() {
   const params = new URLSearchParams(window.location.search);
   const c = params.get('sync');
   if (!c) return;
   const norm = normalizeCode(c);
   if (!norm) return;
-  // Guardar en localStorage y quitar el parámetro
   saveSyncCode(norm);
   const cleanUrl = window.location.pathname;
   window.history.replaceState({}, '', cleanUrl);
 }
 
-// Pull automático al regresar a la pestaña (si ya pasaron >20s del último pull)
 function setupAutoSync() {
   if (!isSyncConfigured()) return;
   window.addEventListener('focus', () => {
@@ -1814,12 +2360,552 @@ function setupAutoSync() {
     if (Date.now() - _lastPullAt < 20000) return;
     pullFromSync().then(changed => { if (changed) renderAll(); });
   });
-  // También al cambiar visibilidad (Android / iOS Safari a veces no disparan focus)
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible' && syncCode && Date.now() - _lastPullAt > 20000) {
       pullFromSync().then(changed => { if (changed) renderAll(); });
     }
   });
+}
+
+// ==================== INTERCAMBIOS · FRIEND CODE ====================
+const MY_FRIEND_CODE_KEY = 'mundial2026_my_friend_code';
+const FRIENDS_LIST_KEY   = 'mundial2026_friends_list';
+let myFriendCode = null;
+let friendsList = [];   // [{ code: 'FRD-XYZ', label: 'Carlos', addedAt: 'iso' }, ...]
+let _friendCodeRevealed = false;
+let _activeFriendCode = null;       // friend actualmente abierto en match
+let _friendDataCache = {};          // { 'FRD-XYZ': { data: '...serialized...', fetchedAt: Date.now() } }
+
+function loadMyFriendCode() {
+  try { myFriendCode = localStorage.getItem(MY_FRIEND_CODE_KEY) || null; } catch(e) { myFriendCode = null; }
+}
+function saveMyFriendCode(code) {
+  myFriendCode = code;
+  try {
+    if (code) localStorage.setItem(MY_FRIEND_CODE_KEY, code);
+    else localStorage.removeItem(MY_FRIEND_CODE_KEY);
+  } catch(e) {}
+}
+function loadFriendsList() {
+  try {
+    const raw = localStorage.getItem(FRIENDS_LIST_KEY);
+    friendsList = raw ? JSON.parse(raw) : [];
+  } catch(e) { friendsList = []; }
+}
+function saveFriendsList() {
+  try { localStorage.setItem(FRIENDS_LIST_KEY, JSON.stringify(friendsList)); } catch(e) {}
+}
+
+// Generación de friend code: mismo formato pero distinguido visualmente
+function generateFriendCode() {
+  return generateShortCode(); // mismo formato; el contexto distingue cuál es cuál
+}
+
+async function generateMyFriendCode() {
+  if (!isSyncConfigured()) {
+    showToast('⚠️ Necesitas activar la sincronización primero');
+    return;
+  }
+  if (!syncCode) {
+    showToast('⚠️ Primero activa la sincronización (botón ☁️ arriba)');
+    return;
+  }
+
+  const btn = document.getElementById('btnGenerateFC');
+  if (btn) { btn.disabled = true; btn.textContent = 'Generando...'; }
+
+  try {
+    // Intentar hasta 5 veces por si hay colisión
+    let code = null;
+    for (let i = 0; i < 5; i++) {
+      const candidate = generateFriendCode();
+      try {
+        const result = await supabaseRpc('create_friend_code', {
+          p_album_code: syncCode,
+          p_friend_code: candidate
+        });
+        // Si el álbum ya tenía un friend_code, la función devuelve el existente
+        code = result || candidate;
+        break;
+      } catch(e) {
+        // Probable colisión de código → reintentar con otro
+        if (i === 4) throw e;
+      }
+    }
+
+    if (!code) throw new Error('No se pudo generar');
+
+    saveMyFriendCode(code);
+    renderMyFriendCode();
+    showToast('✅ Tu código de amigo está listo');
+  } catch(e) {
+    console.error('Error generando friend code:', e);
+    showToast('⚠️ No se pudo generar. Revisa tu conexión.');
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = '✨ Generar mi código de amigo'; }
+  }
+}
+
+function renderMyFriendCode() {
+  const container = document.getElementById('myFriendCodeContainer');
+  if (!container) return;
+
+  if (!isSyncConfigured() || !syncCode) {
+    container.innerHTML = `<div class="generate-fc-row" style="color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:14px;letter-spacing:1px;line-height:1.6">
+      <p style="margin-bottom:14px">Para crear tu código de amigo necesitas activar primero la sincronización.</p>
+      <button class="btn-generate" onclick="openSyncModal()">☁️ Activar sincronización</button>
+    </div>`;
+    return;
+  }
+
+  if (!myFriendCode) {
+    container.innerHTML = `<div class="generate-fc-row">
+      <p style="color:var(--muted);font-family:'Barlow Condensed',sans-serif;font-size:13px;letter-spacing:1px;line-height:1.6;margin-bottom:14px">
+        Crea tu código de amigo para que otros puedan ver tu álbum y hacer match contigo.
+      </p>
+      <button class="btn-generate" id="btnGenerateFC" onclick="generateMyFriendCode()">✨ Generar mi código de amigo</button>
+    </div>`;
+    return;
+  }
+
+  const display = _friendCodeRevealed ? myFriendCode : MASKED_CODE;
+  const tooltip = _friendCodeRevealed ? 'Ocultar' : 'Mostrar';
+  container.innerHTML = `<div class="my-friend-code-card">
+    <div class="code-label">Tu código de amigo</div>
+    <div class="code-value" onclick="toggleMyFriendCodeReveal()" title="${tooltip}">${display}</div>
+    <div class="code-actions">
+      <button class="btn-mini" onclick="copyMyFriendCode()">📋 Copiar</button>
+      <button class="btn-mini" onclick="shareMyFriendCodeWA()">📲 Compartir por WhatsApp</button>
+    </div>
+    <div class="hint">🔒 Quien tenga tu código solo puede VER tu álbum, no modificarlo.</div>
+  </div>`;
+}
+
+function toggleMyFriendCodeReveal() {
+  _friendCodeRevealed = !_friendCodeRevealed;
+  renderMyFriendCode();
+}
+
+function copyMyFriendCode() {
+  if (!myFriendCode) return;
+  copyToClipboard(myFriendCode, '📋 Código copiado: ' + myFriendCode);
+}
+
+function shareMyFriendCodeWA() {
+  if (!myFriendCode) return;
+  const msg = `¡Hola! Te comparto mi código de amigo del Álbum Mundial 2026: ${myFriendCode}\n\nÚsalo en https://www.gritamundial.com/album/ (pestaña 🤝 Intercambios) para ver qué estampas podemos intercambiar.`;
+  const url = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+  window.open(url, '_blank');
+}
+
+// ==================== INTERCAMBIOS · AGREGAR / LISTA AMIGOS ====================
+async function addFriend() {
+  if (!isSyncConfigured()) {
+    showToast('⚠️ La sincronización no está disponible');
+    return;
+  }
+  const codeInput = document.getElementById('addFriendCode');
+  const labelInput = document.getElementById('addFriendLabel');
+  const rawCode = codeInput.value || '';
+  const label = (labelInput.value || '').trim();
+
+  const code = normalizeCode(rawCode);
+  if (!code) {
+    showToast('⚠️ Código inválido. Formato: ABC-123');
+    return;
+  }
+  if (!label) {
+    showToast('⚠️ Pon una etiqueta para identificar a tu amigo');
+    return;
+  }
+  if (code === myFriendCode) {
+    showToast('🤔 Ese es tu propio código de amigo');
+    return;
+  }
+  if (friendsList.some(f => f.code === code)) {
+    showToast('ℹ️ Ya tienes guardado ese código');
+    return;
+  }
+
+  // Validar contra Supabase: el friend_code debe existir
+  try {
+    const data = await supabaseRpc('get_album_by_friend', { p_friend_code: code });
+    if (data === null || data === undefined) {
+      showToast('⚠️ Ese código no existe. Revisa que esté bien escrito.');
+      return;
+    }
+    // Cachear el álbum
+    _friendDataCache[code] = { data: typeof data === 'string' ? data : '', fetchedAt: Date.now() };
+  } catch(e) {
+    console.error(e);
+    showToast('⚠️ No se pudo conectar. Revisa tu conexión.');
+    return;
+  }
+
+  friendsList.push({ code, label, addedAt: new Date().toISOString() });
+  saveFriendsList();
+  codeInput.value = '';
+  labelInput.value = '';
+  renderFriendsList();
+  showToast(`✅ ${label} agregado`);
+  // Abrir el match automáticamente
+  openMatch(code);
+}
+
+function renderFriendsList() {
+  const container = document.getElementById('friendsList');
+  if (!container) return;
+
+  if (friendsList.length === 0) {
+    container.innerHTML = `<div class="friends-empty">
+      <span class="emoji">👥</span>
+      Aún no has agregado amigos.<br>
+      Pídele su código a alguien y agrégalo arriba.
+    </div>`;
+    return;
+  }
+
+  // Orden: más recientes primero
+  const sorted = [...friendsList].sort((a, b) => (b.addedAt || '').localeCompare(a.addedAt || ''));
+
+  container.innerHTML = sorted.map(f => {
+    const isActive = f.code === _activeFriendCode;
+    const codeDisplay = '•••-•••'; // siempre enmascarado en la lista
+    return `<div class="friend-card ${isActive?'active':''}" onclick="openMatch('${f.code}')">
+      <div class="friend-emoji">👤</div>
+      <div class="friend-info">
+        <div class="friend-label">${escapeHTML(f.label)}</div>
+        <div class="friend-meta">
+          <span class="fc-display">${codeDisplay}</span>
+          <span>guardado</span>
+        </div>
+      </div>
+      <div class="friend-actions" onclick="event.stopPropagation()">
+        <button title="Renombrar" onclick="renameFriend('${f.code}')">✏️</button>
+        <button class="danger" title="Quitar" onclick="removeFriend('${f.code}')">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function escapeHTML(s) {
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renameFriend(code) {
+  const f = friendsList.find(x => x.code === code);
+  if (!f) return;
+  const newLabel = prompt('Nueva etiqueta para este amigo:', f.label);
+  if (newLabel === null) return;
+  const trimmed = newLabel.trim();
+  if (!trimmed) return;
+  f.label = trimmed.slice(0, 40);
+  saveFriendsList();
+  renderFriendsList();
+  if (_activeFriendCode === code) renderMatchResult(code, _friendDataCache[code]?.data || '');
+  showToast('✏️ Etiqueta actualizada');
+}
+
+function removeFriend(code) {
+  const f = friendsList.find(x => x.code === code);
+  if (!f) return;
+  if (!confirm(`¿Quitar a "${f.label}" de tu lista? El álbum de tu amigo no se borra, solo deja de aparecer aquí.`)) return;
+  friendsList = friendsList.filter(x => x.code !== code);
+  saveFriendsList();
+  if (_activeFriendCode === code) {
+    _activeFriendCode = null;
+    document.getElementById('matchResult').innerHTML = '';
+  }
+  delete _friendDataCache[code];
+  renderFriendsList();
+  showToast('🗑 Amigo quitado');
+}
+
+// ==================== INTERCAMBIOS · MATCH (TABLA T) ====================
+async function openMatch(friendCode) {
+  _activeFriendCode = friendCode;
+  renderFriendsList();
+  const friend = friendsList.find(f => f.code === friendCode);
+  if (!friend) return;
+
+  const container = document.getElementById('matchResult');
+  container.innerHTML = `<div class="match-result"><div class="match-loading">⏳ Cargando álbum de ${escapeHTML(friend.label)}...</div></div>`;
+
+  // Si tenemos cache reciente (< 60s), usarlo; si no, hacer fetch
+  const cached = _friendDataCache[friendCode];
+  const fresh = cached && (Date.now() - cached.fetchedAt) < 60000;
+
+  if (fresh) {
+    renderMatchResult(friendCode, cached.data);
+    return;
+  }
+
+  try {
+    const data = await supabaseRpc('get_album_by_friend', { p_friend_code: friendCode });
+    if (data === null || data === undefined) {
+      container.innerHTML = `<div class="match-result"><div class="match-error">
+        ⚠️ El código de "${escapeHTML(friend.label)}" ya no existe. Quizás tu amigo lo regeneró.
+      </div></div>`;
+      return;
+    }
+    const dataStr = typeof data === 'string' ? data : '';
+    _friendDataCache[friendCode] = { data: dataStr, fetchedAt: Date.now() };
+    renderMatchResult(friendCode, dataStr);
+
+    // Scroll al resultado en mobile
+    if (window.innerWidth < 768) {
+      setTimeout(() => {
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  } catch(e) {
+    console.error(e);
+    container.innerHTML = `<div class="match-result"><div class="match-error">
+      ⚠️ No se pudo cargar el álbum. Revisa tu conexión e intenta de nuevo.
+    </div></div>`;
+  }
+}
+
+async function refreshActiveMatch() {
+  if (!_activeFriendCode) return;
+  // Forzar refresh limpiando cache
+  delete _friendDataCache[_activeFriendCode];
+  await openMatch(_activeFriendCode);
+  showToast('🔄 Actualizado');
+}
+
+function renderMatchResult(friendCode, friendDataStr) {
+  const friend = friendsList.find(f => f.code === friendCode);
+  if (!friend) return;
+
+  const friendAlbum = parseAlbumString(friendDataStr);
+
+  // Calcular estadísticas globales del amigo
+  let friendPegadas = 0, friendReps = 0;
+  Object.values(friendAlbum).forEach(v => {
+    if (v >= 1) friendPegadas++;
+    if (v > 1) friendReps += (v - 1);
+  });
+
+  let myPegadas = 0, myReps = 0;
+  Object.values(album).forEach(v => {
+    if (v >= 1) myPegadas++;
+    if (v > 1) myReps += (v - 1);
+  });
+
+  // Calcular los 3 cuadrantes
+  // Recorrer TODAS las posibles estampas del álbum
+  const youWantTheyHave = []; // Te falta a ti + tu amigo tiene repetida
+  const theyWantYouHave = []; // Le falta a tu amigo + tú tienes repetida
+  const perfectMatch    = []; // intersección
+
+  function processStamp(code, num) {
+    const id = code + '-' + num;
+    const myVal = album[id] || 0;
+    const theirVal = friendAlbum[id] || 0;
+
+    const iLack = myVal === 0;
+    const theyLack = theirVal === 0;
+    const iHaveExtra = myVal > 1;
+    const theyHaveExtra = theirVal > 1;
+
+    const meWantsThemHas = iLack && theyHaveExtra;
+    const themWantsMeHas = theyLack && iHaveExtra;
+
+    if (meWantsThemHas) youWantTheyHave.push({ code, num });
+    if (themWantsMeHas) theyWantYouHave.push({ code, num });
+    if (meWantsThemHas && themWantsMeHas) {
+      // No puede ser: si yo no la tengo, no tengo extra
+      // Pero si yo tengo extra (>1), no me falta — así que perfectMatch real es:
+    }
+  }
+
+  // Recalcular perfect match correctamente:
+  // Es cuando YO tengo repetida + a TI te falta + Y AL MISMO TIEMPO tú tienes repetida + a mí me falta
+  // Esto es imposible para la MISMA estampa (no puedo tener repetida y faltarme la misma).
+  // Lo correcto: son DOS estampas diferentes. El "match perfecto" se mide globalmente:
+  // Si hay al menos UNA estampa en cada lado, el intercambio es posible.
+  // Lo que sí podemos mostrar es: estampas de cada lado que pueden formar parte de un trueque.
+
+  // Iterar todas las estampas
+  const allCodes = [LEGENDARY_SECTION.code, ...SPECIAL_SECTIONS.map(s => s.code), ...TEAMS.map(t => t.code)];
+  allCodes.forEach(code => {
+    const info = getSectionInfo(code);
+    for (let n = 1; n <= info.stamps; n++) processStamp(code, n);
+  });
+
+  // Agrupar por sección
+  const groupedYou = groupByCode(youWantTheyHave);
+  const groupedThem = groupByCode(theyWantYouHave);
+
+  // Stats del intercambio: número total de estampas únicas en cada lado
+  const youCount = youWantTheyHave.length;
+  const themCount = theyWantYouHave.length;
+
+  // Match score: el min(yo gano, ellos ganan) — cuántos intercambios "perfectos" 1:1 son posibles
+  const tradesPossible = Math.min(youCount, themCount);
+
+  let html = `<div class="match-result">`;
+
+  // Header
+  html += `<div class="match-header">
+    <div class="who">
+      <h3>🤝 Match con ${escapeHTML(friend.label)}</h3>
+      <div class="stats">
+        Tú: <span>${myPegadas}/${totalStamps()}</span> · ${escapeHTML(friend.label)}: <span>${friendPegadas}/${totalStamps()}</span>
+      </div>
+    </div>
+    <button class="refresh" onclick="refreshActiveMatch()">🔄 Actualizar</button>
+  </div>`;
+
+  // Resumen de potencial intercambio
+  if (tradesPossible > 0) {
+    html += `<div class="perfect-match">
+      <div class="perfect-match-title">⚡ ¡Pueden hacer hasta ${tradesPossible} intercambio${tradesPossible > 1 ? 's' : ''} 1:1!</div>
+      <div class="perfect-match-sub">Cada quien aporta una de las suyas, y ambos avanzan en el álbum</div>
+    </div>`;
+  } else if (youCount === 0 && themCount === 0) {
+    html += `<div class="perfect-match" style="border-color:var(--border);background:var(--surface2)">
+      <div class="perfect-match-title" style="color:var(--muted)">🤷 Sin coincidencias por ahora</div>
+      <div class="perfect-match-sub">Ninguno tiene repetidas que el otro necesite. ¡Sigan llenando el álbum!</div>
+    </div>`;
+  } else {
+    html += `<div class="perfect-match" style="border-color:rgba(232,165,69,0.3);background:rgba(232,165,69,0.05)">
+      <div class="perfect-match-title" style="color:#e8a545">💡 Match parcial</div>
+      <div class="perfect-match-sub">${youCount > 0 && themCount === 0 ? 'Tu amigo tiene repetidas que tú necesitas, pero tú aún no tienes repetidas que él necesite.' : 'Tú tienes repetidas que tu amigo necesita, pero él aún no tiene repetidas que tú necesites.'}</div>
+    </div>`;
+  }
+
+  // Tabla T (2 columnas)
+  html += `<div class="t-table">`;
+
+  // Columna izquierda: TÚ ganas
+  html += `<div class="t-column you">
+    <div class="t-column-header">
+      <div class="t-column-title"><span class="icon">🎯</span>TE FALTAN</div>
+      <div class="t-column-count">${youCount}</div>
+    </div>
+    <div class="t-column-sub">Y ${escapeHTML(friend.label)} las tiene repetidas</div>`;
+  html += renderMatchGroups(groupedYou, friendAlbum, 'them');
+  html += `</div>`;
+
+  // Columna derecha: ELLOS ganan
+  html += `<div class="t-column them">
+    <div class="t-column-header">
+      <div class="t-column-title"><span class="icon">🎁</span>LE FALTAN</div>
+      <div class="t-column-count">${themCount}</div>
+    </div>
+    <div class="t-column-sub">Y tú las tienes repetidas</div>`;
+  html += renderMatchGroups(groupedThem, album, 'me');
+  html += `</div>`;
+
+  html += `</div>`; // /t-table
+
+  // Acciones
+  html += `<div class="match-actions-bar">
+    <button class="btn-action btn-copy-reps" onclick="copyMatchSummary('${friendCode}')">📋 Copiar resumen para WhatsApp</button>
+  </div>`;
+
+  html += `</div>`; // /match-result
+
+  document.getElementById('matchResult').innerHTML = html;
+}
+
+function groupByCode(items) {
+  const map = {};
+  items.forEach(item => {
+    if (!map[item.code]) map[item.code] = [];
+    map[item.code].push(item);
+  });
+  // Orden: 00 → FWC/CC → resto en orden de TEAMS
+  const ordered = {};
+  if (map[LEGENDARY_SECTION.code]) ordered[LEGENDARY_SECTION.code] = map[LEGENDARY_SECTION.code];
+  SPECIAL_SECTIONS.forEach(s => { if (map[s.code]) ordered[s.code] = map[s.code]; });
+  TEAMS.forEach(t => { if (map[t.code]) ordered[t.code] = map[t.code]; });
+  return ordered;
+}
+
+function renderMatchGroups(grouped, sourceAlbum, dupesFrom) {
+  const codes = Object.keys(grouped);
+  if (codes.length === 0) {
+    return `<div class="t-empty">— Nada por aquí —</div>`;
+  }
+  return codes.map(code => {
+    const info = getSectionInfo(code);
+    const items = grouped[code];
+    const isLegendary = code === LEGENDARY_SECTION.code;
+    const isSpecial = info.kind === 'special';
+
+    let flagHTML;
+    if (isLegendary || isSpecial) {
+      flagHTML = `<span class="flag-mini emoji">${info.emoji}</span>`;
+    } else {
+      flagHTML = `<img class="flag-mini" src="https://flagcdn.com/w40/${info.flag}.png" alt="">`;
+    }
+
+    const chipsHTML = items.map(item => {
+      const id = item.code + '-' + item.num;
+      const dupes = dupesFrom === 'me' ? Math.max(0, (album[id] || 0) - 1)
+                                       : Math.max(0, (sourceAlbum[id] || 0) - 1);
+      const label = isLegendary ? '00' : `${item.code} ${item.num}`;
+      const multHTML = dupes > 1 ? `<span class="mult">×${dupes}</span>` : '';
+      const specialClass = (isLegendary || isSpecial) ? 'special-bg' : '';
+      return `<span class="t-chip ${specialClass}">${label}${multHTML}</span>`;
+    }).join('');
+
+    return `<div class="t-section">
+      <div class="t-section-title">
+        ${flagHTML}
+        <span class="name">${info.name}</span>
+        <span style="color:var(--muted);margin-left:auto">(${items.length})</span>
+      </div>
+      <div class="t-chips">${chipsHTML}</div>
+    </div>`;
+  }).join('');
+}
+
+function copyMatchSummary(friendCode) {
+  const friend = friendsList.find(f => f.code === friendCode);
+  if (!friend) return;
+  const cached = _friendDataCache[friendCode];
+  if (!cached) return;
+
+  const friendAlbum = parseAlbumString(cached.data);
+  const youWant = []; // me faltan + amigo tiene repe
+  const theyWant = []; // le falta + yo tengo repe
+
+  const allCodes = [LEGENDARY_SECTION.code, ...SPECIAL_SECTIONS.map(s => s.code), ...TEAMS.map(t => t.code)];
+  allCodes.forEach(code => {
+    const info = getSectionInfo(code);
+    for (let n = 1; n <= info.stamps; n++) {
+      const id = code + '-' + n;
+      const myVal = album[id] || 0;
+      const theirVal = friendAlbum[id] || 0;
+      if (myVal === 0 && theirVal > 1) youWant.push({ code, num: n, dupes: theirVal - 1 });
+      if (theirVal === 0 && myVal > 1) theyWant.push({ code, num: n, dupes: myVal - 1 });
+    }
+  });
+
+  if (youWant.length === 0 && theyWant.length === 0) {
+    showToast('🤷 No hay nada que intercambiar por ahora');
+    return;
+  }
+
+  const fmt = (item) => {
+    const isLeg = item.code === LEGENDARY_SECTION.code;
+    const label = isLeg ? '00' : `${item.code} ${item.num}`;
+    return item.dupes > 1 ? `${label} ×${item.dupes}` : label;
+  };
+
+  let txt = `🤝 Match Álbum Mundial 2026\n\n`;
+  txt += `🎯 Lo que me das tú (${youWant.length}):\n`;
+  txt += youWant.length > 0 ? youWant.map(fmt).join(', ') : '(nada por ahora)';
+  txt += `\n\n🎁 Lo que te doy yo (${theyWant.length}):\n`;
+  txt += theyWant.length > 0 ? theyWant.map(fmt).join(', ') : '(nada por ahora)';
+  txt += `\n\n¿Cuándo nos vemos? 🤝`;
+  txt += `\nhttps://www.gritamundial.com/album/`;
+
+  copyToClipboard(txt, '📋 Resumen del match copiado');
 }
 
 // ==================== TOAST ====================
@@ -1833,7 +2919,6 @@ function showToast(msg) {
 }
 
 // ==================== RENDER: ACCORDION MI ALBUM ====================
-// Estado de apertura por selección
 const openState = {};
 
 function getTeamProgress(code, count) {
@@ -1851,13 +2936,11 @@ function renderTeamsAccordion() {
   const gf = document.getElementById('groupFilter').value;
   const container = document.getElementById('teamsAccordion');
 
-  // Arma lista combinada: legendary primero, luego especiales, luego selecciones
   const items = [];
   items.push({ kind: 'legendary', ...LEGENDARY_SECTION });
   SPECIAL_SECTIONS.forEach(s => items.push({ kind: 'special', ...s }));
   TEAMS.forEach(t => items.push({ kind: 'team', ...t, stamps: 20 }));
 
-  // Filtros
   const filtered = items.filter(item => {
     if (search) {
       const hay = (item.name + ' ' + item.code).toLowerCase();
@@ -1886,7 +2969,6 @@ function renderTeamSection(item) {
   const { pegadas, repetidas, total } = getTeamProgress(item.code, item.stamps);
   const pct = Math.round((pegadas / total) * 100);
   const complete = pegadas === total;
-  // La legendary siempre va abierta, las demás respetan su estado
   const isOpen = isLegendary ? true : !!openState[item.code];
 
   const flagHTML = (isSpecial || isLegendary)
@@ -1914,13 +2996,11 @@ function renderTeamSection(item) {
     </div>`;
   }
 
-  // Para legendary NO queremos el onclick de toggle
   const headerClick = isLegendary ? '' : `onclick="toggleSection('${item.code}')"`;
   const sectionClasses = ['team-section'];
   if (isOpen) sectionClasses.push('open');
   if (isLegendary) sectionClasses.push('legendary');
 
-  // Para legendary no mostramos "1/1" — la progresión es binaria (tengo/no tengo)
   const progressText = isLegendary
     ? `<span class="${complete?'done':''}">${complete ? '✓ La tienes' : 'Por conseguir'}</span>${repetidas>0?` · <span style="color:var(--green)">+${repetidas}</span>`:''}`
     : `<span class="${complete?'done':''}">${pegadas}/${total}</span>${repetidas>0?` · <span style="color:var(--green)">+${repetidas}</span>`:''}`;
@@ -1959,7 +3039,6 @@ function renderStampCard(code, num, isSpecial, isLegendary) {
   if (owned) classes.push('owned');
   if (hasDupes) classes.push('has-dupes');
 
-  // La estampa legendary muestra solo "00" en grande, sin "· num"
   const idHTML = isLegendary
     ? `<div class="stamp-id">00</div>`
     : `<div class="stamp-id"><span class="code">${code}</span> · ${num}</div>`;
@@ -1988,7 +3067,6 @@ function toggleSection(code) {
 let _allOpen = false;
 function toggleAllSections() {
   _allOpen = !_allOpen;
-  // La legendary siempre está abierta; el resto respeta el toggle global
   const allItems = [...TEAMS, ...SPECIAL_SECTIONS];
   allItems.forEach(i => openState[i.code] = _allOpen);
   renderTeamsAccordion();
@@ -1996,8 +3074,8 @@ function toggleAllSections() {
 
 function toggleOwned(id) {
   const v = getStamp(id);
-  if (v === 0) setStamp(id, 1);       // no tenía → la tengo (1 pegada)
-  else         setStamp(id, 0);        // tenía → la borro (pierdo repetidas también)
+  if (v === 0) setStamp(id, 1);
+  else         setStamp(id, 0);
   updateStampCard(id);
   updateGlobalProgress();
   updateTeamHeader(id.split('-')[0]);
@@ -2005,16 +3083,15 @@ function toggleOwned(id) {
 
 function adjustDupes(id, delta) {
   const v = getStamp(id);
-  if (v === 0) return; // no se puede ajustar repetidas si no tengo la estampa
+  if (v === 0) return;
   const newVal = v + delta;
-  if (newVal < 1) return; // mínimo 1 (= 0 repetidas)
+  if (newVal < 1) return;
   setStamp(id, newVal);
   updateStampCard(id);
   updateGlobalProgress();
   updateTeamHeader(id.split('-')[0]);
 }
 
-// Actualización localizada de una sola tarjeta (sin re-render completo, mejor perf)
 function updateStampCard(id) {
   const el = document.getElementById('s_' + id);
   if (!el) return;
@@ -2026,7 +3103,6 @@ function updateStampCard(id) {
 }
 
 function updateTeamHeader(code) {
-  // Re-render del progreso del equipo sin colapsar la sección
   const section = document.querySelector(`.team-section[data-code="${code}"]`);
   if (!section) return;
   const isLegendary = code === LEGENDARY_SECTION.code;
@@ -2081,7 +3157,6 @@ function buildFaltanData() {
     }
   };
 
-  // Orden: 00 → FWC/CC → Selecciones
   addItem(LEGENDARY_SECTION, LEGENDARY_SECTION.stamps);
   SPECIAL_SECTIONS.forEach(s => addItem(s, s.stamps));
   TEAMS.forEach(t => addItem(t, 20));
@@ -2095,7 +3170,7 @@ function renderFaltanTab() {
   if (data.totalMissing === 0) {
     c.innerHTML = `<div class="faltan-empty"><span class="emoji">🎉</span>
       <div style="color:var(--accent2);font-size:20px;margin-bottom:6px;font-family:'Bebas Neue',cursive;letter-spacing:2px">¡Álbum completo!</div>
-      <div>Ya tienes las 993 estampas. Nivel leyenda.</div></div>`;
+      <div>Ya tienes las 994 estampas. Nivel leyenda.</div></div>`;
     return;
   }
   c.innerHTML = `<div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;color:var(--muted);letter-spacing:1.5px;margin-bottom:16px">
@@ -2132,7 +3207,6 @@ function quickMarkOwned(id) {
   const label = isLegendary ? 'la estampa 00' : `la estampa ${code} ${num}`;
   const type = getStampType(code, num);
 
-  // Conseguir el nombre de la sección (selección, especial o legendary)
   let itemName;
   if (isLegendary) itemName = LEGENDARY_SECTION.name;
   else {
@@ -2173,7 +3247,6 @@ function renderRepetidasTab() {
     }
   };
 
-  // Orden: 00 → FWC/CC → Selecciones
   collect(LEGENDARY_SECTION, LEGENDARY_SECTION.stamps);
   SPECIAL_SECTIONS.forEach(s => collect(s, s.stamps));
   TEAMS.forEach(t => collect(t, 20));
@@ -2212,6 +3285,13 @@ function renderRepetidasTab() {
   }).join('');
 }
 
+// ==================== TAB: INTERCAMBIOS ====================
+function renderIntercambiosTab() {
+  renderMyFriendCode();
+  renderFriendsList();
+  // El match permanece como estaba (si hay uno activo)
+}
+
 // ==================== TAB SWITCH ====================
 function switchTab(tab, e) {
   const ev = e || event;
@@ -2222,9 +3302,10 @@ function switchTab(tab, e) {
   if (tab === 'faltan') renderFaltanTab();
   if (tab === 'repetidas') renderRepetidasTab();
   if (tab === 'mialbum') renderTeamsAccordion();
+  if (tab === 'intercambios') renderIntercambiosTab();
 }
 
-// ==================== THEME (mismo patrón del resto del sitio) ====================
+// ==================== THEME ====================
 function toggleTheme() {
   const isLight = document.body.classList.toggle('light');
   document.getElementById('themeToggle').textContent = isLight ? '☀️' : '🌙';
@@ -2246,6 +3327,7 @@ function renderAll() {
   renderTeamsAccordion();
   renderFaltanTab();
   renderRepetidasTab();
+  renderIntercambiosTab();
   updateGlobalProgress();
 }
 
@@ -2255,9 +3337,10 @@ loadAlbum();
 loadFromURL();
 loadSyncCode();
 loadSyncFromURL();
+loadMyFriendCode();
+loadFriendsList();
 renderAll();
 
-// Si hay sync configurado + código guardado: pull inicial y listener de focus
 if (isSyncConfigured() && syncCode) {
   setSyncStatusUI('active');
   pullFromSync({ silent: true }).then(changed => { if (changed) renderAll(); });
