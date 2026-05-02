@@ -1453,6 +1453,21 @@
     font-weight: 700;
   }
   .match-header .refresh:hover { border-color: var(--accent); color: var(--accent); }
+  .match-header .close-match {
+    background: rgba(232,69,69,0.08);
+    border: 1px solid rgba(232,69,69,0.3);
+    color: #e84545;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 700;
+  }
+  .match-header .close-match:hover { background: rgba(232,69,69,0.18); border-color: #e84545; }
 
   .perfect-match {
     background: linear-gradient(135deg, rgba(201,168,76,0.10) 0%, rgba(232,196,106,0.05) 100%);
@@ -2674,6 +2689,17 @@ async function refreshActiveMatch() {
   showToast('🔄 Actualizado');
 }
 
+function closeMatch() {
+  _activeFriendCode = null;
+  const container = document.getElementById('matchResult');
+  if (container) container.innerHTML = '';
+  // Re-render lista de amigos para quitar el resaltado del que estaba activo
+  renderFriendsList();
+  // Llevar la vista a "Mis amigos guardados" para que el usuario aterrice naturalmente
+  const friendsList = document.getElementById('friendsList');
+  if (friendsList) friendsList.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
 function renderMatchResult(friendCode, friendDataStr) {
   const friend = friendsList.find(f => f.code === friendCode);
   if (!friend) return;
@@ -2756,6 +2782,7 @@ function renderMatchResult(friendCode, friendDataStr) {
       </div>
     </div>
     <button class="refresh" onclick="refreshActiveMatch()">🔄 Actualizar</button>
+    <button class="close-match" onclick="closeMatch()" title="Cerrar match">✕ Cerrar</button>
   </div>`;
 
   // Resumen de potencial intercambio
