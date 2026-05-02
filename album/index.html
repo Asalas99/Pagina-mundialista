@@ -2300,6 +2300,10 @@ async function createNewSyncCode() {
     if (!code) code = generateShortCode();
     await supabaseRpc('save_album', { p_code: code, p_data: serializeAlbum() });
     saveSyncCode(code);
+    // También sube la lista de amigos local (si la hay) a la nube
+    if (friendsList.length > 0) {
+      try { await supabaseRpc('save_friends_data', { p_code: code, p_friends_data: serializeFriendsList() }); } catch(e) { console.warn(e); }
+    }
     setSyncStatusUI('active');
     openSyncModal();
     showToast('✅ Sincronización activada');
@@ -2334,6 +2338,17 @@ async function useExistingCode() {
     deserializeAlbum(remote);
     try { localStorage.setItem(STORAGE_KEY, serializeAlbum()); } catch(e) {}
     saveSyncCode(code);
+    // Jalar también la lista de amigos asociada a ese álbum
+    try {
+      const friendsRemote = await supabaseRpc('get_friends_data', { p_code: code });
+      if (typeof friendsRemote === 'string' && friendsRemote !== '') {
+        deserializeFriendsList(friendsRemote);
+        saveFriendsListLocalOnly();
+      } else if (friendsList.length > 0) {
+        // El álbum remoto no tiene friends_data; subimos los locales si los hay
+        await supabaseRpc('save_friends_data', { p_code: code, p_friends_data: serializeFriendsList() });
+      }
+    } catch(e) { console.warn('Friends fetch on connect failed:', e); }
     setSyncStatusUI('active');
     renderAll();
     closeSyncModal();
@@ -2374,10 +2389,12 @@ function setupAutoSync() {
     if (!syncCode) return;
     if (Date.now() - _lastPullAt < 20000) return;
     pullFromSync().then(changed => { if (changed) renderAll(); });
+    pullFriendsFromSync().then(changed => { if (changed) renderFriendsList(); });
   });
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible' && syncCode && Date.now() - _lastPullAt > 20000) {
       pullFromSync().then(changed => { if (changed) renderAll(); });
+      pullFriendsFromSync().then(changed => { if (changed) renderFriendsList(); });
     }
   });
 }
@@ -2408,6 +2425,76 @@ function loadFriendsList() {
   } catch(e) { friendsList = []; }
 }
 function saveFriendsList() {
+  try { localStorage.setItem(FRIENDS_LIST_KEY, JSON.stringify(friendsList)); } catch(e) {}
+  // Si hay sync activo, también subimos la lista de amigos a la nube (debounced)
+  schedulePushFriendsToSync();
+}
+
+// ==================== SYNC DE AMIGOS (CLOUD) ====================
+// La lista de amigos se sincroniza vía la columna friends_data de la tabla albums.
+// Se accede SOLO con el sync code (tu código privado), nunca vía friend_code,
+// así que las etiquetas de tus amigos siguen siendo invisibles para ellos.
+let _friendsPushTimer = null;
+let _friendsPushInFlight = false;
+let _friendsPushPending = false;
+
+function serializeFriendsList() {
+  return JSON.stringify(friendsList);
+}
+function deserializeFriendsList(str) {
+  try {
+    const parsed = JSON.parse(str || '[]');
+    if (Array.isArray(parsed)) {
+      // Validar estructura básica
+      friendsList = parsed.filter(f => f && typeof f.code === 'string' && typeof f.label === 'string');
+    }
+  } catch(e) { /* ignorar JSON inválido */ }
+}
+
+function schedulePushFriendsToSync() {
+  if (!syncCode || !isSyncConfigured()) return;
+  clearTimeout(_friendsPushTimer);
+  _friendsPushTimer = setTimeout(() => pushFriendsToSyncNow(), 1500);
+}
+
+async function pushFriendsToSyncNow() {
+  if (!syncCode || !isSyncConfigured()) return;
+  if (_friendsPushInFlight) { _friendsPushPending = true; return; }
+  _friendsPushInFlight = true;
+  try {
+    await supabaseRpc('save_friends_data', { p_code: syncCode, p_friends_data: serializeFriendsList() });
+  } catch(e) {
+    console.warn('Friends push failed:', e);
+  } finally {
+    _friendsPushInFlight = false;
+    if (_friendsPushPending) { _friendsPushPending = false; pushFriendsToSyncNow(); }
+  }
+}
+
+async function pullFriendsFromSync({ silent = false } = {}) {
+  if (!syncCode || !isSyncConfigured()) return false;
+  try {
+    const remote = await supabaseRpc('get_friends_data', { p_code: syncCode });
+    if (typeof remote !== 'string') return false;
+    if (remote === '') {
+      // No hay datos remotos. Si tenemos amigos locales, los empujamos.
+      if (friendsList.length > 0) await pushFriendsToSyncNow();
+      return false;
+    }
+    const localSerialized = serializeFriendsList();
+    if (remote === localSerialized) return false;
+    deserializeFriendsList(remote);
+    saveFriendsListLocalOnly();
+    if (!silent) showToast('🔄 Lista de amigos actualizada');
+    return true;
+  } catch(e) {
+    console.warn('Friends pull failed:', e);
+    return false;
+  }
+}
+
+// Versión que solo escribe a localStorage sin disparar push (para evitar loop al hacer pull)
+function saveFriendsListLocalOnly() {
   try { localStorage.setItem(FRIENDS_LIST_KEY, JSON.stringify(friendsList)); } catch(e) {}
 }
 
@@ -3371,6 +3458,7 @@ renderAll();
 if (isSyncConfigured() && syncCode) {
   setSyncStatusUI('active');
   pullFromSync({ silent: true }).then(changed => { if (changed) renderAll(); });
+  pullFriendsFromSync({ silent: true }).then(changed => { if (changed) renderFriendsList(); });
 } else if (isSyncConfigured()) {
   setSyncStatusUI('idle');
 } else {
