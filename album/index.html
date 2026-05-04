@@ -1074,6 +1074,18 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.12s, background 0.15s, border-color 0.15s;
+  }
+  .reps-chip:hover {
+    background: rgba(46,204,113,0.16);
+    border-color: rgba(46,204,113,0.5);
+    transform: translateY(-1px);
+  }
+  .reps-chip.is-open {
+    background: rgba(46,204,113,0.2);
+    border-color: var(--green);
   }
   .reps-chip .mult {
     background: var(--green);
@@ -1081,6 +1093,137 @@
     padding: 1px 7px;
     border-radius: 10px;
     font-size: 12px;
+  }
+
+  /* Editor inline para una estampa repetida */
+  .rep-editor {
+    background: linear-gradient(135deg, rgba(46,204,113,0.10), rgba(46,204,113,0.04));
+    border: 1.5px solid var(--green);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .rep-editor .rep-tag {
+    background: var(--bg-2);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 8px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    min-width: 90px;
+  }
+  .rep-editor .rep-tag .label {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 22px;
+    color: var(--text);
+    letter-spacing: 1.5px;
+    line-height: 1;
+  }
+  .rep-editor .rep-tag .type {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+  }
+  .rep-editor .counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .rep-editor .counter button {
+    background: rgba(46,204,113,0.12);
+    color: var(--green);
+    border: 1.5px solid var(--green);
+    border-radius: 8px;
+    width: 38px;
+    height: 38px;
+    font-size: 22px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  .rep-editor .counter button:hover { background: rgba(46,204,113,0.25); }
+  .rep-editor .counter button:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .rep-editor .counter .val {
+    font-family: 'Bebas Neue', cursive;
+    font-size: 32px;
+    color: var(--green);
+    min-width: 38px;
+    text-align: center;
+    line-height: 1;
+  }
+  .rep-editor .counter .val-sub {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .rep-editor .counter-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+  .rep-editor .actions {
+    margin-left: auto;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .rep-editor .btn-rep-action {
+    background: rgba(232,69,69,0.10);
+    color: #e84545;
+    border: 1px solid rgba(232,69,69,0.35);
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .rep-editor .btn-rep-action:hover { background: rgba(232,69,69,0.22); }
+  .rep-editor .btn-rep-close {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 7px;
+    padding: 8px 12px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .rep-editor .btn-rep-close:hover { color: var(--text); border-color: rgba(255,255,255,0.3); }
+  @media (max-width: 540px) {
+    .rep-editor { padding: 12px; gap: 10px; }
+    .rep-editor .rep-tag { min-width: 0; flex: 1 1 auto; }
+    .rep-editor .actions { margin-left: 0; width: 100%; }
+    .rep-editor .btn-rep-action, .rep-editor .btn-rep-close { flex: 1 1 auto; }
   }
 
   /* ==================== TOAST ==================== */
@@ -3345,6 +3488,67 @@ function quickMarkOwned(id) {
 }
 
 // ==================== TAB: MIS REPETIDAS ====================
+// Estado: qué chip está expandido en modo editor (solo uno a la vez)
+let _expandedRepId = null;
+
+function toggleRepEditor(id) {
+  _expandedRepId = (_expandedRepId === id) ? null : id;
+  renderRepetidasTab();
+}
+
+function repInlineAdjust(id, delta) {
+  const v = getStamp(id);
+  if (v === 0) return;
+  const newVal = Math.max(0, Math.min(MAX_DUPES + 1, v + delta));
+  if (newVal === v) return;
+  setStamp(id, newVal);
+  // Si después del cambio ya no es repetida (v <= 1), el chip desaparece, cerrar editor
+  if (newVal <= 1) _expandedRepId = null;
+  // Sincronizar otras vistas si están renderizadas en el DOM
+  updateGlobalProgress();
+  const stampCard = document.getElementById('s_' + id);
+  if (stampCard) updateStampCard(id);
+  const code = id.split('-')[0];
+  if (document.querySelector(`.team-section[data-code="${code}"]`)) updateTeamHeader(code);
+  renderRepetidasTab();
+}
+
+function repInlineRemoveAll(id) {
+  if (!confirm('¿Quitar esta estampa por completo? Pasará a "Me Faltan".')) return;
+  setStamp(id, 0);
+  _expandedRepId = null;
+  updateGlobalProgress();
+  const stampCard = document.getElementById('s_' + id);
+  if (stampCard) updateStampCard(id);
+  const code = id.split('-')[0];
+  if (document.querySelector(`.team-section[data-code="${code}"]`)) updateTeamHeader(code);
+  renderRepetidasTab();
+  showToast('🗑 Estampa quitada del álbum');
+}
+
+function renderRepEditor(id, label, type) {
+  const v = getStamp(id);
+  const dupes = Math.max(0, v - 1);
+  return `<div class="rep-editor" data-rep-id="${id}">
+    <div class="rep-tag">
+      <span class="label">${label}</span>
+      <span class="type">${type}</span>
+    </div>
+    <div class="counter-block">
+      <div class="counter">
+        <button onclick="repInlineAdjust('${id}', -1)" ${v <= 1 ? 'disabled' : ''} title="Quitar una repetida">−</button>
+        <span class="val">${dupes}</span>
+        <button onclick="repInlineAdjust('${id}', 1)" ${v >= MAX_DUPES + 1 ? 'disabled' : ''} title="Agregar una repetida">+</button>
+      </div>
+      <div class="val-sub">Repetidas</div>
+    </div>
+    <div class="actions">
+      <button class="btn-rep-action" onclick="repInlineRemoveAll('${id}')" title="Quitarla del álbum (vuelve a faltantes)">🗑 Quitar pegada</button>
+      <button class="btn-rep-close" onclick="toggleRepEditor('${id}')">✕ Cerrar</button>
+    </div>
+  </div>`;
+}
+
 function renderRepetidasTab() {
   const groups = [];
   let totalReps = 0;
@@ -3367,14 +3571,16 @@ function renderRepetidasTab() {
 
   const c = document.getElementById('repetidasContainer');
   if (totalReps === 0) {
+    _expandedRepId = null;
     c.innerHTML = `<div class="reps-empty"><span class="emoji">🔁</span>
       <div style="color:var(--text);font-size:18px;margin-bottom:6px;font-family:'Bebas Neue',cursive;letter-spacing:1px">Aún no tienes repetidas</div>
       <div>Cuando marques estampas con "+" en el contador, aparecerán aquí para intercambiar.</div></div>`;
     return;
   }
+
   c.innerHTML = `<div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;color:var(--muted);letter-spacing:1.5px;margin-bottom:16px">
     TIENES <span style="color:var(--green);font-family:'Bebas Neue',cursive;font-size:26px">${totalReps}</span> ESTAMPAS REPETIDAS
-    &nbsp;·&nbsp;Lista para intercambios
+    &nbsp;·&nbsp;<span style="color:var(--muted)">Toca cualquiera para ajustar</span>
   </div>` +
   groups.map(g => {
     const isLegendary = g.code === LEGENDARY_SECTION.code;
@@ -3383,6 +3589,18 @@ function renderRepetidasTab() {
       ? `<span class="team-flag emoji" style="font-size:18px">${g.emoji}</span>`
       : `<img class="team-flag" src="https://flagcdn.com/w40/${g.flag}.png" alt="">`;
     const groupReps = g.reps.reduce((s,r) => s + r.dupes, 0);
+
+    // Renderizar cada repetida: o chip clickeable, o editor expandido
+    const itemsHTML = g.reps.map(r => {
+      const id = g.code + '-' + r.num;
+      const label = isLegendary ? '00' : (g.code + ' ' + r.num);
+      const type = getStampType(g.code, r.num);
+      if (_expandedRepId === id) {
+        return renderRepEditor(id, label, type);
+      }
+      return `<span class="reps-chip" onclick="toggleRepEditor('${id}')" role="button" tabindex="0">${label} <span class="mult">×${r.dupes}</span></span>`;
+    }).join('');
+
     return `<div class="reps-team-block">
       <div class="reps-team-head">
         ${flagHTML}
@@ -3390,10 +3608,7 @@ function renderRepetidasTab() {
         <span class="count" style="color:var(--green);font-family:'Bebas Neue',cursive;font-size:17px;letter-spacing:1px">${groupReps} repetidas</span>
       </div>
       <div class="reps-list">
-        ${g.reps.map(r => {
-          const label = isLegendary ? '00' : (g.code + ' ' + r.num);
-          return `<span class="reps-chip">${label} <span class="mult">×${r.dupes}</span></span>`;
-        }).join('')}
+        ${itemsHTML}
       </div>
     </div>`;
   }).join('');
