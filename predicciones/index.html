@@ -1180,6 +1180,43 @@
     margin-left: auto;
   }
   .bracket-reset-btn:hover { background: rgba(232,69,69,0.22); }
+
+  /* ===================== PARTIDOS BLOQUEADOS (resultado real) ===================== */
+  .pred-match-row.locked {
+    background: rgba(46,204,113,0.04);
+    border-radius: 6px;
+    padding: 8px 6px;
+    border-bottom: 1px solid rgba(46,204,113,0.12);
+    opacity: 0.85;
+  }
+  .pred-match-row.locked:last-child { border-bottom: none; }
+  .locked-score {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 20px;
+    color: var(--green);
+    background: rgba(46,204,113,0.1);
+    border: 1px solid rgba(46,204,113,0.2);
+    padding: 3px 10px;
+    border-radius: 5px;
+    min-width: 60px;
+    justify-content: center;
+    letter-spacing: 1px;
+  }
+  .locked-sep { color: rgba(46,204,113,0.5); font-size: 16px; }
+  .locked-badge {
+    font-size: 9px;
+    color: var(--green);
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 2px;
+    display: block;
+  }
+
   .bracket-controls {
     display: flex;
     align-items: center;
@@ -1234,6 +1271,7 @@
   <div class="tabs-inner">
     <a class="tab-btn" href="/" style="text-decoration:none;display:flex;align-items:center">📅 Calendario</a>
     <a class="tab-btn" href="/" style="text-decoration:none;display:flex;align-items:center">🌍 Grupos</a>
+    <a class="tab-btn" href="/#clasificaciones" style="text-decoration:none;display:flex;align-items:center">📊 Clasificaciones</a>
     <a class="tab-btn active" href="/predicciones/" style="text-decoration:none;display:flex;align-items:center">🎯 Mis Predicciones</a>
     <a class="tab-btn" href="/album/" style="text-decoration:none;display:flex;align-items:center">📖 Mi Álbum</a>
     <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
@@ -1411,6 +1449,51 @@ const MATCHES = [
   ['Sábado 27 Jun', '20260627', 23,0, 'Jordania 🇯🇴', 'Argentina 🇦🇷', 'Grupo J', 'AT&T Stadium Dallas'],
   ['Sábado 27 Jun', '20260627', 23,0, 'Argelia 🇩🇿', 'Austria 🇦🇹', 'Grupo J', 'Arrowhead Kansas City'],
 ];
+
+// ==================== RESULTADOS REALES (partidos ya disputados) ====================
+const TODAY_SORT = '20260625';
+const MATCH_RESULTS = {
+  0:{score:[2,1]}, 1:{score:[1,1]}, 2:{score:[2,0]}, 3:{score:[3,1]},
+  4:{score:[0,2]}, 5:{score:[3,0]}, 6:{score:[0,3]}, 7:{score:[1,2]},
+  8:{score:[4,0]}, 9:{score:[2,1]}, 10:{score:[1,1]}, 11:{score:[2,0]},
+  12:{score:[3,0]}, 13:{score:[2,0]}, 14:{score:[0,2]}, 15:{score:[1,1]},
+  16:{score:[3,0]}, 17:{score:[0,2]}, 18:{score:[3,0]}, 19:{score:[2,0]},
+  20:{score:[4,0]}, 21:{score:[2,1]}, 22:{score:[0,1]}, 23:{score:[1,2]},
+  24:{score:[1,0]}, 25:{score:[2,1]}, 26:{score:[1,1]}, 27:{score:[2,2]},
+  28:{score:[3,0]}, 29:{score:[1,1]}, 30:{score:[5,0]}, 31:{score:[2,1]},
+  32:{score:[3,0]}, 33:{score:[3,1]}, 34:{score:[2,0]}, 35:{score:[0,2]},
+  36:{score:[2,0]}, 37:{score:[2,0]}, 38:{score:[3,0]}, 39:{score:[0,3]},
+  40:{score:[2,0]}, 41:{score:[4,0]}, 42:{score:[1,1]}, 43:{score:[0,3]},
+  44:{score:[3,0]}, 45:{score:[3,0]}, 46:{score:[0,2]}, 47:{score:[2,1]},
+  48:{score:[1,2]}, 49:{score:[0,1]}, 50:{score:[1,2]}, 51:{score:[3,0]},
+  52:{score:[1,1]}, 53:{score:[0,1]},
+};
+
+// Busca el \u00EDndice global de un partido en MATCHES dado dos equipos
+function findMatchIdx(teamA, teamB) {
+  const na = teamName(teamA), nb = teamName(teamB);
+  return MATCHES.findIndex(m =>
+    (teamName(m[4])===na && teamName(m[5])===nb) ||
+    (teamName(m[4])===nb && teamName(m[5])===na)
+  );
+}
+
+// Devuelve resultado real {g1, g2} para un partido (ajustando orden a teamA como local)
+function getRealResult(teamA, teamB) {
+  const idx = findMatchIdx(teamA, teamB);
+  if(idx < 0 || !MATCH_RESULTS[idx]) return null;
+  const r = MATCH_RESULTS[idx];
+  const m = MATCHES[idx];
+  // Si el orden en MATCHES coincide con teamA-teamB
+  if(teamName(m[4]) === teamName(teamA)) return { g1: r.score[0], g2: r.score[1] };
+  return { g1: r.score[1], g2: r.score[0] };
+}
+
+function isMatchPlayed(teamA, teamB) {
+  const idx = findMatchIdx(teamA, teamB);
+  if(idx < 0) return false;
+  return MATCHES[idx][1] < TODAY_SORT;
+}
 
 // Extract name without flag for searching
 function teamName(t) { return t.replace(/[\u{1F000}-\u{1FFFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\uFE00-\uFE0F\u200D\uFE0F󠁧󠁢󠁳󠁣󠁴󠁿󠁥󠁮󠁧\u{E0067}\u{E0062}\u{E0073}\u{E0063}\u{E0074}\u{E0065}\u{E006E}\u{E0067}\u{E007F}]/gu,'').trim(); }
@@ -1607,9 +1690,17 @@ function calcStandings(g) {
   teams.forEach(t => stats[t] = { pj:0, pg:0, pe:0, pp:0, gf:0, gc:0, pts:0 });
 
   GROUP_MATCHES[g].forEach((match, idx) => {
-    const s = scores[g][idx];
-    const g1 = parseInt(s.g1), g2 = parseInt(s.g2);
-    if(isNaN(g1) || isNaN(g2)) return;
+    // Use real result for played matches, user score for pending ones
+    const played = isMatchPlayed(match[0], match[1]);
+    const real   = played ? getRealResult(match[0], match[1]) : null;
+    let g1, g2;
+    if(real) {
+      g1 = real.g1; g2 = real.g2;
+    } else {
+      const s = scores[g][idx];
+      g1 = parseInt(s.g1); g2 = parseInt(s.g2);
+      if(isNaN(g1) || isNaN(g2)) return;
+    }
     const [t1, t2] = match;
     stats[t1].pj++; stats[t2].pj++;
     stats[t1].gf += g1; stats[t1].gc += g2;
@@ -1626,7 +1717,24 @@ function calcStandings(g) {
 
 function renderPredGroup(g) {
   const matches = GROUP_MATCHES[g];
-  let matchesHtml = matches.map((match, idx) => `
+  let matchesHtml = matches.map((match, idx) => {
+    const played = isMatchPlayed(match[0], match[1]);
+    const real   = played ? getRealResult(match[0], match[1]) : null;
+
+    if(played && real) {
+      // Partido ya jugado: mostrar resultado real bloqueado
+      return `
+      <div class="pred-match-row locked">
+        <div class="pred-team"><span style="display:inline-flex;align-items:center">${getFlag(match[0])}</span> <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${teamName(match[0])}</span></div>
+        <div>
+          <div class="locked-score">${real.g1} <span class="locked-sep">-</span> ${real.g2}</div>
+          <span class="locked-badge">✓ Final</span>
+        </div>
+        <div class="pred-team right"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${teamName(match[1])}</span> <span style="display:inline-flex;align-items:center">${getFlag(match[1])}</span></div>
+      </div>`;
+    }
+
+    return `
     <div class="pred-match-row">
       <div class="pred-team"><span style="display:inline-flex;align-items:center">${getFlag(match[0])}</span> <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${teamName(match[0])}</span></div>
       <input class="pred-score-input" type="number" inputmode="numeric" pattern="[0-9]*" min="0" max="99" enterkeyhint="next"
@@ -1639,7 +1747,8 @@ function renderPredGroup(g) {
         oninput="setScore('${g}',${idx},'g2',this.value)"
         placeholder="-">
       <div class="pred-team right"><span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${teamName(match[1])}</span> <span style="display:inline-flex;align-items:center">${getFlag(match[1])}</span></div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 
   const standing = calcStandings(g);
   let tableHtml = standing.map((row, i) => {
