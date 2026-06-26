@@ -2188,11 +2188,20 @@ function getGroupWinners() {
   return result;
 }
 
+// Un partido cuenta como "listo" si ya se jugó (resultado real fijado)
+// o si el usuario ingresó una predicción.
+function isGroupFilled(g) {
+  return GROUP_MATCHES[g].every((match, idx) => {
+    if(isMatchPlayed(match[0], match[1])) return true;
+    const s = scores[g][idx];
+    return s.g1 !== '' && s.g2 !== '';
+  });
+}
+
 function countScoredGroups() {
   let count = 0;
-  Object.keys(scores).forEach(g => {
-    const allFilled = scores[g].every(s => s.g1 !== '' && s.g2 !== '');
-    if(allFilled) count++;
+  Object.keys(GROUPS).forEach(g => {
+    if(isGroupFilled(g)) count++;
   });
   return count;
 }

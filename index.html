@@ -841,6 +841,40 @@
   .qualified-slot.tbd { color: var(--muted); font-style: italic; font-weight: 400; }
   .q-slot-label { font-size: 11px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; display: block; }
 
+  /* ===== Bracket visual (clasificaciones) ===== */
+  .kbracket-outer { overflow-x: auto; padding-bottom: 16px; margin-top: 12px; -webkit-overflow-scrolling: touch; }
+  .kbracket-grid { display: flex; gap: 0; min-width: 1040px; }
+  .kbracket-round { flex: 1; display: flex; flex-direction: column; min-width: 200px; }
+  .kbracket-round-title {
+    font-family: 'Bebas Neue', cursive; font-size: 14px; letter-spacing: 2px;
+    color: var(--accent); text-align: center; padding: 8px 4px;
+    background: rgba(201,168,76,0.08); border-bottom: 1px solid var(--border); margin-bottom: 4px;
+  }
+  .kbracket-slots { display: flex; flex-direction: column; flex: 1; justify-content: space-around; padding: 8px 0; gap: 4px; }
+  .kbracket-match { background: var(--surface2); border: 1px solid var(--border); border-radius: 7px; overflow: hidden; margin: 3px 6px; flex: 0 0 auto; }
+  .kbracket-date { font-size: 10px; color: var(--muted); text-align: center; padding: 3px; background: rgba(0,0,0,0.2); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.5px; }
+  .kbracket-team {
+    display: flex; align-items: center; gap: 7px; padding: 6px 9px;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 13.5px; font-weight: 700;
+    border-bottom: 1px solid var(--border); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .kbracket-team:last-child { border-bottom: none; }
+  .kbracket-team.real { color: var(--text); }
+  .kbracket-team.seed { color: var(--muted); font-weight: 600; }
+  .kbracket-team.third { color: var(--accent2); font-weight: 600; font-size: 12px; }
+  .kbracket-team-flag { flex-shrink: 0; display:flex; align-items:center; }
+  .kbracket-team-flag img { width:22px; height:15px; border-radius:2px; display:block; }
+  .kbracket-seedbox {
+    flex-shrink:0; min-width:26px; height:18px; padding:0 5px; border-radius:4px;
+    background: rgba(107,124,153,0.2); color: var(--muted);
+    font-size: 10px; font-weight: 800; letter-spacing: .5px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .kbracket-team.real .kbracket-seedbox { background: rgba(46,204,113,0.18); color: var(--green); }
+  .kbracket-legend { display:flex; flex-wrap:wrap; gap:14px; margin:4px 0 6px; font-family:'Barlow Condensed',sans-serif; font-size:13px; color:var(--muted); }
+  .kbracket-legend span b { color: var(--green); }
+  .kbracket-legend span i { color: var(--accent2); font-style:normal; }
+
   /* Clasificaciones light mode */
   body.light .standings-card { box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
   body.light .thirds-table { box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
@@ -1566,6 +1600,129 @@ function renderQualifiedTeams() {
     </div>`;
 }
 
+// ===== Cuadro eliminatorio (estado actual) =====
+// Fixtures oficiales R32 (M73–M88). third=pool de mejores terceros (Anexo FIFA 2026).
+const KO_R32 = [
+  { id:'m73', a:'2A', b:'2B',  date:'28 Jun · Los Ángeles' },
+  { id:'m74', a:'1E', third:'A/B/C/D/F', date:'29 Jun · Boston' },
+  { id:'m75', a:'1C', b:'2F',  date:'29 Jun · Houston' },
+  { id:'m78', a:'2E', b:'2I',  date:'30 Jun · Dallas' },
+  { id:'m76', a:'1F', b:'2C',  date:'29 Jun · Monterrey' },
+  { id:'m77', a:'1I', third:'C/D/F/G/H', date:'30 Jun · N.Y./N.J.' },
+  { id:'m79', a:'1A', third:'C/E/F/H/I', date:'30 Jun · Ciudad de México' },
+  { id:'m80', a:'1L', third:'E/H/I/J/K', date:'1 Jul · Atlanta' },
+  { id:'m83', a:'2K', b:'2L',  date:'2 Jul · Toronto' },
+  { id:'m84', a:'1H', b:'2J',  date:'2 Jul · Los Ángeles' },
+  { id:'m81', a:'1D', third:'B/E/F/I/J', date:'1 Jul · San Francisco' },
+  { id:'m82', a:'1G', third:'A/E/H/I/J', date:'1 Jul · Seattle' },
+  { id:'m85', a:'1B', third:'E/F/G/I/J', date:'2 Jul · Vancouver' },
+  { id:'m86', a:'1J', b:'2H',  date:'3 Jul · Miami' },
+  { id:'m87', a:'1K', third:'D/E/I/J/L', date:'3 Jul · Kansas City' },
+  { id:'m88', a:'2D', b:'2G',  date:'3 Jul · Dallas' },
+];
+const KO_R16 = [
+  { id:'o1', a:'m73', b:'m74', date:'4 Jul · Houston' },
+  { id:'o2', a:'m75', b:'m78', date:'4 Jul · Philadelphia' },
+  { id:'o3', a:'m76', b:'m77', date:'5 Jul · N.Y./N.J.' },
+  { id:'o4', a:'m79', b:'m80', date:'5 Jul · Ciudad de México' },
+  { id:'o5', a:'m83', b:'m84', date:'6 Jul · Dallas' },
+  { id:'o6', a:'m81', b:'m82', date:'6 Jul · Seattle' },
+  { id:'o7', a:'m85', b:'m86', date:'7 Jul · Atlanta' },
+  { id:'o8', a:'m87', b:'m88', date:'7 Jul · Vancouver' },
+];
+const KO_QF = [
+  { id:'q1', a:'o1', b:'o2', date:'9 Jul · Boston' },
+  { id:'q2', a:'o5', b:'o6', date:'10 Jul · Los Ángeles' },
+  { id:'q3', a:'o3', b:'o4', date:'11 Jul · Miami' },
+  { id:'q4', a:'o7', b:'o8', date:'11 Jul · Kansas City' },
+];
+const KO_SF = [
+  { id:'s1', a:'q1', b:'q2', date:'14 Jul · Dallas' },
+  { id:'s2', a:'q3', b:'q4', date:'15 Jul · Atlanta' },
+];
+
+// Resuelve una semilla tipo "1A"/"2B": equipo real si el grupo terminó, si no la etiqueta.
+function resolveSeed(seed) {
+  const pos = parseInt(seed[0]);          // 1 o 2
+  const grp = seed.slice(1);              // letra del grupo
+  if(isGroupComplete(grp)) {
+    const rows = calcGroupStandings(grp);
+    const team = rows[pos-1]?.team;
+    if(team) return { real:true, seed, team };
+  }
+  return { real:false, seed, label:`${pos}° Grupo ${grp}` };
+}
+
+function koTeamRow(slot) {
+  if(slot.third) {
+    return `<div class="kbracket-team third">
+      <span class="kbracket-seedbox">3°</span>
+      <span style="overflow:hidden;text-overflow:ellipsis">${slot.third}</span>
+    </div>`;
+  }
+  const r = resolveSeed(slot.seed);
+  if(r.real) {
+    return `<div class="kbracket-team real">
+      <span class="kbracket-team-flag">${getFlag(r.team,22,15)}</span>
+      <span class="kbracket-seedbox">${r.seed}</span>
+      <span style="overflow:hidden;text-overflow:ellipsis">${teamName(r.team)}</span>
+    </div>`;
+  }
+  return `<div class="kbracket-team seed">
+    <span class="kbracket-seedbox">${r.seed}</span>
+    <span style="overflow:hidden;text-overflow:ellipsis">${r.label}</span>
+  </div>`;
+}
+
+function koWinnerRow(srcId) {
+  return `<div class="kbracket-team seed">
+    <span class="kbracket-seedbox">${srcId.toUpperCase()}</span>
+    <span style="overflow:hidden;text-overflow:ellipsis">Ganador ${srcId.toUpperCase()}</span>
+  </div>`;
+}
+
+function renderCurrentBracket() {
+  const r32 = KO_R32.map(m => `
+    <div class="kbracket-match">
+      <div class="kbracket-date">📅 ${m.date}</div>
+      ${koTeamRow(m.third ? {seed:m.a} : {seed:m.a})}
+      ${koTeamRow(m.third ? {third:m.third} : {seed:m.b})}
+    </div>`).join('');
+
+  const roundCol = (arr) => arr.map(m => `
+    <div class="kbracket-match">
+      <div class="kbracket-date">📅 ${m.date}</div>
+      ${koWinnerRow(m.a)}
+      ${koWinnerRow(m.b)}
+    </div>`).join('');
+
+  const finalCol = `
+    <div class="kbracket-match">
+      <div class="kbracket-date">📅 14–15 Jul</div>
+      ${koWinnerRow('s1')}${koWinnerRow('s2')}
+    </div>
+    <div class="kbracket-match" style="border-color:var(--accent);box-shadow:0 0 16px rgba(201,168,76,0.18)">
+      <div class="kbracket-date">🏆 19 Jul · N.Y./N.J.</div>
+      ${koWinnerRow('s1')}${koWinnerRow('s2')}
+    </div>`;
+
+  return `
+    <div class="kbracket-legend">
+      <span><b>●</b> Clasificado (grupo terminado)</span>
+      <span><i>3°</i> Mejor tercero por definir</span>
+      <span>1A/2B… posición de grupo aún no definida</span>
+    </div>
+    <div class="kbracket-outer">
+      <div class="kbracket-grid">
+        <div class="kbracket-round"><div class="kbracket-round-title">16avos · 28 Jun–3 Jul</div><div class="kbracket-slots">${r32}</div></div>
+        <div class="kbracket-round"><div class="kbracket-round-title">Octavos · 4–7 Jul</div><div class="kbracket-slots">${roundCol(KO_R16)}</div></div>
+        <div class="kbracket-round"><div class="kbracket-round-title">Cuartos · 9–11 Jul</div><div class="kbracket-slots">${roundCol(KO_QF)}</div></div>
+        <div class="kbracket-round"><div class="kbracket-round-title">Semis · 14–15 Jul</div><div class="kbracket-slots">${roundCol(KO_SF)}</div></div>
+        <div class="kbracket-round"><div class="kbracket-round-title">🏆 Final &amp; 3er Puesto</div><div class="kbracket-slots">${finalCol}</div></div>
+      </div>
+    </div>`;
+}
+
 function renderClasificaciones() {
   const container = document.getElementById('clasificacionesContainer');
   if(container.dataset.rendered) return;
@@ -1590,7 +1747,12 @@ function renderClasificaciones() {
     </div>
 
     <div class="clas-section">
-      <div class="clas-title">Cuadro Eliminatorio — Equipos Clasificados</div>
+      <div class="clas-title">Cuadro Eliminatorio — Estado Actual</div>
+      ${renderCurrentBracket()}
+    </div>
+
+    <div class="clas-section">
+      <div class="clas-title">Equipos Clasificados</div>
       ${renderQualifiedTeams()}
     </div>
   `;
