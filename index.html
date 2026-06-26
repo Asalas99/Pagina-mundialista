@@ -1166,6 +1166,10 @@ const MATCH_RESULTS = {
   57: { score:[1,1], scorers:[{t:1,p:'D. Maeda',m:56},{t:2,p:'A. Elanga',m:62}] },
   58: { score:[3,2], scorers:[{t:2,p:'A. Trusty',m:3},{t:1,p:'A. Güler',m:10},{t:1,p:'B. A. Yılmaz',m:31},{t:2,p:'S. Berhalter',m:49},{t:1,p:'K. Ayhan',m:'90+8'}] },
   59: { score:[0,0], scorers:[] },
+
+  // === JORNADA 3 (26 jun) ===
+  60: { score:[1,4], scorers:[{t:2,p:'O. Dembélé',m:7},{t:2,p:'O. Dembélé',m:20},{t:1,p:'T. Aasgaard',m:21},{t:2,p:'O. Dembélé',m:32},{t:2,p:'D. Doué',m:'90+4'}] },
+  61: { score:[5,0], scorers:[{t:1,p:'H. Diarra',m:4},{t:1,p:'I. Sarr',m:56},{t:1,p:'P. Gueye',m:59},{t:1,p:'P. Gueye',m:71},{t:1,p:'I. Ndiaye',m:82}] },
 };
 
 // Extract name without flag for searching
@@ -1190,8 +1194,9 @@ function renderMatchCard(m, matchIdx) {
   const isPast  = dateSort < TODAY_SORT;
   const result  = (matchIdx !== undefined) ? MATCH_RESULTS[matchIdx] : null;
 
-  // Card for completed matches: show result + scorers
-  if (isPast && result) {
+  // Card for completed matches: show result + scorers (un partido con
+  // resultado ya terminó, aunque sea de hoy)
+  if (result) {
     const [g1, g2] = result.score;
     const scorersT1 = result.scorers.filter(s => s.t === 1);
     const scorersT2 = result.scorers.filter(s => s.t === 2);
@@ -1573,10 +1578,14 @@ function renderQualifiedTeams() {
   // Show which teams have confirmed qualification from completed groups
   const qualified = [];
   Object.keys(GROUPS).forEach(g => {
-    if(!isGroupComplete(g)) return;
-    const rows = calcGroupStandings(g);
-    qualified.push({ slot: `1° Grupo ${g}`, team: rows[0].team, confirmed: true });
-    qualified.push({ slot: `2° Grupo ${g}`, team: rows[1].team, confirmed: true });
+    if(isGroupComplete(g)) {
+      const rows = calcGroupStandings(g);
+      qualified.push({ slot: `1° Grupo ${g}`, team: rows[0].team, confirmed: true });
+      qualified.push({ slot: `2° Grupo ${g}`, team: rows[1].team, confirmed: true });
+    } else if(CLINCHED[`1${g}`]) {
+      // Asegurado por reglamento aunque el grupo no haya terminado
+      qualified.push({ slot: `1° Grupo ${g}`, team: CLINCHED[`1${g}`], confirmed: true });
+    }
   });
 
   if(!qualified.length) return '<p style="color:var(--muted);font-size:14px;font-family:\'Barlow Condensed\',sans-serif">El cuadro eliminatorio se completará al terminar la fase de grupos.</p>';
@@ -1601,47 +1610,53 @@ function renderQualifiedTeams() {
 }
 
 // ===== Cuadro eliminatorio (estado actual) =====
-// Fixtures oficiales R32 (M73–M88). third=pool de mejores terceros (Anexo FIFA 2026).
+// Cruces oficiales FIFA 2026 (Wikipedia knockout stage). Orden vertical = árbol del bracket.
+// Semillas ya aseguradas por reglamento aunque el grupo no haya terminado.
+const CLINCHED = { '1J': 'Argentina 🇦🇷' };
+
+// R32 (M73–M88). third = pool de mejores terceros (Anexo FIFA 2026). n = nº de partido.
 const KO_R32 = [
-  { id:'m73', a:'2A', b:'2B',  date:'28 Jun · Los Ángeles' },
-  { id:'m74', a:'1E', third:'A/B/C/D/F', date:'29 Jun · Boston' },
-  { id:'m75', a:'1C', b:'2F',  date:'29 Jun · Houston' },
-  { id:'m78', a:'2E', b:'2I',  date:'30 Jun · Dallas' },
-  { id:'m76', a:'1F', b:'2C',  date:'29 Jun · Monterrey' },
-  { id:'m77', a:'1I', third:'C/D/F/G/H', date:'30 Jun · N.Y./N.J.' },
-  { id:'m79', a:'1A', third:'C/E/F/H/I', date:'30 Jun · Ciudad de México' },
-  { id:'m80', a:'1L', third:'E/H/I/J/K', date:'1 Jul · Atlanta' },
-  { id:'m83', a:'2K', b:'2L',  date:'2 Jul · Toronto' },
-  { id:'m84', a:'1H', b:'2J',  date:'2 Jul · Los Ángeles' },
-  { id:'m81', a:'1D', third:'B/E/F/I/J', date:'1 Jul · San Francisco' },
-  { id:'m82', a:'1G', third:'A/E/H/I/J', date:'1 Jul · Seattle' },
-  { id:'m85', a:'1B', third:'E/F/G/I/J', date:'2 Jul · Vancouver' },
-  { id:'m86', a:'1J', b:'2H',  date:'3 Jul · Miami' },
-  { id:'m87', a:'1K', third:'D/E/I/J/L', date:'3 Jul · Kansas City' },
-  { id:'m88', a:'2D', b:'2G',  date:'3 Jul · Dallas' },
+  { n:74, a:'1E', third:'A/B/C/D/F', date:'29 Jun · Boston' },
+  { n:77, a:'1I', third:'C/D/F/G/H', date:'30 Jun · N.Y./N.J.' },
+  { n:73, a:'2A', b:'2B',            date:'28 Jun · Los Ángeles' },
+  { n:75, a:'1C', b:'2F',            date:'29 Jun · Houston' },
+  { n:83, a:'2K', b:'2L',            date:'2 Jul · Toronto' },
+  { n:84, a:'1H', b:'2J',            date:'2 Jul · Los Ángeles' },
+  { n:81, a:'1D', third:'B/E/F/I/J', date:'1 Jul · San Francisco' },
+  { n:82, a:'1G', third:'A/E/H/I/J', date:'1 Jul · Seattle' },
+  { n:76, a:'1F', b:'2C',            date:'29 Jun · Monterrey' },
+  { n:78, a:'2E', b:'2I',            date:'30 Jun · Dallas' },
+  { n:79, a:'1A', third:'C/E/F/H/I', date:'30 Jun · Ciudad de México' },
+  { n:80, a:'1L', third:'E/H/I/J/K', date:'1 Jul · Atlanta' },
+  { n:86, a:'1J', b:'2H',            date:'3 Jul · Miami' },
+  { n:88, a:'2D', b:'2G',            date:'3 Jul · Dallas' },
+  { n:85, a:'1B', third:'E/F/G/I/J', date:'2 Jul · Vancouver' },
+  { n:87, a:'1K', third:'D/E/I/J/L', date:'3 Jul · Kansas City' },
 ];
+// R16 (M89–M96): a/b = nº del partido R32 cuyo ganador entra.
 const KO_R16 = [
-  { id:'o1', a:'m73', b:'m74', date:'4 Jul · Houston' },
-  { id:'o2', a:'m75', b:'m78', date:'4 Jul · Philadelphia' },
-  { id:'o3', a:'m76', b:'m77', date:'5 Jul · N.Y./N.J.' },
-  { id:'o4', a:'m79', b:'m80', date:'5 Jul · Ciudad de México' },
-  { id:'o5', a:'m83', b:'m84', date:'6 Jul · Dallas' },
-  { id:'o6', a:'m81', b:'m82', date:'6 Jul · Seattle' },
-  { id:'o7', a:'m85', b:'m86', date:'7 Jul · Atlanta' },
-  { id:'o8', a:'m87', b:'m88', date:'7 Jul · Vancouver' },
+  { n:89, a:74, b:77, date:'4 Jul · Philadelphia' },
+  { n:90, a:73, b:75, date:'4 Jul · Houston' },
+  { n:93, a:83, b:84, date:'6 Jul · Dallas' },
+  { n:94, a:81, b:82, date:'6 Jul · Seattle' },
+  { n:91, a:76, b:78, date:'5 Jul · N.Y./N.J.' },
+  { n:92, a:79, b:80, date:'5 Jul · Ciudad de México' },
+  { n:95, a:86, b:88, date:'7 Jul · Atlanta' },
+  { n:96, a:85, b:87, date:'7 Jul · Vancouver' },
 ];
 const KO_QF = [
-  { id:'q1', a:'o1', b:'o2', date:'9 Jul · Boston' },
-  { id:'q2', a:'o5', b:'o6', date:'10 Jul · Los Ángeles' },
-  { id:'q3', a:'o3', b:'o4', date:'11 Jul · Miami' },
-  { id:'q4', a:'o7', b:'o8', date:'11 Jul · Kansas City' },
+  { n:97,  a:89, b:90, date:'9 Jul · Boston' },
+  { n:98,  a:93, b:94, date:'10 Jul · Los Ángeles' },
+  { n:99,  a:91, b:92, date:'11 Jul · Miami' },
+  { n:100, a:95, b:96, date:'11 Jul · Kansas City' },
 ];
 const KO_SF = [
-  { id:'s1', a:'q1', b:'q2', date:'14 Jul · Dallas' },
-  { id:'s2', a:'q3', b:'q4', date:'15 Jul · Atlanta' },
+  { n:101, a:97, b:98,  date:'14 Jul · Dallas' },
+  { n:102, a:99, b:100, date:'15 Jul · Atlanta' },
 ];
 
-// Resuelve una semilla tipo "1A"/"2B": equipo real si el grupo terminó, si no la etiqueta.
+// Resuelve una semilla tipo "1A"/"2B": equipo real si el grupo terminó
+// o si ya está asegurado por reglamento; si no, la etiqueta.
 function resolveSeed(seed) {
   const pos = parseInt(seed[0]);          // 1 o 2
   const grp = seed.slice(1);              // letra del grupo
@@ -1650,6 +1665,7 @@ function resolveSeed(seed) {
     const team = rows[pos-1]?.team;
     if(team) return { real:true, seed, team };
   }
+  if(CLINCHED[seed]) return { real:true, seed, team: CLINCHED[seed] };
   return { real:false, seed, label:`${pos}° Grupo ${grp}` };
 }
 
@@ -1674,41 +1690,41 @@ function koTeamRow(slot) {
   </div>`;
 }
 
-function koWinnerRow(srcId) {
+function koWinnerRow(srcN) {
   return `<div class="kbracket-team seed">
-    <span class="kbracket-seedbox">${srcId.toUpperCase()}</span>
-    <span style="overflow:hidden;text-overflow:ellipsis">Ganador ${srcId.toUpperCase()}</span>
+    <span class="kbracket-seedbox">M${srcN}</span>
+    <span style="overflow:hidden;text-overflow:ellipsis">Ganador M${srcN}</span>
   </div>`;
 }
 
 function renderCurrentBracket() {
   const r32 = KO_R32.map(m => `
     <div class="kbracket-match">
-      <div class="kbracket-date">📅 ${m.date}</div>
-      ${koTeamRow(m.third ? {seed:m.a} : {seed:m.a})}
-      ${koTeamRow(m.third ? {third:m.third} : {seed:m.b})}
+      <div class="kbracket-date">M${m.n} · 📅 ${m.date}</div>
+      ${koTeamRow({seed:m.a})}
+      ${m.third ? koTeamRow({third:m.third}) : koTeamRow({seed:m.b})}
     </div>`).join('');
 
   const roundCol = (arr) => arr.map(m => `
     <div class="kbracket-match">
-      <div class="kbracket-date">📅 ${m.date}</div>
+      <div class="kbracket-date">M${m.n} · 📅 ${m.date}</div>
       ${koWinnerRow(m.a)}
       ${koWinnerRow(m.b)}
     </div>`).join('');
 
   const finalCol = `
     <div class="kbracket-match">
-      <div class="kbracket-date">📅 14–15 Jul</div>
-      ${koWinnerRow('s1')}${koWinnerRow('s2')}
+      <div class="kbracket-date">M103 · 🥉 18 Jul · Miami</div>
+      ${koWinnerRow(101)}${koWinnerRow(102)}
     </div>
     <div class="kbracket-match" style="border-color:var(--accent);box-shadow:0 0 16px rgba(201,168,76,0.18)">
-      <div class="kbracket-date">🏆 19 Jul · N.Y./N.J.</div>
-      ${koWinnerRow('s1')}${koWinnerRow('s2')}
+      <div class="kbracket-date">M104 · 🏆 19 Jul · N.Y./N.J.</div>
+      ${koWinnerRow(101)}${koWinnerRow(102)}
     </div>`;
 
   return `
     <div class="kbracket-legend">
-      <span><b>●</b> Clasificado (grupo terminado)</span>
+      <span><b>●</b> Clasificado (grupo terminado o asegurado)</span>
       <span><i>3°</i> Mejor tercero por definir</span>
       <span>1A/2B… posición de grupo aún no definida</span>
     </div>
