@@ -1451,7 +1451,7 @@ const MATCHES = [
 ];
 
 // ==================== RESULTADOS REALES (partidos ya disputados) ====================
-const TODAY_SORT = '20260626';
+const TODAY_SORT = '20260629';
 const MATCH_RESULTS = {
   0:{score:[2,0]}, 1:{score:[2,1]}, 2:{score:[1,1]}, 3:{score:[4,1]},
   4:{score:[1,1]}, 5:{score:[1,1]}, 6:{score:[0,1]}, 7:{score:[2,0]},
@@ -1469,6 +1469,8 @@ const MATCH_RESULTS = {
   52:{score:[0,3]}, 53:{score:[1,0]}, 54:{score:[2,1]}, 55:{score:[0,2]},
   56:{score:[1,3]}, 57:{score:[1,1]}, 58:{score:[3,2]}, 59:{score:[0,0]},
   60:{score:[1,4]}, 61:{score:[5,0]}, 62:{score:[0,1]}, 63:{score:[0,0]},
+  64:{score:[1,5]}, 65:{score:[1,1]}, 66:{score:[0,2]}, 67:{score:[2,1]},
+  68:{score:[0,0]}, 69:{score:[3,1]}, 70:{score:[1,3]}, 71:{score:[3,3]},
 };
 
 // Busca el \u00EDndice global de un partido en MATCHES dado dos equipos
@@ -1997,8 +1999,8 @@ function loadFromURL() {
 const R32_FIXTURES = [
   { id: 'm73',  t1: '2A',  t2: '2B',   third: false, date: '28 Jun', venue: 'Los Ángeles' },
   { id: 'm74',  t1: '1E',  t2: null,   third: true,  thirdSlot: '1E', date: '29 Jun', venue: 'Boston' },
-  { id: 'm75',  t1: '1F',  t2: '2C',   third: false, date: '29 Jun', venue: 'Houston' },
-  { id: 'm76',  t1: '1C',  t2: '2F',   third: false, date: '29 Jun', venue: 'Monterrey' },
+  { id: 'm75',  t1: '1F',  t2: '2C',   third: false, date: '29 Jun', venue: 'Monterrey' },
+  { id: 'm76',  t1: '1C',  t2: '2F',   third: false, date: '29 Jun', venue: 'Houston' },
   { id: 'm77',  t1: '1I',  t2: null,   third: true,  thirdSlot: '1I', date: '30 Jun', venue: 'N.Y./N.J.' },
   { id: 'm78',  t1: '2E',  t2: '2I',   third: false, date: '30 Jun', venue: 'Dallas' },
   { id: 'm79',  t1: '1A',  t2: null,   third: true,  thirdSlot: '1A', date: '30 Jun', venue: 'Ciudad de México' },
@@ -2051,6 +2053,8 @@ const THIRD_FIXTURE  = { id: 'third', w1: 'sf_1', w2: 'sf_2', date: '18 Jul', ve
 
 const ANNEX_C = {
   // Format: "GROUPS_SORTED": [3rd_for_1A, 3rd_for_1B, 3rd_for_1D, 3rd_for_1E, 3rd_for_1G, 3rd_for_1I, 3rd_for_1K, 3rd_for_1L]
+  // Combinación real Mundial 2026 (terceros: B D E F I J K L)
+  'BDEFIJKL': ['E','J','B','D','I','F','L','K'],
   // Row 1: E F G H I J K L
   'EFGHIJKL': ['E','J','I','F','H','G','L','K'],
   // Row 2: D F G H I J K L

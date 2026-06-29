@@ -1090,10 +1090,28 @@ const MATCHES = [
   ['Sábado 27 Jun', '20260627', 20,30, 'R.D. Congo 🇨🇩', 'Uzbekistán 🇺🇿', 'Grupo K', 'Mercedes-Benz Stadium Atlanta'],
   ['Sábado 27 Jun', '20260627', 23,0, 'Jordania 🇯🇴', 'Argentina 🇦🇷', 'Grupo J', 'AT&T Stadium Dallas'],
   ['Sábado 27 Jun', '20260627', 23,0, 'Argelia 🇩🇿', 'Austria 🇦🇹', 'Grupo J', 'Arrowhead Kansas City'],
+
+  // ===================== DIECISEISAVOS DE FINAL (R32) =====================
+  ['Domingo 28 Jun', '20260628', 16,0,  'Sudáfrica 🇿🇦', 'Canadá 🇨🇦', '16avos de Final', 'SoFi Stadium Los Ángeles'],
+  ['Lunes 29 Jun', '20260629', 14,0,  'Brasil 🇧🇷', 'Japón 🇯🇵', '16avos de Final', 'NRG Stadium Houston'],
+  ['Lunes 29 Jun', '20260629', 17,30, 'Alemania 🇩🇪', 'Paraguay 🇵🇾', '16avos de Final', 'Gillette Stadium Boston'],
+  ['Lunes 29 Jun', '20260629', 22,0,  'Países Bajos 🇳🇱', 'Marruecos 🇲🇦', '16avos de Final', 'Estadio Monterrey'],
+  ['Martes 30 Jun', '20260630', 14,0,  'Costa de Marfil 🇨🇮', 'Noruega 🇳🇴', '16avos de Final', 'AT&T Stadium Dallas'],
+  ['Martes 30 Jun', '20260630', 18,0,  'Francia 🇫🇷', 'Suecia 🇸🇪', '16avos de Final', 'MetLife Stadium N.Y./N.J.'],
+  ['Martes 30 Jun', '20260630', 22,0,  'México 🇲🇽', 'Ecuador 🇪🇨', '16avos de Final', 'Estadio Ciudad de México'],
+  ['Miércoles 1 Jul', '20260701', 13,0,  'Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'R.D. Congo 🇨🇩', '16avos de Final', 'Mercedes-Benz Stadium Atlanta'],
+  ['Miércoles 1 Jul', '20260701', 17,0,  'Bélgica 🇧🇪', 'Senegal 🇸🇳', '16avos de Final', 'Lumen Field Seattle'],
+  ['Miércoles 1 Jul', '20260701', 21,0,  'Estados Unidos 🇺🇸', 'Bosnia y Herz. 🇧🇦', '16avos de Final', 'Levi\'s Stadium San Francisco'],
+  ['Jueves 2 Jul', '20260702', 16,0,  'España 🇪🇸', 'Austria 🇦🇹', '16avos de Final', 'SoFi Stadium Los Ángeles'],
+  ['Jueves 2 Jul', '20260702', 20,0,  'Portugal 🇵🇹', 'Croacia 🇭🇷', '16avos de Final', 'BMO Field Toronto'],
+  ['Jueves 2 Jul', '20260702', 24,0,  'Suiza 🇨🇭', 'Argelia 🇩🇿', '16avos de Final', 'BC Place Vancouver'],
+  ['Viernes 3 Jul', '20260703', 15,0,  'Australia 🇦🇺', 'Egipto 🇪🇬', '16avos de Final', 'AT&T Stadium Dallas'],
+  ['Viernes 3 Jul', '20260703', 19,0,  'Argentina 🇦🇷', 'Cabo Verde 🇨🇻', '16avos de Final', 'Hard Rock Stadium Miami'],
+  ['Viernes 3 Jul', '20260703', 22,30, 'Colombia 🇨🇴', 'Ghana 🇬🇭', '16avos de Final', 'Arrowhead Kansas City'],
 ];
 
 // ==================== FECHA HOY ====================
-const TODAY_SORT = '20260626';
+const TODAY_SORT = '20260629';
 
 // ==================== RESULTADOS REALES ====================
 // \u00CDndice = posici\u00F3n del partido en el array MATCHES (0-based)
@@ -1172,6 +1190,14 @@ const MATCH_RESULTS = {
   61: { score:[5,0], scorers:[{t:1,p:'H. Diarra',m:4},{t:1,p:'I. Sarr',m:56},{t:1,p:'P. Gueye',m:59},{t:1,p:'P. Gueye',m:71},{t:1,p:'I. Ndiaye',m:82}] },
   62: { score:[0,1], scorers:[{t:2,p:'Á. Baena',m:42}] },
   63: { score:[0,0], scorers:[] },
+  64: { score:[1,5], scorers:[{t:2,p:'L. Trossard',m:28},{t:2,p:'L. Trossard',m:50},{t:2,p:'K. De Bruyne',m:66},{t:1,p:'E. Just',m:84},{t:2,p:'R. Lukaku',m:86},{t:2,p:'A. Saelemaekers',m:'90+4'}] },
+  65: { score:[1,1], scorers:[{t:1,p:'M. Saber',m:5},{t:2,p:'R. Rezaeian',m:14}] },
+  66: { score:[0,2], scorers:[{t:2,p:'J. Bellingham',m:62},{t:2,p:'H. Kane',m:67}] },
+  67: { score:[2,1], scorers:[{t:1,p:'P. Sučić',m:31},{t:2,p:'D. Luckassen',m:73},{t:1,p:'N. Vlašić',m:83}] },
+  68: { score:[0,0], scorers:[] },
+  69: { score:[3,1], scorers:[{t:2,p:'E. Shomurodov',m:10},{t:1,p:'Y. Wissa',m:68,type:'pen'},{t:1,p:'F. Mayele',m:78},{t:1,p:'Y. Wissa',m:'90+1'}] },
+  70: { score:[1,3], scorers:[{t:2,p:'G. Lo Celso',m:19},{t:2,p:'L. Martínez',m:31,type:'pen'},{t:1,p:'M. Al-Taamari',m:55},{t:2,p:'L. Messi',m:80}] },
+  71: { score:[3,3], scorers:[{t:2,p:'M. Arnautović',m:28},{t:1,p:'M. Belghali',m:45},{t:2,p:'M. Sabitzer',m:55},{t:1,p:'R. Mahrez',m:60},{t:1,p:'R. Mahrez',m:'90+3'},{t:2,p:'S. Kalajdžić',m:'90+6'}] },
 };
 
 // Extract name without flag for searching
@@ -1616,24 +1642,25 @@ function renderQualifiedTeams() {
 // Semillas ya aseguradas por reglamento aunque el grupo no haya terminado.
 const CLINCHED = { '1J': 'Argentina 🇦🇷' };
 
-// R32 (M73–M88). third = pool de mejores terceros (Anexo FIFA 2026). n = nº de partido.
+// R32 (M73–M88). Cruces, sedes y terceros ya definidos al terminar los grupos.
+// third = pool del Anexo FIFA 2026; tb = mejor tercero ya asignado a esa llave.
 const KO_R32 = [
-  { n:74, a:'1E', third:'A/B/C/D/F', date:'29 Jun · Boston' },
-  { n:77, a:'1I', third:'C/D/F/G/H', date:'30 Jun · N.Y./N.J.' },
+  { n:74, a:'1E', third:'A/B/C/D/F', tb:'Paraguay 🇵🇾',       date:'29 Jun · Boston' },
+  { n:77, a:'1I', third:'C/D/F/G/H', tb:'Suecia 🇸🇪',          date:'30 Jun · N.Y./N.J.' },
   { n:73, a:'2A', b:'2B',            date:'28 Jun · Los Ángeles' },
-  { n:75, a:'1F', b:'2C',            date:'29 Jun · Houston' },
+  { n:75, a:'1F', b:'2C',            date:'29 Jun · Monterrey' },
   { n:83, a:'2K', b:'2L',            date:'2 Jul · Toronto' },
   { n:84, a:'1H', b:'2J',            date:'2 Jul · Los Ángeles' },
-  { n:81, a:'1D', third:'B/E/F/I/J', date:'1 Jul · San Francisco' },
-  { n:82, a:'1G', third:'A/E/H/I/J', date:'1 Jul · Seattle' },
-  { n:76, a:'1C', b:'2F',            date:'29 Jun · Monterrey' },
+  { n:81, a:'1D', third:'B/E/F/I/J', tb:'Bosnia y Herz. 🇧🇦',  date:'1 Jul · San Francisco' },
+  { n:82, a:'1G', third:'A/E/H/I/J', tb:'Senegal 🇸🇳',         date:'1 Jul · Seattle' },
+  { n:76, a:'1C', b:'2F',            date:'29 Jun · Houston' },
   { n:78, a:'2E', b:'2I',            date:'30 Jun · Dallas' },
-  { n:79, a:'1A', third:'C/E/F/H/I', date:'30 Jun · Ciudad de México' },
-  { n:80, a:'1L', third:'E/H/I/J/K', date:'1 Jul · Atlanta' },
+  { n:79, a:'1A', third:'C/E/F/H/I', tb:'Ecuador 🇪🇨',         date:'30 Jun · Ciudad de México' },
+  { n:80, a:'1L', third:'E/H/I/J/K', tb:'R.D. Congo 🇨🇩',      date:'1 Jul · Atlanta' },
   { n:86, a:'1J', b:'2H',            date:'3 Jul · Miami' },
   { n:88, a:'2D', b:'2G',            date:'3 Jul · Dallas' },
-  { n:85, a:'1B', third:'E/F/G/I/J', date:'2 Jul · Vancouver' },
-  { n:87, a:'1K', third:'D/E/I/J/L', date:'3 Jul · Kansas City' },
+  { n:85, a:'1B', third:'E/F/G/I/J', tb:'Argelia 🇩🇿',         date:'2 Jul · Vancouver' },
+  { n:87, a:'1K', third:'D/E/I/J/L', tb:'Ghana 🇬🇭',           date:'3 Jul · Kansas City' },
 ];
 // R16 (M89–M96): a/b = nº del partido R32 cuyo ganador entra.
 const KO_R16 = [
@@ -1673,6 +1700,14 @@ function resolveSeed(seed) {
 
 function koTeamRow(slot) {
   if(slot.third) {
+    // Tercero ya asignado → equipo real con distintivo 3°; si no, el pool de grupos.
+    if(slot.thirdTeam) {
+      return `<div class="kbracket-team real">
+        <span class="kbracket-team-flag">${getFlag(slot.thirdTeam,22,15)}</span>
+        <span class="kbracket-seedbox">3°</span>
+        <span style="overflow:hidden;text-overflow:ellipsis">${teamName(slot.thirdTeam)}</span>
+      </div>`;
+    }
     return `<div class="kbracket-team third">
       <span class="kbracket-seedbox">3°</span>
       <span style="overflow:hidden;text-overflow:ellipsis">${slot.third}</span>
@@ -1704,7 +1739,7 @@ function renderCurrentBracket() {
     <div class="kbracket-match">
       <div class="kbracket-date">M${m.n} · 📅 ${m.date}</div>
       ${koTeamRow({seed:m.a})}
-      ${m.third ? koTeamRow({third:m.third}) : koTeamRow({seed:m.b})}
+      ${m.third ? koTeamRow({third:m.third, thirdTeam:m.tb}) : koTeamRow({seed:m.b})}
     </div>`).join('');
 
   const roundCol = (arr) => arr.map(m => `
