@@ -595,6 +595,7 @@
     line-height: 1.1;
   }
   .result-score .score-sep { color: var(--muted); font-size: 22px; }
+  .pens-note { font-family: 'Barlow Condensed', sans-serif; font-size: 11px; letter-spacing: 0.5px; color: var(--accent2); margin-top: 2px; }
   .result-badge {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 10px;
@@ -1108,10 +1109,18 @@ const MATCHES = [
   ['Viernes 3 Jul', '20260703', 15,0,  'Australia 🇦🇺', 'Egipto 🇪🇬', '16avos de Final', 'AT&T Stadium Dallas'],
   ['Viernes 3 Jul', '20260703', 19,0,  'Argentina 🇦🇷', 'Cabo Verde 🇨🇻', '16avos de Final', 'Hard Rock Stadium Miami'],
   ['Viernes 3 Jul', '20260703', 22,30, 'Colombia 🇨🇴', 'Ghana 🇬🇭', '16avos de Final', 'Arrowhead Kansas City'],
+
+  // ===================== OCTAVOS DE FINAL (R16) — ya definidos =====================
+  ['Sábado 4 Jul', '20260704', 14,0,  'Canadá 🇨🇦', 'Marruecos 🇲🇦', 'Octavos de Final', 'NRG Stadium Houston'],
+  ['Sábado 4 Jul', '20260704', 18,0,  'Paraguay 🇵🇾', 'Francia 🇫🇷', 'Octavos de Final', 'Lincoln Financial Field Philadelphia'],
+  ['Domingo 5 Jul', '20260705', 17,0,  'Brasil 🇧🇷', 'Noruega 🇳🇴', 'Octavos de Final', 'MetLife Stadium N.Y./N.J.'],
+  ['Domingo 5 Jul', '20260705', 21,0,  'México 🇲🇽', 'Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Octavos de Final', 'Estadio Ciudad de México'],
+  ['Lunes 6 Jul', '20260706', 16,0,  'Portugal 🇵🇹', 'España 🇪🇸', 'Octavos de Final', 'AT&T Stadium Dallas'],
+  ['Lunes 6 Jul', '20260706', 17,0,  'Estados Unidos 🇺🇸', 'Bélgica 🇧🇪', 'Octavos de Final', 'Lumen Field Seattle'],
 ];
 
 // ==================== FECHA HOY ====================
-const TODAY_SORT = '20260629';
+const TODAY_SORT = '20260702';
 
 // ==================== RESULTADOS REALES ====================
 // \u00CDndice = posici\u00F3n del partido en el array MATCHES (0-based)
@@ -1198,6 +1207,20 @@ const MATCH_RESULTS = {
   69: { score:[3,1], scorers:[{t:2,p:'E. Shomurodov',m:10},{t:1,p:'Y. Wissa',m:68,type:'pen'},{t:1,p:'F. Mayele',m:78},{t:1,p:'Y. Wissa',m:'90+1'}] },
   70: { score:[1,3], scorers:[{t:2,p:'G. Lo Celso',m:19},{t:2,p:'L. Martínez',m:31,type:'pen'},{t:1,p:'M. Al-Taamari',m:55},{t:2,p:'L. Messi',m:80}] },
   71: { score:[3,3], scorers:[{t:2,p:'M. Arnautović',m:28},{t:1,p:'M. Belghali',m:45},{t:2,p:'M. Sabitzer',m:55},{t:1,p:'R. Mahrez',m:60},{t:1,p:'R. Mahrez',m:'90+3'},{t:2,p:'S. Kalajdžić',m:'90+6'}] },
+
+  // === DIECISEISAVOS (R32) — orden del calendario ===
+  72: { score:[0,1], scorers:[{t:2,p:'S. Eustáquio',m:'90+2'}] },
+  73: { score:[2,1], scorers:[{t:2,p:'K. Sano',m:29},{t:1,p:'Casemiro',m:56},{t:1,p:'G. Martinelli',m:'90+5'}] },
+  74: { score:[1,1], pens:[3,4], scorers:[{t:2,p:'J. Enciso',m:42},{t:1,p:'K. Havertz',m:54}] },
+  75: { score:[1,1], pens:[2,3], scorers:[{t:1,p:'C. Gakpo',m:72},{t:2,p:'O. Diop',m:'90+1'}] },
+  76: { score:[1,2], scorers:[{t:2,p:'A. Nusa',m:39},{t:1,p:'A. Diallo',m:74},{t:2,p:'E. Haaland',m:86}] },
+  77: { score:[3,0], scorers:[{t:1,p:'K. Mbappé',m:45},{t:1,p:'B. Barcola',m:53},{t:1,p:'K. Mbappé',m:74}] },
+  78: { score:[2,0], scorers:[{t:1,p:'J. Quiñones',m:22},{t:1,p:'R. Jiménez',m:31}] },
+  79: { score:[2,1], scorers:[{t:2,p:'B. Cipenga',m:7},{t:1,p:'H. Kane',m:75},{t:1,p:'H. Kane',m:86}] },
+  80: { score:[3,2], scorers:[{t:2,p:'H. Diarra',m:25},{t:2,p:'I. Sarr',m:51},{t:1,p:'R. Lukaku',m:86},{t:1,p:'Y. Tielemans',m:89},{t:1,p:'Y. Tielemans',m:118,type:'pen'}] },
+  81: { score:[2,0], scorers:[{t:1,p:'F. Balogun',m:45},{t:1,p:'M. Tillman',m:81}] },
+  82: { score:[3,0], scorers:[{t:1,p:'M. Oyarzabal',m:36},{t:1,p:'P. Porro',m:66},{t:1,p:'M. Oyarzabal',m:89}] },
+  83: { score:[2,1], scorers:[{t:2,p:'I. Perišić',m:53},{t:1,p:'C. Ronaldo',m:68,type:'pen'},{t:1,p:'G. Ramos',m:'90+4'}] },
 };
 
 // Extract name without flag for searching
@@ -1245,7 +1268,7 @@ function renderMatchCard(m, matchIdx) {
           <div class="team-flag">${getFlag(t1)}</div>
           <span class="team-name">${teamName(t1)}</span>
         </div>
-        <div class="result-score">${g1} <span class="score-sep">-</span> ${g2}</div>
+        <div class="result-score">${g1} <span class="score-sep">-</span> ${g2}${result.pens ? `<div class="pens-note">(${result.pens[0]}-${result.pens[1]} pen.)</div>` : ''}</div>
         <div class="team right">
           <span class="team-name">${teamName(t2)}</span>
           <div class="team-flag">${getFlag(t2)}</div>
@@ -1642,6 +1665,13 @@ function renderQualifiedTeams() {
 // Semillas ya aseguradas por reglamento aunque el grupo no haya terminado.
 const CLINCHED = { '1J': 'Argentina 🇦🇷' };
 
+// Ganadores de eliminatoria por nº de partido (se van llenando conforme avanzan).
+const KO_WINNERS = {
+  73:'Canadá 🇨🇦', 74:'Paraguay 🇵🇾', 75:'Marruecos 🇲🇦', 76:'Brasil 🇧🇷',
+  77:'Francia 🇫🇷', 78:'Noruega 🇳🇴', 79:'México 🇲🇽', 80:'Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+  81:'Estados Unidos 🇺🇸', 82:'Bélgica 🇧🇪', 83:'Portugal 🇵🇹', 84:'España 🇪🇸',
+};
+
 // R32 (M73–M88). Cruces, sedes y terceros ya definidos al terminar los grupos.
 // third = pool del Anexo FIFA 2026; tb = mejor tercero ya asignado a esa llave.
 const KO_R32 = [
@@ -1728,6 +1758,14 @@ function koTeamRow(slot) {
 }
 
 function koWinnerRow(srcN) {
+  const w = KO_WINNERS[srcN];
+  if(w) {
+    return `<div class="kbracket-team real">
+      <span class="kbracket-team-flag">${getFlag(w,22,15)}</span>
+      <span class="kbracket-seedbox">M${srcN}</span>
+      <span style="overflow:hidden;text-overflow:ellipsis">${teamName(w)}</span>
+    </div>`;
+  }
   return `<div class="kbracket-team seed">
     <span class="kbracket-seedbox">M${srcN}</span>
     <span style="overflow:hidden;text-overflow:ellipsis">Ganador M${srcN}</span>
