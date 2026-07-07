@@ -863,6 +863,8 @@
   .kbracket-team.real { color: var(--text); }
   .kbracket-team.seed { color: var(--muted); font-weight: 600; }
   .kbracket-team.third { color: var(--accent2); font-weight: 600; font-size: 12px; }
+  .kbracket-team.won { background: rgba(46,204,113,0.12); color: var(--green); font-weight: 800; }
+  .kbracket-team.won::after { content: '✓'; margin-left: auto; color: var(--green); font-size: 12px; }
   .kbracket-team-flag { flex-shrink: 0; display:flex; align-items:center; }
   .kbracket-team-flag img { width:22px; height:15px; border-radius:2px; display:block; }
   .kbracket-seedbox {
@@ -1116,11 +1118,19 @@ const MATCHES = [
   ['Domingo 5 Jul', '20260705', 17,0,  'Brasil 🇧🇷', 'Noruega 🇳🇴', 'Octavos de Final', 'MetLife Stadium N.Y./N.J.'],
   ['Domingo 5 Jul', '20260705', 21,0,  'México 🇲🇽', 'Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Octavos de Final', 'Estadio Ciudad de México'],
   ['Lunes 6 Jul', '20260706', 16,0,  'Portugal 🇵🇹', 'España 🇪🇸', 'Octavos de Final', 'AT&T Stadium Dallas'],
-  ['Lunes 6 Jul', '20260706', 17,0,  'Estados Unidos 🇺🇸', 'Bélgica 🇧🇪', 'Octavos de Final', 'Lumen Field Seattle'],
+  ['Lunes 6 Jul', '20260706', 21,0,  'Estados Unidos 🇺🇸', 'Bélgica 🇧🇪', 'Octavos de Final', 'Lumen Field Seattle'],
+  ['Martes 7 Jul', '20260707', 13,0,  'Argentina 🇦🇷', 'Egipto 🇪🇬', 'Octavos de Final', 'Mercedes-Benz Stadium Atlanta'],
+  ['Martes 7 Jul', '20260707', 17,0,  'Suiza 🇨🇭', 'Colombia 🇨🇴', 'Octavos de Final', 'BC Place Vancouver'],
+
+  // ===================== CUARTOS DE FINAL =====================
+  ['Jueves 9 Jul', '20260709', 17,0,  'Francia 🇫🇷', 'Marruecos 🇲🇦', 'Cuartos de Final', 'Gillette Stadium Boston'],
+  ['Viernes 10 Jul', '20260710', 16,0, 'España 🇪🇸', 'Bélgica 🇧🇪', 'Cuartos de Final', 'SoFi Stadium Los Ángeles'],
+  ['Sábado 11 Jul', '20260711', 18,0,  'Noruega 🇳🇴', 'Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Cuartos de Final', 'Hard Rock Stadium Miami'],
+  ['Sábado 11 Jul', '20260711', 22,0,  'Argentina 🇦🇷', 'Suiza/Colombia', 'Cuartos de Final', 'Arrowhead Kansas City'],
 ];
 
 // ==================== FECHA HOY ====================
-const TODAY_SORT = '20260703';
+const TODAY_SORT = '20260707';
 
 // ==================== RESULTADOS REALES ====================
 // \u00CDndice = posici\u00F3n del partido en el array MATCHES (0-based)
@@ -1214,13 +1224,26 @@ const MATCH_RESULTS = {
   74: { score:[1,1], pens:[3,4], scorers:[{t:2,p:'J. Enciso',m:42},{t:1,p:'K. Havertz',m:54}] },
   75: { score:[1,1], pens:[2,3], scorers:[{t:1,p:'C. Gakpo',m:72},{t:2,p:'O. Diop',m:'90+1'}] },
   76: { score:[1,2], scorers:[{t:2,p:'A. Nusa',m:39},{t:1,p:'A. Diallo',m:74},{t:2,p:'E. Haaland',m:86}] },
-  77: { score:[3,0], scorers:[{t:1,p:'K. Mbappé',m:45},{t:1,p:'B. Barcola',m:53},{t:1,p:'K. Mbappé',m:74}] },
-  78: { score:[2,0], scorers:[{t:1,p:'J. Quiñones',m:22},{t:1,p:'R. Jiménez',m:31}] },
-  79: { score:[2,1], scorers:[{t:2,p:'B. Cipenga',m:7},{t:1,p:'H. Kane',m:75},{t:1,p:'H. Kane',m:86}] },
-  80: { score:[3,2], scorers:[{t:2,p:'H. Diarra',m:25},{t:2,p:'I. Sarr',m:51},{t:1,p:'R. Lukaku',m:86},{t:1,p:'Y. Tielemans',m:89},{t:1,p:'Y. Tielemans',m:118,type:'pen'}] },
-  81: { score:[2,0], scorers:[{t:1,p:'F. Balogun',m:45},{t:1,p:'M. Tillman',m:81}] },
-  82: { score:[3,0], scorers:[{t:1,p:'M. Oyarzabal',m:36},{t:1,p:'P. Porro',m:66},{t:1,p:'M. Oyarzabal',m:89}] },
-  83: { score:[2,1], scorers:[{t:2,p:'I. Perišić',m:53},{t:1,p:'C. Ronaldo',m:68,type:'pen'},{t:1,p:'G. Ramos',m:'90+4'}] },
+  77: { score:[1,0], scorers:[{t:1,p:'K. Mbappé'}] },
+  78: { score:[2,0], scorers:[] },
+  79: { score:[3,0], scorers:[] },
+  80: { score:[4,0], scorers:[] },
+  81: { score:[2,0], scorers:[] },
+  82: { score:[1,0], scorers:[] },
+  83: { score:[2,1], scorers:[] },
+  84: { score:[2,0], scorers:[] },
+  85: { score:[1,1], pens:[2,4], aet:true, scorers:[] },
+  86: { score:[3,2], aet:true, scorers:[] },
+  87: { score:[1,0], scorers:[] },
+
+  // === OCTAVOS (R16) — orden del calendario ===
+  88: { score:[0,3], scorers:[] },   // Canadá 0-3 Marruecos
+  89: { score:[0,1], scorers:[] },   // Paraguay 0-1 Francia
+  90: { score:[1,2], scorers:[] },   // Brasil 1-2 Noruega
+  91: { score:[2,3], scorers:[] },   // México 2-3 Inglaterra
+  92: { score:[0,1], scorers:[] },   // Portugal 0-1 España
+  93: { score:[1,4], scorers:[] },   // Estados Unidos 1-4 Bélgica
+  94: { score:[3,2], aet:true, scorers:[] },  // Argentina 3-2 Egipto (TE)
 };
 
 // Extract name without flag for searching
@@ -1254,13 +1277,14 @@ function renderMatchCard(m, matchIdx) {
     const fmtScorer = s => `<span class="scorer-chip">${s.p} <span class="scorer-min">${s.m}'${s.type ? ' <span class="scorer-type">('+s.type+')</span>' : ''}</span></span>`;
     const scorersHtml = [...result.scorers].map(s => {
       const flag = s.t === 1 ? getFlag(t1, 16, 11) : getFlag(t2, 16, 11);
-      return `<span class="scorer-chip">${flag} ${s.p} <span class="scorer-min">${s.m}'${s.type?' ('+s.type+')':''}</span></span>`;
+      const min = s.m ? ` <span class="scorer-min">${s.m}'${s.type?' ('+s.type+')':''}</span>` : '';
+      return `<span class="scorer-chip">${flag} ${s.p}${min}</span>`;
     }).join('');
     return `
     <div class="match-card result-card" data-date="${dateSort}" data-t1="${t1}" data-t2="${t2}" data-group="${group}">
       <div class="match-top">
         <span class="match-group">${group}</span>
-        <span class="result-badge">✓ Final</span>
+        <span class="result-badge">✓ Final${result.aet?' TE':''}${result.pens?' · Pen.':''}</span>
         <span class="match-venue">📍 ${venue}</span>
       </div>
       <div class="teams-row">
@@ -1667,9 +1691,14 @@ const CLINCHED = { '1J': 'Argentina 🇦🇷' };
 
 // Ganadores de eliminatoria por nº de partido (se van llenando conforme avanzan).
 const KO_WINNERS = {
+  // 16avos (R32)
   73:'Canadá 🇨🇦', 74:'Paraguay 🇵🇾', 75:'Marruecos 🇲🇦', 76:'Brasil 🇧🇷',
   77:'Francia 🇫🇷', 78:'Noruega 🇳🇴', 79:'México 🇲🇽', 80:'Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿',
   81:'Estados Unidos 🇺🇸', 82:'Bélgica 🇧🇪', 83:'Portugal 🇵🇹', 84:'España 🇪🇸',
+  85:'Suiza 🇨🇭', 86:'Argentina 🇦🇷', 87:'Colombia 🇨🇴', 88:'Egipto 🇪🇬',
+  // Octavos (R16) — M96 (Suiza vs Colombia) aún por definir
+  89:'Francia 🇫🇷', 90:'Marruecos 🇲🇦', 91:'Noruega 🇳🇴', 92:'Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿',
+  93:'España 🇪🇸', 94:'Bélgica 🇧🇪', 95:'Argentina 🇦🇷',
 };
 
 // R32 (M73–M88). Cruces, sedes y terceros ya definidos al terminar los grupos.
@@ -1728,11 +1757,15 @@ function resolveSeed(seed) {
   return { real:false, seed, label:`${pos}° Grupo ${grp}` };
 }
 
-function koTeamRow(slot) {
+function isWinner(team, winner) {
+  return winner && team && teamName(team) === teamName(winner) ? ' won' : '';
+}
+
+function koTeamRow(slot, winner) {
   if(slot.third) {
     // Tercero ya asignado → equipo real con distintivo 3°; si no, el pool de grupos.
     if(slot.thirdTeam) {
-      return `<div class="kbracket-team real">
+      return `<div class="kbracket-team real${isWinner(slot.thirdTeam, winner)}">
         <span class="kbracket-team-flag">${getFlag(slot.thirdTeam,22,15)}</span>
         <span class="kbracket-seedbox">3°</span>
         <span style="overflow:hidden;text-overflow:ellipsis">${teamName(slot.thirdTeam)}</span>
@@ -1745,7 +1778,7 @@ function koTeamRow(slot) {
   }
   const r = resolveSeed(slot.seed);
   if(r.real) {
-    return `<div class="kbracket-team real">
+    return `<div class="kbracket-team real${isWinner(r.team, winner)}">
       <span class="kbracket-team-flag">${getFlag(r.team,22,15)}</span>
       <span class="kbracket-seedbox">${r.seed}</span>
       <span style="overflow:hidden;text-overflow:ellipsis">${teamName(r.team)}</span>
@@ -1757,10 +1790,10 @@ function koTeamRow(slot) {
   </div>`;
 }
 
-function koWinnerRow(srcN) {
+function koWinnerRow(srcN, winner) {
   const w = KO_WINNERS[srcN];
   if(w) {
-    return `<div class="kbracket-team real">
+    return `<div class="kbracket-team real${isWinner(w, winner)}">
       <span class="kbracket-team-flag">${getFlag(w,22,15)}</span>
       <span class="kbracket-seedbox">M${srcN}</span>
       <span style="overflow:hidden;text-overflow:ellipsis">${teamName(w)}</span>
@@ -1776,15 +1809,15 @@ function renderCurrentBracket() {
   const r32 = KO_R32.map(m => `
     <div class="kbracket-match">
       <div class="kbracket-date">M${m.n} · 📅 ${m.date}</div>
-      ${koTeamRow({seed:m.a})}
-      ${m.third ? koTeamRow({third:m.third, thirdTeam:m.tb}) : koTeamRow({seed:m.b})}
+      ${koTeamRow({seed:m.a}, KO_WINNERS[m.n])}
+      ${m.third ? koTeamRow({third:m.third, thirdTeam:m.tb}, KO_WINNERS[m.n]) : koTeamRow({seed:m.b}, KO_WINNERS[m.n])}
     </div>`).join('');
 
   const roundCol = (arr) => arr.map(m => `
     <div class="kbracket-match">
       <div class="kbracket-date">M${m.n} · 📅 ${m.date}</div>
-      ${koWinnerRow(m.a)}
-      ${koWinnerRow(m.b)}
+      ${koWinnerRow(m.a, KO_WINNERS[m.n])}
+      ${koWinnerRow(m.b, KO_WINNERS[m.n])}
     </div>`).join('');
 
   const finalCol = `
