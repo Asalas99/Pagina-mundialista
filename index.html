@@ -1126,11 +1126,11 @@ const MATCHES = [
   ['Jueves 9 Jul', '20260709', 17,0,  'Francia 🇫🇷', 'Marruecos 🇲🇦', 'Cuartos de Final', 'Gillette Stadium Boston'],
   ['Viernes 10 Jul', '20260710', 16,0, 'España 🇪🇸', 'Bélgica 🇧🇪', 'Cuartos de Final', 'SoFi Stadium Los Ángeles'],
   ['Sábado 11 Jul', '20260711', 18,0,  'Noruega 🇳🇴', 'Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿', 'Cuartos de Final', 'Hard Rock Stadium Miami'],
-  ['Sábado 11 Jul', '20260711', 22,0,  'Argentina 🇦🇷', 'Suiza/Colombia', 'Cuartos de Final', 'Arrowhead Kansas City'],
+  ['Sábado 11 Jul', '20260711', 22,0,  'Argentina 🇦🇷', 'Suiza 🇨🇭', 'Cuartos de Final', 'Arrowhead Kansas City'],
 ];
 
 // ==================== FECHA HOY ====================
-const TODAY_SORT = '20260707';
+const TODAY_SORT = '20260708';
 
 // ==================== RESULTADOS REALES ====================
 // \u00CDndice = posici\u00F3n del partido en el array MATCHES (0-based)
@@ -1244,6 +1244,7 @@ const MATCH_RESULTS = {
   92: { score:[0,1], scorers:[] },   // Portugal 0-1 España
   93: { score:[1,4], scorers:[] },   // Estados Unidos 1-4 Bélgica
   94: { score:[3,2], aet:true, scorers:[] },  // Argentina 3-2 Egipto (TE)
+  95: { score:[0,0], pens:[4,3], aet:true, scorers:[] },  // Suiza 0-0 Colombia (Suiza 4-3 pen.)
 };
 
 // Extract name without flag for searching
@@ -1698,7 +1699,7 @@ const KO_WINNERS = {
   85:'Suiza 🇨🇭', 86:'Argentina 🇦🇷', 87:'Colombia 🇨🇴', 88:'Egipto 🇪🇬',
   // Octavos (R16) — M96 (Suiza vs Colombia) aún por definir
   89:'Francia 🇫🇷', 90:'Marruecos 🇲🇦', 91:'Noruega 🇳🇴', 92:'Inglaterra 🏴󠁧󠁢󠁥󠁮󠁧󠁿',
-  93:'España 🇪🇸', 94:'Bélgica 🇧🇪', 95:'Argentina 🇦🇷',
+  93:'España 🇪🇸', 94:'Bélgica 🇧🇪', 95:'Argentina 🇦🇷', 96:'Suiza 🇨🇭',
 };
 
 // R32 (M73–M88). Cruces, sedes y terceros ya definidos al terminar los grupos.
